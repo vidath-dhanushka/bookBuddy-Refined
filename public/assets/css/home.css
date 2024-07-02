@@ -1,0 +1,94 @@
+home .banner {
+  display: flex;
+  justify-content: center;
+  max-height: 800px;
+  align-items: stretch;
+  margin-top: 60px;
+}
+@media (max-width: 1400px) {
+  home .banner {
+    flex-direction: column;
+  }
+}
+home .banner .img-container {
+  display: flex;
+  justify-content: center;
+}
+home .banner .img-container img {
+  display: block;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+home .banner .banner-content {
+  font-size: 4.5rem;
+  font-weight: 800;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  flex: 600px;
+  text-align: center;
+  margin-bottom: 50px;
+}
+home .banner .banner-content span {
+  color: #5179ef;
+  font-size: 4rem;
+  font-weight: 1000;
+}
+
+.top-rated-books {
+  margin-top: 40px;
+}
+.top-rated-books h1 {
+  margin-bottom: 30px;
+  font-size: 45px;
+  text-align: center;
+}
+.top-rated-books .top-rated-book-box {
+  padding: 0 25px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+.top-rated-books .top-rated-book-card {
+  flex: 250px 0;
+  text-align: center;
+  border: 1px solid #919191;
+  padding: 15px;
+  transition: box-shadow 300ms;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.top-rated-books .top-rated-book-img img {
+  width: 100%;
+  height: 300px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.top-rated-books .writer {
+  color: #919191;
+}
+.top-rated-books .categories {
+  color: #5179ef;
+  margin-top: 8px;
+}
+.top-rated-books .book-price {
+  margin-top: 8px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+.top-rated-books .f-btn {
+  padding: 8px 20px;
+  border: 2px solid #5179ef;
+  color: black;
+  text-decoration: none;
+  transition: color 300ms, background-color 300ms;
+}
+.top-rated-books .f-btn:hover {
+  background-color: #5179ef;
+  color: white;
+}
+.top-rated-books .top-rated-book-card:hover {
+  box-shadow: 0 0 5px #5179ef;
+}/*# sourceMappingURL=home.css.map */

@@ -1,0 +1,53 @@
+borrowedBooks {
+    .book:first-child {
+        border-top: 1px solid #4444
+    }
+
+    .book {
+        display: flex;
+        padding: 20px 0;
+        border-bottom: 1px solid #4444;
+
+
+        .book-img {
+            flex: 80px 0 0;
+        }
+
+        img {
+            width: 170px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .top-rated-book-tag {
+            flex: 100%;
+            padding: 10px 20px;
+        }
+
+        h2 {
+            margin-top: 0
+        }
+    }
+
+    .status {
+        border-radius: 100px;
+        background-color: #6be360;
+        font-size: 14px;
+        padding: 7px 15px;
+        font-weight: 600;
+        letter-spacing: 1.2px;
+        display: inline-block;
+        cursor: pointer;
+        border: 2px solid #fff0;
+        transition: background-color 300ms, color 300ms, border 300ms;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .status:hover {
+        color: #096700;
+        background-color: #fff;
+        border-color: #024b00;
+    }
+}

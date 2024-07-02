@@ -1,0 +1,136 @@
+signUp {
+    .login-component-container {
+        display: flex;
+        background: rgb(99, 9, 121);
+        background: linear-gradient(135deg, rgba(122, 58, 175, 1) 0%, rgb(116, 158, 224, 1) 100%);
+        justify-content: center;
+        align-items: center;
+
+        .main-container {
+            display: flex;
+            width: 60%;
+            //height: 500px
+            border-radius: 10px;
+            margin: 20px;
+
+
+            .subcontainer-left {
+                position: relative;
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                border-radius: 10px 0 0 10px;
+                width: 50%;
+
+                .logo {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    padding-top: 10px;
+                    //width: 50px
+
+                    img {
+                        position: relative;
+                        width: 50%;
+                    }
+                }
+
+                .title {
+                    text-align: center;
+
+                    a {
+                        text-decoration: none;
+                        color: #818af9;
+                    }
+                }
+
+                .login-img {
+                    text-align: center;
+
+                    img {
+                        position: relative;
+                        width: 50%;
+                    }
+                }
+
+                .title-bottom {
+                    a {
+                        text-decoration: none;
+                        color: #818af9
+                    }
+                }
+            }
+        }
+
+
+        .signup-subcontainer-right {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            //justify-content: center
+            background-color: rgba(249, 255, 255, 0.7);
+            border-radius: 0 10px 10px 0;
+            width: 50%;
+
+            h2 {
+                text-align: center;
+                margin-bottom: -5px;
+            }
+
+            .signup-form-data {
+                position: relative;
+                display: flex;
+                //padding-top: 20px
+                //align-items: center
+                justify-content: center;
+                height: 60%;
+
+                .details {
+                    label {
+                        padding-left: 5px;
+                    }
+
+                    input,
+                    select {
+                        position: relative;
+                        width: 95%;
+                        padding: 8px 20px;
+                        border-radius: 0.3em;
+                        border: 1px solid #ccc;
+                        border-radius: 4px;
+                        box-sizing: border-box;
+                    }
+                }
+
+                .login-btn {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-top: 10px;
+
+                    button {
+                        background-color: #616adf;
+                        color: #ffffff;
+                        border: none;
+                        //border: 2px solid #5860d8
+                        border-radius: 0.3em;
+                        padding: 5px 5px;
+                        width: 300px;
+                        margin-bottom: 12px;
+                    }
+
+                    button:hover {
+                        background-color: #818af9;
+                        color: #434454;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}

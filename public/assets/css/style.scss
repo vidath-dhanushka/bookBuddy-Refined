@@ -1,0 +1,23 @@
+@import "includes/header";
+@import "includes/footer";
+@import "home";
+@import "signUp";
+@import "login";
+@import "books";
+@import "bookDetails";
+@import "member/includes/sidenav";
+@import "member/profile";
+@import "member/lendedBooks";
+@import "member/borrowed";
+@import "member/addBook";
+
+
+.error {
+    color: red;
+    font-size: 0.7rem;
+}
+
+.message {
+    color: rgb(45, 186, 45);
+
+}

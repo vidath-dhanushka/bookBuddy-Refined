@@ -1,0 +1,55 @@
+memberProfile {
+    .form-field {
+        label {
+            display: block;
+            padding-left: 5px;
+            padding-bottom: 5px;
+        }
+
+        input,
+        select,
+        textarea {
+            position: relative;
+            width: 95%;
+            padding: 8px 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        input[disabled] {
+            user-select: none;
+            cursor: not-allowed;
+        }
+
+        textarea {
+            resize: none
+        }
+    }
+
+    .add-btn {
+        text-decoration: none;
+        border: 1px solid #5179ef;
+        background-color: #5179ef;
+        color: white;
+        padding: 10px 25px;
+        border-radius: 5px;
+        display: flex;
+        width: max-content;
+        align-items: center;
+        font-size: 18px;
+        font-weight: 500;
+        justify-content: center;
+        cursor: pointer;
+
+        .material-symbols-outlined {
+            padding-right: 15px
+        }
+    }
+
+    .form-error {
+        text-align: left
+    }
+}

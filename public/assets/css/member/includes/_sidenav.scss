@@ -1,0 +1,79 @@
+memberSidenav {
+    .app-container {
+        max-height: 100vh
+    }
+
+    .app-content {
+        display: flex;
+        gap: 20px;
+        align-items: stretch;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        flex: 100%;
+        overflow-y: hidden;
+
+        .container {
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(51, 51, 51, 0.2);
+            padding: 20px 40px;
+            flex: 100%;
+
+
+        }
+
+        .container:first-child {
+            flex: 330px;
+
+            a {
+                display: flex;
+                align-items: center;
+                font-size: 18px;
+                padding: 15px 0;
+                border-bottom: 1px solid #4444;
+                transition: letter-spacing 300ms;
+                font-weight: 400;
+                cursor: pointer;
+                text-decoration: none;
+                color: inherit;
+
+                .material-symbols-outlined {
+                    padding-right: 15px;
+                }
+            }
+
+            a:last-child {
+                border-bottom: none
+            }
+
+            a:hover {
+                letter-spacing: 2px
+            }
+        }
+
+        .container:last-child {
+            //max-height: 800px
+            overflow-y: scroll;
+            position: relative;
+            padding-top: 0;
+
+            h1.title {
+                margin-top: 0;
+                padding-top: 30px;
+                margin-bottom: 30px;
+                padding-bottom: 10px;
+                border-bottom: 10px solid #5179ef49;
+                color: #5179ef;
+                position: sticky;
+                top: 0;
+                left: 0;
+                background: #fff;
+                z-index: 4;
+            }
+        }
+
+        .container:last-child::-webkit-scrollbar {
+            display: none
+        }
+    }
+
+}

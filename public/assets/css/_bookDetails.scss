@@ -1,0 +1,217 @@
+bookDetails {
+    .main-container {
+        display: flex;
+        border-radius: 15px;
+        box-shadow: 0 0 15px #3333;
+        max-width: 1200px;
+        margin: 30px auto auto;
+
+        .container-left {
+            flex: 400px 0 0;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            background-color: #ddd;
+            border-radius: 15px 0 0 15px;
+            //padding: 20px
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 15px 0 0 15px;
+            }
+        }
+
+        .container-right {
+            padding: 30px 30px;
+            display: flex;
+            flex-direction: column;
+
+            .description {
+                flex: 100%;
+                text-align: justify;
+            }
+
+
+            p i {
+                display: inline-block;
+                font-size: 1.5rem;
+            }
+
+            .price {
+                font-size: 18px;
+                font-weight: 600;
+            }
+
+
+            .book-title {
+                font-size: 3rem;
+                margin: 0;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+                color: rgb(77, 74, 74);
+            }
+
+            .description {
+                font-size: 1.4rem;
+                color: #0009;
+            }
+
+            h3 {
+                font-size: 1.3rem;
+                display: inline-block;
+                margin-right: 50px;
+            }
+
+            .tags span {
+                border-radius: 15px;
+                padding: 7px 14px;
+                font-weight: 600;
+                font-size: 13px;
+                background-color: rgba(133, 251, 255, 0.596);
+            }
+
+
+            .borrow-btn {
+                text-align: center;
+                text-decoration: none;
+                padding: 24px 0;
+                width: 300px;
+                color: #fff;
+                font-size: 1rem;
+                font-weight: 400;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                background: rgb(130, 106, 251);
+                display: inline-block;
+                margin-right: 12px;
+                border: 1px solid #818AF900;
+            }
+
+            .borrow-btn:hover {
+                background-color: #fff;
+                border: 1px solid #818AF9;
+                color: #818AF9;
+            }
+
+            .na,
+            .na:hover {
+                background-color: #fff;
+                border: 1px solid #4444;
+                color: #4444;
+                cursor: default;
+            }
+
+            .borrow-btn.added {
+                background-color: #fff;
+                border: 1px solid #818181;
+                color: #888;
+                pointer-events: none;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .review {
+        display: block;
+
+        .review-content {
+            padding: 20px 40px;
+        }
+
+        h2 {
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #6069de88;
+        }
+
+        .stars,
+        .r-stars {
+            margin-top: 10px;
+            cursor: default;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            min-height: 40px;
+
+            .material-symbols-outlined {
+                color: #6662;
+                cursor: pointer;
+                transition: color 300ms, font-size 300ms;
+                font-size: 32px;
+            }
+
+            .material-symbols-outlined.active {
+                color: #ffe48a
+            }
+        }
+
+        .stars {
+            .material-symbols-outlined:hover {
+                font-size: 40px
+            }
+        }
+
+        .r-stars {
+            display: block;
+
+            .material-symbols-outlined {
+                cursor: default;
+                font-size: 24px;
+            }
+        }
+
+        textarea {
+            resize: none;
+            padding: 15px;
+            font-size: 18px;
+            display: block;
+            width: calc(100% - 30px);
+        }
+
+        .review-btn {
+            padding: 10px 30px;
+            background-color: #8169fa;
+            border-radius: 50px;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 18px;
+            color: #fff;
+            transition: all 300ms;
+            border: 2px solid #ffff;
+        }
+
+        .review-btn:hover {
+            color: #8169fa;
+            border-color: #8169fa;
+            background: #fff;
+        }
+
+        .form-error {
+            text-align: left
+        }
+
+        #reviews {
+            .r-stars {
+                background: #9991;
+                padding: 20px 30px;
+                margin-bottom: 15px;
+
+                p {
+                    margin: 0;
+                    font-size: 14px;
+                }
+
+                .review-text {
+                    font-size: 18px;
+                    font-weight: 500;
+                    margin-top: 8px;
+                    text-align: justify;
+                }
+            }
+        }
+    }
+}

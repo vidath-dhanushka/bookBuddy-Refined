@@ -1,0 +1,155 @@
+<?php
+
+class Member extends Controller
+{
+
+    public function index()
+    {
+        $user = new User();
+        $data = [];
+        $id = Auth::getuser_Id();
+        // echo ($id);
+
+        $data['user_data'] = $user->first(['user_id' => $id]);
+        // show($data);
+        // // show($_SESSION['USER_DATA']);
+        // die;
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // show($data);
+
+            // show($_POST);
+            // die;
+            if ($user->edit_validate($_POST, $id)) {
+                $user->update($id, $_POST);
+                $data['user_data'] = $user->first(['user_id' => $id]);
+                // show($row);
+            }
+            // die;
+        }
+        $data['errors'] = $user->errors;
+        // show($data);
+        // die;
+        $this->view('member/profile', $data);
+    }
+
+    public function lended()
+    {
+        $data = [];
+        $id = Auth::getuser_Id();
+        $book = new Book();
+        // $category = new Category();
+        $lendedBooks = $book->lendedBooks($id);
+        // $allCategories = $category->getAll();
+        // $selectedCategories =
+        // $category = new Category();
+        // show($lendedBooks);
+        // die;
+        // $this->getCategoryMap();
+        $data['lended_books'] = $lendedBooks;
+
+        $this->view('member/lended', $data);
+    }
+
+    public function borrowed()
+    {
+
+        $this->view('member/borrowed');
+    }
+
+    public function lendedUsers()
+    {
+
+        $this->view('member/lendedUsers');
+    }
+
+    public function changePassword()
+    {
+        $this->view('member/changePassword');
+    }
+
+    public function addBook()
+    {
+        $id = Auth::getuser_Id();
+        $book = new Book();
+        $category = new Category();
+        $categoryMap = $this->getCategoryMap();
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $folder = "uploads/books/";
+            if (!file_exists($folder)) {
+                mkdir($folder, 0777, true);
+                file_put_contents($folder . "index.php", "<?php //silence");
+                file_put_contents("uploads/index.php", "<?php //silence");
+            }
+
+            if ($book->validate($_POST)) {
+
+                $_POST['owner'] = $id;
+                $_POST['status'] = 'available';
+                $_POST['duration'] = 14;
+                $allowedTypes = ['image/jpeg', 'image/png'];
+
+                if ($_FILES['book_image']['name']) {
+                    if ($_FILES['book_image']['error'] == 0) {
+                        if (in_array($_FILES['book_image']['type'], $allowedTypes)) {
+                            $destination = $folder . time() . $_FILES['book_image']['name'];
+                            move_uploaded_file($_FILES['book_image']['tmp_name'], $destination);
+                            $_POST['book_image'] = $destination;
+                        } else {
+                            $book->errors['book_image'] = "Invalid file type";
+                        }
+                    } else {
+                        $book->errors['book_image'] = "Could not upload the images";
+                    }
+                }
+                $bookId = $book->insert($_POST);
+                // $bookId = $book->getLastInsertedId();
+                $categories = $_POST['categories'];
+
+                foreach ($categories as $categoryName) {
+                    if (isset($categoryMap[$categoryName])) {
+                        $categoryId = $categoryMap[$categoryName];
+                        $categoryData = [
+                            'book' => $bookId,
+                            'category' => $categoryId,
+                        ];
+                        $category->insertBookCategory($categoryData);
+                    }
+                }
+                // show($bookId);
+                // show($_POST);
+                // die;
+            }
+            // show($_POST);
+
+            // die;
+            redirect('member/lended');
+        }
+        $this->view("member/addBook");
+    }
+
+    public function editBook($id)
+    {
+        $book = new Book;
+        $data = $book->getBookDetails($id);
+        // show($data);
+        // die;
+        $this->view('member/editBook', $data);
+    }
+
+    private function getCategoryMap()
+    {
+        $category = new Category();
+        $categories = $category->getAll();
+        // show($categories);
+        // die;
+        $map = [];
+        foreach ($categories as $cat) {
+            $map[$cat->name] = $cat->category_id;
+        }
+        // show($map);
+        // die;
+        return $map;
+    }
+}
