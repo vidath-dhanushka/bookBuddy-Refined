@@ -123,7 +123,7 @@ class Model extends Database
 
     public function delete($id)
     {
-        $query = "delete from " . $this->table . " where id=" . $id;
+        $query = "delete from " . $this->table . " where " . $this->table . "_id=" . $id;
         $this->query($query);
     }
 }

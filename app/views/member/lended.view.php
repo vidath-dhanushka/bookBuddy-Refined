@@ -1,5 +1,8 @@
 <?php $this->view('member/includes/sidenav'); ?>
 <lendedBooks>
+    <?php if (message()) : ?>
+        <div class="message"><?= message('', true) ?></div>
+    <?php endif; ?>
     <h1 class="title">My Books</h1>
     <p>
         <a class="add-book-btn" href="<?= ROOT ?>/member/addBook">
@@ -34,10 +37,10 @@
                         <span class="material-symbols-outlined">edit</span>
                         Edit
                     </a>
-                    <button class="book-btn delete" onclick="deleteBook(<?= $book->book_id ?>)">
+                    <a class="book-btn delete" href="<?= ROOT ?>/member/deleteBook/<?= $book->book_id ?>">
                         <span class="material-symbols-outlined">delete</span>
                         Delete
-                    </button>
+                    </a>
                 </div>
             </div>
         <?php endforeach; ?>

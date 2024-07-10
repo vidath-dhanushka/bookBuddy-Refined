@@ -55,16 +55,97 @@ class Book extends Model
     public function lendedBooks($id)
     {
         // $data['user_id'] = $id;
-        return $this->query("SELECT book_id,title,description,language,isbn,price,status,weight,author,book_image,GROUP_CONCAT(c.name) AS categories FROM book b LEFT JOIN book_category bc ON b.book_id = bc.book LEFT JOIN category c ON bc.category = c.category_id WHERE b.owner = :owner GROUP BY b.book_id ORDER BY b.reg_time DESC;", ['owner' => $id]);
+        return $this->query(
+            "SELECT book_id,
+        title,
+        description,
+        language,
+        isbn,
+        price,
+        status,
+        weight,
+        author,
+        book_image,
+        GROUP_CONCAT(c.name) AS categories 
+        FROM book b 
+        LEFT JOIN book_category bc ON b.book_id = bc.book 
+        LEFT JOIN category c ON bc.category = c.category_id 
+        WHERE b.owner = :owner 
+        GROUP BY b.book_id 
+        ORDER BY b.reg_time DESC;",
+            ['owner' => $id]
+        );
     }
 
     public function getBookDetails($id)
     {
-        return $this->query("SELECT title,description,language,isbn,price,weight,author,book_image,GROUP_CONCAT(c.name) AS categories FROM book b LEFT JOIN book_category bc ON b.book_id = bc.book LEFT JOIN category c ON bc.category = c.category_id WHERE b.book_id = :book_id", ['book_id' => $id]);
+        return $this->query(
+            "SELECT title,
+        description,
+        language,
+        isbn,
+        price,
+        weight,
+        author,
+        book_image,
+        GROUP_CONCAT(c.name) AS categories 
+        FROM book b 
+        LEFT JOIN book_category bc ON b.book_id = bc.book 
+        LEFT JOIN category c ON bc.category = c.category_id 
+        WHERE b.book_id = :book_id",
+            ['book_id' => $id]
+        );
+    }
+
+    public function deleteBookCategories($id)
+    {
+        $this->query("DELETE FROM book_category WHERE book = :book", ['book' => $id]);
     }
 
     public  function getRecentBooks()
     {
-        return $this->query("SELECT book_id,title,price,author,book_image,GROUP_CONCAT(c.name) AS categories FROM book b LEFT JOIN book_category bc ON b.book_id = bc.book LEFT JOIN category c ON bc.category = c.category_id GROUP BY b.book_id ORDER BY b.reg_time DESC LIMIT 8");
+        return $this->query("SELECT 
+        book_id,
+        title,
+        price,
+        author,
+        book_image,
+        GROUP_CONCAT(c.name) AS categories 
+        FROM book b 
+        LEFT JOIN book_category bc ON b.book_id = bc.book 
+        LEFT JOIN category c ON bc.category = c.category_id 
+        GROUP BY b.book_id 
+        ORDER BY b.reg_time DESC 
+        LIMIT 8");
+    }
+
+    public function getAllBooks()
+    {
+        return $this->query("SELECT 
+        b.book_id,
+        b.title,
+        b.description,
+        b.language,
+        b.isbn,
+        b.price,
+        b.status,
+        b.weight,
+        b.condition,
+        b.duration,
+        b.owner,
+        b.author,
+        b.book_image,
+        GROUP_CONCAT(c.name SEPARATOR ', ') AS categories
+    FROM 
+        book b
+    LEFT JOIN 
+        book_category bc ON b.book_id = bc.book
+    LEFT JOIN 
+        category c ON bc.category = c.category_id
+    GROUP BY 
+        b.book_id
+    ORDER BY 
+        b.reg_time DESC;
+     ");
     }
 }

@@ -135,7 +135,74 @@ class Member extends Controller
         $data = $book->getBookDetails($id);
         // show($data);
         // die;
+        $bookId = $id;
+        $id = Auth::getuser_Id();
+        $category = new Category();
+        $categoryMap = $this->getCategoryMap();
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $folder = "uploads/books/";
+
+            if ($book->validate($_POST)) {
+
+                $book->deleteBookCategories($bookId);
+                $allowedTypes = ['image/jpeg', 'image/png'];
+
+                if ($_FILES['book_image']['name']) {
+                    if ($_FILES['book_image']['error'] == 0) {
+                        if (in_array($_FILES['book_image']['type'], $allowedTypes)) {
+                            $destination = $folder . time() . $_FILES['book_image']['name'];
+                            move_uploaded_file($_FILES['book_image']['tmp_name'], $destination);
+                            $_POST['book_image'] = $destination;
+                        } else {
+                            $book->errors['book_image'] = "Invalid file type";
+                        }
+                    } else {
+                        $book->errors['book_image'] = "Could not upload the images";
+                    }
+                }
+                $book->update($bookId, $_POST);
+                // show($bookId);
+                // die;
+                $categories = $_POST['categories'];
+
+                foreach ($categories as $categoryName) {
+                    if (isset($categoryMap[$categoryName])) {
+                        $categoryId = $categoryMap[$categoryName];
+                        $categoryData = [
+                            'book' => $bookId,
+                            'category' => $categoryId,
+                        ];
+                        $category->insertBookCategory($categoryData);
+                    }
+                }
+                // show($bookId);
+                // show($_POST);
+                // die;
+            }
+            redirect('member/lended');
+        }
+
+        // show($_POST);
+
+        // die;
+
+
         $this->view('member/editBook', $data);
+    }
+
+    public function deleteBook($id)
+    {
+        $book = new Book();
+        try {
+            $book->deleteBookCategories($id);
+            $book->delete($id);
+        } catch (Exception $e) {
+            message("Failed to remove the book try again" . $e);
+            //     return json_encode($e);
+        }
+        redirect('member/lended');
     }
 
     private function getCategoryMap()
