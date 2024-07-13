@@ -10,7 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <!-- <script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"   />
 </head>
 
 <body>
@@ -25,7 +26,7 @@
             <a href="<?= ROOT ?>/">Home</a>
             <a href="<?= ROOT ?>/Books">Books</a>
             <a href="<?= ROOT ?>/e-library">E-library</a>
-            <a href="<?= ROOT ?>/about-us">About Us</a>
+            <a href="<?= ROOT ?>/aboutUs">About Us</a>
         </span>
         <?php if (!(Auth::logged_in())) : ?>
             <a href="<?= ROOT ?>/signup" class="profile guestsection">Sign&nbsp;Up</span></a>

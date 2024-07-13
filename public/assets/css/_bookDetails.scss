@@ -138,22 +138,22 @@ bookDetails {
             min-height: 40px;
 
             .material-symbols-outlined {
-                color: #6662;
+                position: relative;
+                font-size: 2em;
+                color: lightgray;
                 cursor: pointer;
-                transition: color 300ms, font-size 300ms;
-                font-size: 32px;
             }
 
-            .material-symbols-outlined.active {
-                color: #ffe48a
+            .material-symbols-outlined.filled {
+                color: gold
             }
         }
 
-        .stars {
-            .material-symbols-outlined:hover {
-                font-size: 40px
-            }
-        }
+        // .stars {
+        //     .material-symbols-outlined:hover {
+        //         font-size: 40px
+        //     }
+        // }
 
         .r-stars {
             display: block;

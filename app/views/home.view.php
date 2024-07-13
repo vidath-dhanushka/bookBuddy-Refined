@@ -51,6 +51,10 @@
                 </div> -->
             </div>
         </section>
+        <section class="aboutUs">
+            <h1>WHO WE ARE</h1>
+            <p>Welcome to Book Buddy, a platform created by UCSC students to connect book lovers across Sri Lanka. Our mission is to promote literacy and community engagement through the joy of reading. We partner with schools and libraries to distribute books to underserved communities, fostering a culture of lifelong learning. Join us in making reading accessible to everyone and spreading the joy of sharing books!</p>
+        </section>
     </home>
     <br>
 </div>

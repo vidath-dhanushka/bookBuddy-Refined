@@ -37,74 +37,89 @@ home {
             }
         }
     }
-}
 
-.top-rated-books {
-    margin-top: 40px;
 
-    h1 {
-        margin-bottom: 30px;
-        font-size: 45px;
-        text-align: center;
-    }
+    .top-rated-books {
+        margin-top: 40px;
 
-    .top-rated-book-box {
-        padding: 0 25px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-        justify-content: center;
-    }
+        h1 {
+            margin-bottom: 30px;
+            font-size: 45px;
+            text-align: center;
+        }
 
-    .top-rated-book-card {
-        flex: 250px 0;
-        text-align: center;
-        border: 1px solid #919191;
-        padding: 15px;
-        transition: box-shadow 300ms;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
+        .top-rated-book-box {
+            padding: 0 25px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
 
-    .top-rated-book-img {
-        img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
+        .top-rated-book-card {
+            flex: 250px 0;
+            text-align: center;
+            border: 1px solid #919191;
+            padding: 15px;
+            transition: box-shadow 300ms;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .top-rated-book-img {
+            img {
+                width: 100%;
+                height: 300px;
+                object-fit: cover;
+            }
+        }
+
+        .writer {
+            color: #919191;
+        }
+
+        .categories {
+            color: #5179ef;
+            margin-top: 8px;
+        }
+
+        .book-price {
+            margin-top: 8px;
+            font-weight: bold;
+            margin-bottom: 15px
+        }
+
+        .f-btn {
+            padding: 8px 20px;
+            border: 2px solid #5179ef;
+            color: black;
+            text-decoration: none;
+            transition: color 300ms, background-color 300ms;
+        }
+
+
+        .f-btn:hover {
+            background-color: #5179ef;
+            color: white;
+        }
+
+        .top-rated-book-card:hover {
+            box-shadow: 0 0 5px #5179ef;
         }
     }
 
-    .writer {
-        color: #919191;
-    }
+    .aboutUs {
+        margin: 5px 5px;
 
-    .categories {
-        color: #5179ef;
-        margin-top: 8px;
-    }
+        h1 {
+            // color: #6061b4;
+            font-size: 2.5rem;
+            text-align: center;
+        }
 
-    .book-price {
-        margin-top: 8px;
-        font-weight: bold;
-        margin-bottom: 15px
-    }
-
-    .f-btn {
-        padding: 8px 20px;
-        border: 2px solid #5179ef;
-        color: black;
-        text-decoration: none;
-        transition: color 300ms, background-color 300ms;
-    }
-
-
-    .f-btn:hover {
-        background-color: #5179ef;
-        color: white;
-    }
-
-    .top-rated-book-card:hover {
-        box-shadow: 0 0 5px #5179ef;
+        p {
+            text-align: justify;
+        }
     }
 }

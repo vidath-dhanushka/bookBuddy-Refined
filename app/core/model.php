@@ -46,7 +46,7 @@ class Model extends Database
         $query = trim($query, ",");
         $query .= " where " . $this->table . "_id = :id";
         // echo $query;
-        // print_r($data);
+        // show($data);
         // die;
         $data['id'] = $id;
         // show($data);

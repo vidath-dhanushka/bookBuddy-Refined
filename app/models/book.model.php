@@ -80,12 +80,15 @@ class Book extends Model
     public function getBookDetails($id)
     {
         return $this->query(
-            "SELECT title,
+            "SELECT 
+            book_id,
+            title,
         description,
         language,
         isbn,
         price,
         weight,
+        status,
         author,
         book_image,
         GROUP_CONCAT(c.name) AS categories 
@@ -147,5 +150,42 @@ class Book extends Model
     ORDER BY 
         b.reg_time DESC;
      ");
+    }
+
+    public function getCategories()
+    {
+        return $this->query("SELECT category_id,name FROM category ORDER BY category_id");
+    }
+
+    public function getCategoryBooks($id)
+    {
+        return $this->query("SELECT 
+        b.book_id,
+        b.title,
+        b.description,
+        b.language,
+        b.isbn,
+        b.price,
+        b.status,
+        b.weight,
+        b.condition,
+        b.duration,
+        b.owner,
+        b.author,
+        b.book_image,
+        GROUP_CONCAT(c.name SEPARATOR ', ') AS categories
+    FROM 
+        book b
+    LEFT JOIN 
+        book_category bc ON b.book_id = bc.book
+    LEFT JOIN 
+        category c ON bc.category = c.category_id
+    WHERE 
+        bc.category = :category_id
+    GROUP BY 
+        b.book_id
+    ORDER BY 
+        b.reg_time DESC;
+     ", ['category_id' => $id]);
     }
 }

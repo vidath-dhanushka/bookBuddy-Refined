@@ -144,7 +144,7 @@ class Database
 
         $query = "CREATE TABLE IF NOT EXISTS book_rating
         (
-            review_id MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            book_rating_id MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             book      MEDIUMINT UNSIGNED NOT NULL REFERENCES book (book_id),
             user      MEDIUMINT UNSIGNED NOT NULL REFERENCES user (user_id),
             rating    TINYINT            NOT NULL,

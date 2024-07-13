@@ -107,23 +107,22 @@ home .banner .banner-content span {
   font-size: 4rem;
   font-weight: 1000;
 }
-
-.top-rated-books {
+home .top-rated-books {
   margin-top: 40px;
 }
-.top-rated-books h1 {
+home .top-rated-books h1 {
   margin-bottom: 30px;
   font-size: 45px;
   text-align: center;
 }
-.top-rated-books .top-rated-book-box {
+home .top-rated-books .top-rated-book-box {
   padding: 0 25px;
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
   justify-content: center;
 }
-.top-rated-books .top-rated-book-card {
+home .top-rated-books .top-rated-book-card {
   flex: 250px 0;
   text-align: center;
   border: 1px solid #919191;
@@ -133,37 +132,47 @@ home .banner .banner-content span {
   flex-direction: column;
   justify-content: space-between;
 }
-.top-rated-books .top-rated-book-img img {
+home .top-rated-books .top-rated-book-img img {
   width: 100%;
   height: 300px;
   -o-object-fit: cover;
      object-fit: cover;
 }
-.top-rated-books .writer {
+home .top-rated-books .writer {
   color: #919191;
 }
-.top-rated-books .categories {
+home .top-rated-books .categories {
   color: #5179ef;
   margin-top: 8px;
 }
-.top-rated-books .book-price {
+home .top-rated-books .book-price {
   margin-top: 8px;
   font-weight: bold;
   margin-bottom: 15px;
 }
-.top-rated-books .f-btn {
+home .top-rated-books .f-btn {
   padding: 8px 20px;
   border: 2px solid #5179ef;
   color: black;
   text-decoration: none;
   transition: color 300ms, background-color 300ms;
 }
-.top-rated-books .f-btn:hover {
+home .top-rated-books .f-btn:hover {
   background-color: #5179ef;
   color: white;
 }
-.top-rated-books .top-rated-book-card:hover {
+home .top-rated-books .top-rated-book-card:hover {
   box-shadow: 0 0 5px #5179ef;
+}
+home .aboutUs {
+  margin: 5px 5px;
+}
+home .aboutUs h1 {
+  font-size: 2.5rem;
+  text-align: center;
+}
+home .aboutUs p {
+  text-align: justify;
 }
 
 signUp .login-component-container {
@@ -640,17 +649,14 @@ bookDetails .review .r-stars {
 }
 bookDetails .review .stars .material-symbols-outlined,
 bookDetails .review .r-stars .material-symbols-outlined {
-  color: rgba(102, 102, 102, 0.1333333333);
+  position: relative;
+  font-size: 2em;
+  color: lightgray;
   cursor: pointer;
-  transition: color 300ms, font-size 300ms;
-  font-size: 32px;
 }
-bookDetails .review .stars .material-symbols-outlined.active,
-bookDetails .review .r-stars .material-symbols-outlined.active {
-  color: #ffe48a;
-}
-bookDetails .review .stars .material-symbols-outlined:hover {
-  font-size: 40px;
+bookDetails .review .stars .material-symbols-outlined.filled,
+bookDetails .review .r-stars .material-symbols-outlined.filled {
+  color: gold;
 }
 bookDetails .review .r-stars {
   display: block;
@@ -699,6 +705,25 @@ bookDetails .review #reviews .r-stars .review-text {
   font-weight: 500;
   margin-top: 8px;
   text-align: justify;
+}
+
+aboutUs .container {
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+aboutUs .container h1 {
+  color: #6061b4;
+}
+aboutUs .container p {
+  line-height: 1.3;
+  text-align: justify;
+}
+aboutUs iframe {
+  border: none;
+  width: 100%;
+  height: 26.6vw;
 }
 
 memberSidenav .app-container {
@@ -1032,4 +1057,10 @@ addBook .form-error {
 
 .message {
   color: rgb(45, 186, 45);
+}
+
+body {
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }/*# sourceMappingURL=style.css.map */
