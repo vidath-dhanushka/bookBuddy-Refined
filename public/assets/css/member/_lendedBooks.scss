@@ -13,14 +13,17 @@ lendedBooks {
         font-weight: 500;
     }
 
-    .book:first-child {
+    .book-container:first-child {
         border-top: 1px solid #4444
+    }
+
+    .book-container {
+        border-bottom: 1px solid #4444;
     }
 
     .book {
         display: flex;
         padding: 20px 0;
-        border-bottom: 1px solid #4444;
 
 
         .book-img {
@@ -86,6 +89,61 @@ lendedBooks {
         .book-btn.delete {
             background-color: #e7546f;
             border-color: #e73300;
+        }
+    }
+
+    .lendedUsers {
+        display: flex;
+        // align-items: center;
+        justify-content: center;
+
+        span,
+        p {
+            cursor: pointer;
+        }
+
+        .material-symbols-outlined {
+            position: relative;
+        }
+    }
+
+    .lended-list {
+        .lend-user {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            // padding: 0 20px;
+            background-color: rgb(233, 241, 244);
+            border-radius: 15px;
+            margin-bottom: 2px;
+
+
+            .material-symbols-outlined {
+                position: relative;
+                padding-bottom: 30px;
+            }
+
+            .lend-name {
+                padding-right: 20px;
+            }
+
+            .lend-rating {
+                text-decoration: none;
+                border: 1px solid #5179ef;
+                background-color: #5179ef;
+                color: white;
+                padding: 2px 15px;
+                border-radius: 5px;
+                display: flex;
+                width: max-content;
+                align-items: center;
+                // font-size: 18px;
+                // font-weight: 500;
+                justify-content: center;
+                cursor: pointer;
+                margin-left: 30px;
+            }
         }
     }
 }

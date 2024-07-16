@@ -39,6 +39,19 @@ class Member extends Controller
         $book = new Book();
         // $category = new Category();
         $lendedBooks = $book->lendedBooks($id);
+        $user_ratings = $book->getUserRatings($id);
+
+        $ratingsByBook = [];
+        foreach ($user_ratings as $rating) {
+            $ratingsByBook[$rating->book][] = $rating;
+        }
+
+        foreach ($lendedBooks as $book) {
+            $book->user_ratings = $ratingsByBook[$book->book_id] ?? [];
+        }
+
+        // show($lendedBooks);
+        // die;
         // $allCategories = $category->getAll();
         // $selectedCategories =
         // $category = new Category();

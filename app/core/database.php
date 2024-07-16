@@ -220,13 +220,16 @@ class Database
 
         $this->query($query);
 
+        // $query = "DROP TABLE user_rating;";
+        // $this->query($query);
+
         $query = "CREATE TABLE IF NOT EXISTS user_rating
         (
             user_rating_id MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-            borrower       MEDIUMINT UNSIGNED NOT NULL,
-            lender         MEDIUMINT UNSIGNED NOT NULL,
+            borrower       MEDIUMINT UNSIGNED NOT NULL REFERENCES user (user_id),
+            lender         MEDIUMINT UNSIGNED NOT NULL REFERENCES user (user_id),
+            book           MEDIUMINT UNSIGNED NOT NULL REFERENCES book (book_id),
             rating         TINYINT            NOT NULL,
-            review         LONGTEXT,
             reg_time       DATETIME           NOT NULL DEFAULT CURRENT_TIMESTAMP,
             mod_time       DATETIME ON UPDATE CURRENT_TIMESTAMP
         );";

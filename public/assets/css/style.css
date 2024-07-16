@@ -5,7 +5,7 @@
   align-items: center;
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 5;
 }
 
 .app-header .logo {
@@ -853,13 +853,15 @@ lendedBooks .add-book-btn {
   font-size: 18px;
   font-weight: 500;
 }
-lendedBooks .book:first-child {
+lendedBooks .book-container:first-child {
   border-top: 1px solid rgba(68, 68, 68, 0.2666666667);
+}
+lendedBooks .book-container {
+  border-bottom: 1px solid rgba(68, 68, 68, 0.2666666667);
 }
 lendedBooks .book {
   display: flex;
   padding: 20px 0;
-  border-bottom: 1px solid rgba(68, 68, 68, 0.2666666667);
 }
 lendedBooks .book .book-img {
   flex: 80px 0 0;
@@ -917,6 +919,48 @@ lendedBooks .book .book-actions .material-symbols-outlined {
 lendedBooks .book .book-btn.delete {
   background-color: #e7546f;
   border-color: #e73300;
+}
+lendedBooks .lendedUsers {
+  display: flex;
+  justify-content: center;
+}
+lendedBooks .lendedUsers span,
+lendedBooks .lendedUsers p {
+  cursor: pointer;
+}
+lendedBooks .lendedUsers .material-symbols-outlined {
+  position: relative;
+}
+lendedBooks .lended-list .lend-user {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(233, 241, 244);
+  border-radius: 15px;
+  margin-bottom: 2px;
+}
+lendedBooks .lended-list .lend-user .material-symbols-outlined {
+  position: relative;
+  padding-bottom: 30px;
+}
+lendedBooks .lended-list .lend-user .lend-name {
+  padding-right: 20px;
+}
+lendedBooks .lended-list .lend-user .lend-rating {
+  text-decoration: none;
+  border: 1px solid #5179ef;
+  background-color: #5179ef;
+  color: white;
+  padding: 2px 15px;
+  border-radius: 5px;
+  display: flex;
+  width: -moz-max-content;
+  width: max-content;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 30px;
 }
 
 borrowedBooks .book:first-child {

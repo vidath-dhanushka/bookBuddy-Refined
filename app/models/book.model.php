@@ -188,4 +188,21 @@ class Book extends Model
         b.reg_time DESC;
      ", ['category_id' => $id]);
     }
+
+    public function getUserRatings($userId)
+    {
+        return $this->query("SELECT 
+            ur.book,
+            ur.user_rating_id,
+            u.username AS borrower_username,
+            ur.lender,
+            ur.rating,
+            ur.reg_time
+        FROM user_rating ur
+        JOIN 
+            user u ON ur.borrower = u.user_id
+        JOIN 
+            book b ON ur.book = b.book_id
+        WHERE b.owner = :owner", ['owner' => $userId]);
+    }
 }

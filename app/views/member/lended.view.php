@@ -1,5 +1,7 @@
 <?php $this->view('member/includes/sidenav'); ?>
 <lendedBooks>
+    <?php show($data);
+    die; ?>
     <?php if (message()) : ?>
         <div class="message"><?= message('', true) ?></div>
     <?php endif; ?>
@@ -10,40 +12,75 @@
             Add New Book
         </a>
     </p>
-    <div class="book-list">
-        <?php foreach ($data['lended_books'] as $book) : ?>
-            <div class="book">
-                <div class="book-img">
-                    <img src="<?= $book->book_image ? ROOT . '/' . $book->book_image : ROOT . '/uploads/books/default.jpg'; ?>" alt="<?= htmlspecialchars($book->title); ?>">
-                </div>
-                <div class="top-rated-book-tag">
-                    <h2><?= htmlspecialchars($book->title) ?></h2>
-                    <p class="writer"><?= htmlspecialchars($book->author) ?></p>
-                    <div class="categories">
-                        <?php if (!empty($book->categories)) : ?>
-                            <?php foreach (explode(',', $book->categories) as $category) : ?>
-                                <span class="category"><?= htmlspecialchars(trim($category)) ?></span>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
+    <?php if (!empty($data['lended_books'])) : ?>
+        <div class="book-list">
+            <?php foreach ($data['lended_books'] as $book) : ?>
+                <div class="book-container">
+                    <div class="book">
+                        <div class="book-img">
+                            <img src="<?= $book->book_image ? ROOT . '/' . $book->book_image : ROOT . '/uploads/books/default.jpg'; ?>" alt="<?= htmlspecialchars($book->title); ?>">
+                        </div>
+                        <div class="top-rated-book-tag">
+                            <h2><?= htmlspecialchars($book->title) ?></h2>
+                            <p class="writer"><?= htmlspecialchars($book->author) ?></p>
+                            <div class="categories">
+                                <?php if (!empty($book->categories)) : ?>
+                                    <?php foreach (explode(',', $book->categories) as $category) : ?>
+                                        <span class="category"><?= htmlspecialchars(trim($category)) ?></span>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </div>
+                            <p class="book-price">Rs <?= htmlspecialchars($book->price) ?></p>
+                            <br>
+                            <span class="status <?= htmlspecialchars($book->status) ?>"><?= strtoupper(htmlspecialchars($book->status)) ?></span>
+                            <br>
+                            <br>
+                        </div>
+                        <div class="book-actions" style="display: <?= htmlspecialchars($book->status) == 'deleted' ? 'none' : 'flex'; ?>">
+                            <a class="book-btn edit" href="<?= ROOT ?>/member/editBook/<?= $book->book_id ?>">
+                                <span class="material-symbols-outlined">edit</span>
+                                Edit
+                            </a>
+                            <a class="book-btn delete" href="<?= ROOT ?>/member/deleteBook/<?= $book->book_id ?>">
+                                <span class="material-symbols-outlined">delete</span>
+                                Delete
+                            </a>
+                        </div>
                     </div>
-                    <p class="book-price">Rs <?= htmlspecialchars($book->price) ?></p>
-                    <br>
-                    <span class="status <?= htmlspecialchars($book->status) ?>"><?= strtoupper(htmlspecialchars($book->status)) ?></span>
-                    <br>
-                    <br>
+                    <div class="lendedUsers">
+                        <p>lended Users</p>
+                        <span class="material-symbols-outlined">
+                            expand_circle_down
+                        </span>
+                    </div>
+                    <div class="lended-list">
+                        <?php if (!empty($book->user_ratings)) ?>
+                        <div class="lend-user">
+                            <span class="lend-name">Vidath</span>
+                            <span>2024/07/03</span>
+                            <span class="material-symbols-outlined">grade</span>
+                            <span class="material-symbols-outlined">grade</span>
+                            <span class="material-symbols-outlined">grade</span>
+                            <span class="material-symbols-outlined">grade</span>
+                            <span class="material-symbols-outlined">grade</span>
+                            <span class="lend-rating">rate User</span>
+                        </div>
+                        <div class="lend-user">
+                            <span class="lend-name">Vidath</span>
+                            <span>2024/07/03</span>
+                            <span class="material-symbols-outlined">grade</span>
+                            <span class="material-symbols-outlined">grade</span>
+                            <span class="material-symbols-outlined">grade</span>
+                            <span class="material-symbols-outlined">grade</span>
+                            <span class="material-symbols-outlined">grade</span>
+                            <span class="lend-rating">rate User</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="book-actions" style="display: <?= htmlspecialchars($book->status) == 'deleted' ? 'none' : 'flex'; ?>">
-                    <a class="book-btn edit" href="<?= ROOT ?>/member/editBook/<?= $book->book_id ?>">
-                        <span class="material-symbols-outlined">edit</span>
-                        Edit
-                    </a>
-                    <a class="book-btn delete" href="<?= ROOT ?>/member/deleteBook/<?= $book->book_id ?>">
-                        <span class="material-symbols-outlined">delete</span>
-                        Delete
-                    </a>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
+            <?php endforeach; ?>
+        </div>
+    <?php else : ?>
+        <p>No books available for lending. Add new book</p>
+    <?php endif; ?>
 </lendedBooks>
 <?php $this->view('member/includes/footer'); ?>
