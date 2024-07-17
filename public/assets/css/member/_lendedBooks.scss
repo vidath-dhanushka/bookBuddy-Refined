@@ -108,6 +108,13 @@ lendedBooks {
     }
 
     .lended-list {
+        border-top: 1px solid #4444;
+        display: none;
+
+        p {
+            text-align: center;
+        }
+
         .lend-user {
             display: flex;
             flex-direction: row;
@@ -122,6 +129,12 @@ lendedBooks {
             .material-symbols-outlined {
                 position: relative;
                 padding-bottom: 30px;
+                color: lightgray;
+                cursor: pointer;
+            }
+
+            .material-symbols-outlined.filled {
+                color: gold
             }
 
             .lend-name {

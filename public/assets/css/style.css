@@ -931,6 +931,13 @@ lendedBooks .lendedUsers p {
 lendedBooks .lendedUsers .material-symbols-outlined {
   position: relative;
 }
+lendedBooks .lended-list {
+  border-top: 1px solid rgba(68, 68, 68, 0.2666666667);
+  display: none;
+}
+lendedBooks .lended-list p {
+  text-align: center;
+}
 lendedBooks .lended-list .lend-user {
   display: flex;
   flex-direction: row;
@@ -943,6 +950,11 @@ lendedBooks .lended-list .lend-user {
 lendedBooks .lended-list .lend-user .material-symbols-outlined {
   position: relative;
   padding-bottom: 30px;
+  color: lightgray;
+  cursor: pointer;
+}
+lendedBooks .lended-list .lend-user .material-symbols-outlined.filled {
+  color: gold;
 }
 lendedBooks .lended-list .lend-user .lend-name {
   padding-right: 20px;

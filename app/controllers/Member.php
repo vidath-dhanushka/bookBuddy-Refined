@@ -65,8 +65,13 @@ class Member extends Controller
 
     public function borrowed()
     {
-
-        $this->view('member/borrowed');
+        $data = [];
+        $borrowed = new BookBorrow();
+        $userId = Auth::getuser_id();
+        $data['borrowedBooks'] = $borrowed->getAllBorrowedBooks($userId);
+        // show($borrowedBooks);
+        // die;
+        $this->view('member/borrowed', $data);
     }
 
     public function lendedUsers()
@@ -231,5 +236,25 @@ class Member extends Controller
         // show($map);
         // die;
         return $map;
+    }
+
+    public function updateRating($ratingId)
+    {
+        // show($ratingId);
+        // die;
+        $userRating = new UserRating();
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $input = file_get_contents('php://input');
+            $data = json_decode($input, true);
+            // show($data);
+            // die;
+            try {
+                $userRating->update($ratingId, $data);
+                echo json_encode(['success' => true]);
+            } catch (Exception $e) {
+                echo json_encode(['success' => false]);
+            }
+        }
     }
 }
