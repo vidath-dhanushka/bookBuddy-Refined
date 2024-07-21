@@ -14,10 +14,11 @@ class User extends Model
         'address_district',
         'password',
         'role',
-        'address_line_1',
-        'address_line_2',
+        'address_line1',
+        'address_line2',
         'address_city',
-        'zip_code',
+        'address_zip',
+        'balance'
     ];
 
     public function validate($data)

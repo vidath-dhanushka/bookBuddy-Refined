@@ -88,6 +88,7 @@ class Book extends Model
         isbn,
         price,
         weight,
+        owner,
         status,
         author,
         book_image,

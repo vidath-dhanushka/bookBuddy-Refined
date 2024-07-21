@@ -41,7 +41,7 @@
             <?php if (auth::getrole() == 'member') : ?>
                 <span class="wallet usersection">Rs <span userinfo="balance"><?= Auth::getBalance() ?></span></span>
                 <div class="usersection">
-                    <a href="<?= ROOT ?>/cart" class="cart-btn">
+                    <a href="<?= ROOT ?>/cart/viewCart" class="cart-btn">
                         <span class="material-symbols-outlined">shopping_cart</span>
                         <span class="badge" userinfo="cart"></span>
                     </a>

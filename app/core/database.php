@@ -2,11 +2,16 @@
 
 class Database
 {
+    private $con;
+
     private function connect()
     {
-
-        $str = DBDRIVER . ':host=' . DBHOST . ';dbname=' . DBNAME;
-        return new PDO($str, DBUSER, DBPASS);
+        if (!$this->con) {
+            $str = DBDRIVER . ':host=' . DBHOST . ';dbname=' . DBNAME;
+            $this->con = new PDO($str, DBUSER, DBPASS);
+            $this->con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
+        return $this->con;
     }
 
     public function query($query, $data = [], $type = 'object')
@@ -40,6 +45,21 @@ class Database
             }
         }
         return false;
+    }
+
+    public function beginTransaction()
+    {
+        $this->connect()->beginTransaction();
+    }
+
+    public function commit()
+    {
+        $this->connect()->commit();
+    }
+
+    public function rollback()
+    {
+        $this->connect()->rollBack();
     }
 
     public function create_tables()
@@ -159,6 +179,7 @@ class Database
         $query = "CREATE TABLE IF NOT EXISTS delivery
         (
             delivery_id               MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            book_borrow               MEDIUMINT UNSIGNED NOT NULL REFERENCES book_borrow (book_borrow_id),
             sender_name               VARCHAR(32)   NOT NULL,
             sender_address_line1      VARCHAR(128),
             sender_address_line2      VARCHAR(128),
@@ -173,10 +194,6 @@ class Database
             receiver_address_district VARCHAR(32),
             receiver_address_zip      CHAR(5),
             receiver_phone            VARCHAR(16)   NOT NULL,
-            weight                    DECIMAL(9, 2) NOT NULL,
-            charge                    DECIMAL(9, 2),
-            method                    VARCHAR(64)   NOT NULL, #(courier, self-deliver....)
-            courier                   SMALLINT UNSIGNED REFERENCES courier (courier_id),
             reg_time                  DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
             mod_time                  DATETIME ON UPDATE CURRENT_TIMESTAMP
         );";
@@ -186,9 +203,10 @@ class Database
         $query = "CREATE TABLE IF NOT EXISTS `order`
         (
             order_id       MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-            user            MEDIUMINT UNSIGNED NOT NULL REFERENCES user (user_id),
-            send_delivery   MEDIUMINT UNSIGNED REFERENCES delivery (delivery_id),
-            return_delivery MEDIUMINT UNSIGNED REFERENCES delivery (delivery_id),
+            lender            MEDIUMINT UNSIGNED NOT NULL REFERENCES user (user_id),
+            weight                    DECIMAL(9, 2) NOT NULL,
+            charge                    DECIMAL(9, 2),
+            courier                   SMALLINT UNSIGNED REFERENCES courier (courier_id),
             reg_time        DATETIME           NOT NULL DEFAULT CURRENT_TIMESTAMP,
             mod_time        DATETIME ON UPDATE CURRENT_TIMESTAMP
         );";
@@ -208,20 +226,6 @@ class Database
         );";
 
         $this->query($query);
-
-        $query = "CREATE TABLE IF NOT EXISTS book_borrow_status
-        (
-            book_borrow_status_id MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-            book_borrow           MEDIUMINT UNSIGNED NOT NULL REFERENCES book_borrow (book_borrow_id),
-            status                VARCHAR(16)        NOT NULL,
-            reg_time              DATETIME           NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            mod_time              DATETIME ON UPDATE CURRENT_TIMESTAMP
-        );";
-
-        $this->query($query);
-
-        // $query = "DROP TABLE user_rating;";
-        // $this->query($query);
 
         $query = "CREATE TABLE IF NOT EXISTS user_rating
         (

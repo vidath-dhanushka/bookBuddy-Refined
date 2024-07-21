@@ -726,6 +726,136 @@ aboutUs iframe {
   height: 26.6vw;
 }
 
+cart h1 {
+  font-size: 28px;
+}
+cart .main-container {
+  display: flex;
+  gap: 20px;
+}
+cart .main-container .container {
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(51, 51, 51, 0.2);
+  padding: 10px 40px;
+  flex: 100%;
+}
+cart .main-container .container:first-child .cart-item {
+  display: flex;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(136, 136, 136, 0.2666666667);
+}
+cart .main-container .container:first-child .cart-item img {
+  width: 170px;
+  height: 220px;
+  background: #444;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin-right: 20px;
+  border-radius: 15px;
+}
+cart .main-container .container:first-child .cart-item .book-info {
+  flex: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 5px;
+}
+cart .main-container .container:first-child .cart-item .book-info .row1 {
+  flex: 100%;
+}
+cart .main-container .container:first-child .cart-item .book-info .remove {
+  background-color: rgba(0, 0, 0, 0.0666666667);
+  cursor: pointer;
+  color: #444;
+  width: 80px;
+  text-align: center;
+  border-radius: 10px;
+  transition: background-color 300ms;
+  padding: 4px 8px;
+  font-size: 14px;
+  display: inline-block;
+}
+cart .main-container .container:first-child .cart-item .book-info .remove.rem:hover {
+  background-color: red;
+  color: white;
+  border: none;
+}
+cart .main-container .container:first-child .cart-item .book-info .remove.hidden {
+  display: none;
+}
+cart .main-container .container:first-child .cart-item .book-info h2 {
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+cart .main-container .container:first-child .cart-item .selection {
+  display: flex;
+  align-items: center;
+}
+cart .main-container .container:first-child .cart-item .selection input {
+  transform: scale(2);
+}
+cart .main-container .container:first-child .cart-item:last-child {
+  border-bottom: none;
+}
+cart .main-container .container:last-child {
+  flex: 400px;
+}
+cart .main-container .container .checkout-heading {
+  padding-bottom: 25px;
+}
+cart .main-container .container .courier-list {
+  position: relative;
+  width: 95%;
+  padding: 8px 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+cart .main-container .container .count {
+  font-size: 20px;
+  padding-bottom: 20px;
+  margin-top: -10px !important;
+}
+cart .main-container .container .payment-amount {
+  margin-top: -10px;
+  font-size: 34px;
+}
+cart .main-container .container .checkout-btn {
+  display: flex;
+}
+cart .main-container .container .checkout-btn .cart-btn2 {
+  text-align: center;
+  text-decoration: none;
+  padding: 10px 0;
+  width: 130px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+  display: inline-block;
+  transition: all 0.2s ease;
+  background: rgb(130, 106, 251);
+  border: 1px solid rgba(129, 138, 249, 0);
+  border-radius: 10px;
+  margin-right: 5px;
+  cursor: pointer !important;
+}
+cart .main-container .container .checkout-btn .cart-btn2:hover {
+  background-color: #fff;
+  border: 1px solid #818AF9;
+  cursor: pointer !important;
+  color: #818AF9;
+}
+cart .main-container .container input {
+  position: relative;
+  width: 95%;
+  padding: 8px 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
 memberSidenav .app-container {
   max-height: 100vh;
 }
@@ -1113,6 +1243,10 @@ addBook .form-error {
 
 .message {
   color: rgb(45, 186, 45);
+}
+
+.no-display {
+  display: none !important;
 }
 
 body {

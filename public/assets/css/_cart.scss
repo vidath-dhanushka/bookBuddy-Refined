@@ -1,0 +1,157 @@
+cart {
+    h1 {
+        font-size: 28px
+    }
+
+    .main-container {
+        display: flex;
+        gap: 20px;
+
+        .container {
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(51, 51, 51, 0.2);
+            padding: 10px 40px;
+            flex: 100%;
+        }
+
+        .container:first-child {
+            .cart-item {
+                display: flex;
+                padding: 15px 0;
+                border-bottom: 1px solid #8884;
+
+                img {
+                    width: 170px;
+                    height: 220px;
+                    background: #444;
+                    object-fit: cover;
+                    margin-right: 20px;
+                    border-radius: 15px;
+                }
+
+                .book-info {
+                    flex: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    padding-bottom: 5px;
+
+                    .row1 {
+                        flex: 100%;
+                    }
+
+                    .remove {
+                        background-color: #0001;
+                        cursor: pointer;
+                        color: #444;
+                        width: 80px;
+                        text-align: center;
+                        border-radius: 10px;
+                        transition: background-color 300ms;
+                        padding: 4px 8px;
+                        font-size: 14px;
+                        display: inline-block;
+                    }
+
+                    .remove.rem:hover {
+                        background-color: red;
+                        color: white;
+                        border: none;
+                    }
+
+                    .remove.hidden {
+                        display: none;
+                    }
+
+                    h2 {
+                        margin-top: 10px;
+                        margin-bottom: 0px;
+                    }
+                }
+
+                .selection {
+                    display: flex;
+                    align-items: center;
+
+                    input {
+                        transform: scale(2);
+                    }
+                }
+            }
+
+            .cart-item:last-child {
+                border-bottom: none;
+            }
+        }
+
+        .container:last-child {
+            flex: 400px;
+        }
+
+        .container {
+            .checkout-heading {
+                padding-bottom: 25px;
+            }
+
+            .courier-list {
+                position: relative;
+                width: 95%;
+                padding: 8px 20px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                margin-bottom: 20px;
+            }
+
+
+            .count {
+                font-size: 20px;
+                padding-bottom: 20px;
+                margin-top: -10px !important;
+            }
+
+            .payment-amount {
+                margin-top: -10px;
+                font-size: 34px;
+            }
+
+            .checkout-btn {
+                display: flex;
+
+                .cart-btn2 {
+                    text-align: center;
+                    text-decoration: none;
+                    padding: 10px 0;
+                    width: 130px;
+                    color: #fff;
+                    font-size: 1rem;
+                    font-weight: 400;
+                    display: inline-block;
+                    transition: all 0.2s ease;
+                    background: rgb(130, 106, 251);
+                    border: 1px solid #818AF900;
+                    border-radius: 10px;
+                    margin-right: 5px;
+                    cursor: pointer !important;
+                }
+
+                .cart-btn2:hover {
+                    background-color: #fff;
+                    border: 1px solid #818AF9;
+                    cursor: pointer !important;
+                    color: #818AF9;
+                }
+            }
+
+            input {
+                position: relative;
+                width: 95%;
+                padding: 8px 20px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                margin-bottom: 20px;
+                font-size: 18px;
+            }
+        }
+    }
+}

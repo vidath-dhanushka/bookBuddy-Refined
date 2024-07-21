@@ -1,6 +1,5 @@
 <?php $this->view('includes/header'); ?>
 <bookDetails>
-
     <div class="app-content">
         <div class="main-container">
             <div class="container-left">
@@ -21,8 +20,8 @@
                 <br>
                 <div>
                     <?php if ($data['bookDetails'][0]->status == 'available') : ?>
-                        <div class="borrow-btn borrow" onclick="borrow()">Borrow Now</div>
-                        <div class="borrow-btn" onclick="borrow(true, event)">Add to Cart</div>
+                        <div class="borrow-btn borrow"><a style="text-decoration:none;color:inherit" href="<?= ROOT ?>/cart/borrowNow/<?= $data['bookDetails'][0]->book_id ?>"> Borrow Now</a></div>
+                        <div class="borrow-btn add-cart">Add to Cart</div>
                     <?php else : ?>
                         <div class="borrow-btn na">Currently Unavailable</div>
                     <?php endif; ?>
@@ -78,6 +77,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const stars = document.querySelectorAll('.stars .material-symbols-outlined');
+        let cartBtn = document.querySelector('.add-cart');
 
         stars.forEach(star => {
             star.addEventListener('click', function() {
@@ -164,6 +164,29 @@
                 })
                 .catch();
         }
+        cartBtn.addEventListener('click', () => {
+            let cartData = {
+                book: <?= $data['bookDetails'][0]->book_id ?>
+            }
+            fetch(`<?= ROOT ?>/member/addToCart`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(cartData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Book added to the cart');
+                    } else {
+                        alert('Already in the cart');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        })
     });
 </script>
 <?php $this->view('includes/footer');

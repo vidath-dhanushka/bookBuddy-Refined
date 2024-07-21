@@ -6,6 +6,7 @@
 @import "books";
 @import "bookDetails";
 @import "aboutUs";
+@import "cart";
 @import "member/includes/sidenav";
 @import "member/profile";
 @import "member/lendedBooks";
@@ -21,6 +22,11 @@
 .message {
     color: rgb(45, 186, 45);
 
+}
+
+
+.no-display {
+    display: none !important;
 }
 
 

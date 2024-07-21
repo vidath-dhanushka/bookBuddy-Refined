@@ -4,6 +4,13 @@ class BookBorrow extends Model
 {
     protected $table = "book_borrow";
 
+    protected $allowedColumns = [
+        'book',
+        'user',
+        'orderNo',
+        'status'
+    ];
+
     public function getBorrowedBook($bookId, $userId)
     {
         return $this->where(['book' => $bookId, 'user' => $userId]);
