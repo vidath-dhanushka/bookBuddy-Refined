@@ -439,7 +439,7 @@ books .banner-content span {
   justify-content: center;
 }
 .top-rated-books .top-rated-book-box .top-rated-book-card {
-  flex: 250px 0;
+  flex: 200px 0;
   text-align: center;
   border: 1px solid #919191;
   padding: 15px;
@@ -1233,6 +1233,55 @@ addBook .add-btn .material-symbols-outlined {
   padding-right: 15px;
 }
 addBook .form-error {
+  text-align: left;
+}
+
+changePassword .form-field label {
+  display: block;
+  padding-left: 5px;
+  padding-bottom: 5px;
+}
+changePassword .form-field input,
+changePassword .form-field select,
+changePassword .form-field textarea {
+  position: relative;
+  width: 95%;
+  padding: 8px 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+changePassword .form-field input[disabled] {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  cursor: not-allowed;
+}
+changePassword .form-field textarea {
+  resize: none;
+}
+changePassword .add-btn {
+  text-decoration: none;
+  border: 1px solid #5179ef;
+  background-color: #5179ef;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 5px;
+  display: flex;
+  width: -moz-max-content;
+  width: max-content;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 500;
+  justify-content: center;
+  cursor: pointer;
+}
+changePassword .add-btn .material-symbols-outlined {
+  padding-right: 15px;
+}
+changePassword .form-error {
   text-align: left;
 }
 

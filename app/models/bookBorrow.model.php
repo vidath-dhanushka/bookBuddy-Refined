@@ -32,7 +32,9 @@ class BookBorrow extends Model
             book b 
         ON b.book_id = bb.book 
         WHERE 
-            bb.user = :user;",
+            bb.user = :user
+        ORDER BY
+            bb.reg_time DESC;",
             ['user' => $userId]
         );
     }

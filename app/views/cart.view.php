@@ -33,7 +33,7 @@
                                         <p>Refundable deposit:<br>Rs. <?= $book->price ?></p>
                                     </div>
                                     <div>
-                                        <div class="remove rem" onclick="removeCartItem(<?= $book->book_id ?>)">Remove</div>
+                                        <div class="remove rem" data-cartId="<?= $book->cart_id ?>">Remove</div>
                                         <div class="remove" style="display:<?= $book->status == 'available' ? 'none' : '' ?>">Unavailable</div>
                                     </div>
                                 </div>
@@ -44,40 +44,44 @@
                         <?php endforeach; ?>
                     <?php endif; ?>
                 </div>
+
+                <div class="container">
+                    <h2 class="checkout-heading">Checkout</h2>
+                    <label>Delivery Option</label>
+                    <select class="courier-list">
+                        <?php foreach ($data['Courier'] as $courier) : ?>
+                            <option value="<?= $courier->courier_id ?>"><?= $courier->company_name ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <p>Total Delivery Fee:</p>
+                    <h1 class="count">Rs. <span class="delivery-fee"></span></h1>
+                    <p>Total refundable deposit:</p>
+                    <h1 class="count">Rs. <span class="deposit"></span></h1>
+                    <p>Total:</p>
+                    <h1 class="count">Rs. <span class="total"></span></h1>
+                    <p>Available Balance:</p>
+                    <h1 class="count">Rs. <span userinfo="balance"><?= $data['userData']->balance ?></span></h1>
+                    <p>Delivery Address:</p>
+                    <p userinfo="address_text" id="address_text"></p>
+                    <p class="form-error no-address">Your delivery address is incomplete. Please update via <a href="<?= ROOT ?>/member/profile">profile</a></p>
+                    <br>
+                    <div class="checkout-btn">
+                        <button type="button" class="cart-btn2" id="cart-btn2">Borrow Now</button>
+                        <button type="button" class="cart-btn2" id="topup" onclick="payment_gateway()">Topup</button>
+                    </div>
+                </div>
             <?php else : ?>
                 <h2>No Items to show. Please add some books.</h2>
             <?php endif; ?>
-            <div class="container">
-                <h2 class="checkout-heading">Checkout</h2>
-                <label>Delivery Option</label>
-                <select class="courier-list">
-                    <?php foreach ($data['Courier'] as $courier) : ?>
-                        <option value="<?= $courier->courier_id ?>"><?= $courier->company_name ?></option>
-                    <?php endforeach; ?>
-                </select>
-                <p>Total Delivery Fee:</p>
-                <h1 class="count">Rs. <span class="delivery-fee"></span></h1>
-                <p>Total refundable deposit:</p>
-                <h1 class="count">Rs. <span class="deposit"></span></h1>
-                <p>Total:</p>
-                <h1 class="count">Rs. <span class="total"></span></h1>
-                <p>Available Balance:</p>
-                <h1 class="count">Rs. <span userinfo="balance"><?= $data['userData']->balance ?></span></h1>
-                <p>Delivery Address:</p>
-                <p userinfo="address_text" id="address_text"></p>
-                <p class="form-error no-address">Your delivery address is incomplete. Please update via <a href="<?= ROOT ?>/member/profile">profile</a></p>
-                <br>
-                <div class="checkout-btn">
-                    <button type="button" class="cart-btn2" id="cart-btn2">Borrow Now</button>
-                    <button type="button" class="cart-btn2" id="topup">Topup</button>
-                </div>
-            </div>
         </div>
     </div>
 </cart>
 
+<script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
+
 <script>
     let data = <?= $jsonData ?>;
+    let remove = document.querySelector('.rem');
     let noAddress = document.querySelector('.no-address');
     let borrowBtn = document.querySelector('#cart-btn2');
     let selectBooks = document.querySelectorAll('.checkout-select');
@@ -210,5 +214,83 @@
             setCourierPrice();
         })
     })
+
+    remove.addEventListener('click', (e) => {
+        let cartId = e.target.dataset.cartid;
+        fetch(`<?= ROOT ?>/cart/removeItem/${cartId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Book removed successfully');
+                    window.location.reload();
+                } else {
+                    alert('Failed to remove the book');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    })
+
+    function payment_gateway() {
+
+        fetch(`<?= ROOT ?>/cart/setPaymentDetails`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok " + response.statusText);
+                }
+                return response.json();
+            })
+            .then(obj => {
+                // Payment completed. It can be a successful failure.
+                payhere.onCompleted = function onCompleted(orderId) {
+                    console.log("Payment completed. OrderID:" + orderId);
+                    // Note: validate the payment and show success or failure page to the customer
+                };
+
+                // Payment window closed
+                payhere.onDismissed = function onDismissed() {
+                    // Note: Prompt user to pay again or show an error page
+                    console.log("Payment dismissed");
+                };
+
+                // Error occurred
+                payhere.onError = function onError(error) {
+                    // Note: show an error page
+                    console.log("Error:" + error);
+                };
+                console.log(obj.hash);
+                // Put the payment variables here
+                var payment = {
+                    "sandbox": true,
+                    "merchant_id": 1226049, // Replace your Merchant ID
+                    "return_url": obj['return_url'], // Important
+                    "cancel_url": obj['cancel_url'], // Important
+                    "notify_url": undefined,
+                    "order_id": obj["order_id"],
+                    "items": 'topup',
+                    "amount": total.innerHTML,
+                    "currency": obj["currency"],
+                    "hash": obj.hash, // *Replace with generated hash retrieved from backend
+                    "first_name": obj["first_name"],
+                    "last_name": obj["last_name"],
+                    "email": obj["email"],
+                    "phone": obj["phone"],
+                    "address": obj["address"],
+                    "city": obj["city"],
+                    "country": "Sri Lanka",
+                };
+                payhere.startPayment(payment);
+            })
+            .catch(error => {
+                console.error("There has been a problem with your fetch operation:", error);
+            });
+    }
+    // document.querySelector('#topup').addEventListener('click', payment_gateway());
 </script>
 <?php $this->view('includes/footer'); ?>

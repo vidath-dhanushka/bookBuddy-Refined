@@ -9,11 +9,13 @@ class Cart extends Controller
             $data = [];
             // show($_SESSION);
             // die;
+            // $paymentDetails = $this->setPaymentDetails();
             $book = new Book();
             $courier = new Courier();
             $data['bookDetails'] = $book->getBookDetails($bookId);
             $data['userData'] = $_SESSION['USER_DATA'];
             $data['Courier'] = $courier->getAllCourier();
+            // $data['paymentDetails'] = $paymentDetails;
             $data['type'] = "BorrowNow";
             // show($data);
             // die;
@@ -28,12 +30,14 @@ class Cart extends Controller
     {
         if (Auth::logged_in()) {
             $data = [];
+            // $paymentDetails = $this->setPaymentDetails();
             $userId = Auth::getuser_Id();
             $cart = new Carts();
             $courier = new Courier();
             $data['bookDetails'] = $cart->getItems($userId);
             // show($data['bookDetails']);
             // die;
+            // $data['paymentDetails'] = $paymentDetails;
             $data['userData'] = $_SESSION['USER_DATA'];
             $data['Courier'] = $courier->getAllCourier();
             $data['type'] = "viewCart";
@@ -41,6 +45,22 @@ class Cart extends Controller
         } else {
             $this->view('_404');
         }
+    }
+
+    public function removeItem($cartId)
+    {
+        $cart = new Carts();
+        try {
+            $cart->removeItem($cartId);
+            $response = [
+                'success' => true
+            ];
+        } catch (Exception $e) {
+            $response = [
+                'success' => false
+            ];
+        }
+        echo json_encode($response);
     }
 
     public function checkout()
@@ -64,6 +84,7 @@ class Cart extends Controller
             $delivery = new Delivery();
             $db = new Database();
             $cart = new Carts();
+            $userRating = new UserRating();
 
 
             try {
@@ -113,10 +134,20 @@ class Cart extends Controller
                         $cartId = (int)$book['cartId'];
                         $cart->removeItem($cartId);
                     }
-                    $balance -= $total;
-                    $user->update($userId, ['balance' => $balance]);
-                    $_SESSION['USER_DATA'] = $user->first(['user_id' => $userId]);
+
+
+                    $userRatingData = [
+                        'lender' => (int)$book['owner'],
+                        'borrower' => $userId,
+                        'book' => (int)$book['bookId'],
+                        'rating' => 0
+                    ];
+                    $userRating->insert($userRatingData);
                 }
+                $balance -= $total;
+                $user->update($userId, ['balance' => $balance]);
+                $_SESSION['USER_DATA'] = $user->first(['user_id' => $userId]);
+
 
                 $db->commit();
 
@@ -131,5 +162,53 @@ class Cart extends Controller
         } else {
             $this->view('_404');
         }
+    }
+
+    public function setPaymentDetails()
+    {
+        $merchant_id = 1226049;
+        $order_id = uniqid();
+        $amount = 1000.00;
+        $currency = "LKR";
+        $merchant_secret = "MjQ3ODc4MDQ2MjE4NzgzMDQ1NTQzNDAwMjg4ODI2MjU4MzU5MjkwNg==";
+        $hash = strtoupper(
+            md5(
+                $merchant_id .
+                    $order_id .
+                    number_format($amount, 2, '.', '') .
+                    $currency .
+                    strtoupper(md5($merchant_secret))
+            )
+        );
+        $return_url = '';
+        $cancel_url = '';
+        $notify_url = '';
+        $first_name = '';
+        $last_name = '';
+        $email = '';
+        $phone = '';
+        $address = '';
+        $city = '';
+        $country = 'Sri Lanka';
+        $items = '';
+
+        $paymentDetails = [
+            'success' => true,
+            'merchant_id' => $merchant_id,
+            'return_url' => ROOT . '/home',
+            'cancel_url' => ROOT . '/cart',
+            'first_name' => Auth::getfirst_name(),
+            'last_name' => Auth::getlast_name(),
+            'email' => Auth::getemail(),
+            'phone' => Auth::getphone(),
+            'address' => Auth::getaddress_line1(),
+            'city' => Auth::getaddress_city(),
+            'order_id' => $order_id,
+            'items' => $items,
+            'currency' => $currency,
+            'amount' => $amount,
+            'hash' => $hash
+        ];
+        echo json_encode($paymentDetails);
     }
 }

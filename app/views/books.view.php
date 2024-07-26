@@ -23,9 +23,7 @@
                             <div class="top-rated-book-tag">
                                 <h2><?= $book->title ?></h2>
                                 <p class="writer"><?= $book->author ?></p>
-                                <?php foreach (explode(',', $book->categories) as $category) : ?>
-                                    <div class="categories"><?= $category ?></div>
-                                <?php endforeach; ?>
+
                                 <p class="book-price"><?= $book->price ?></p>
                                 <br>
                                 <a href="<?= ROOT ?>/books/details/<?= $book->book_id ?>" class="f-btn">Learn More</a>

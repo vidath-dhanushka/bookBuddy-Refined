@@ -132,3 +132,22 @@ function camelCaseToWords($input)
 
     return $result;
 }
+
+function error($msg = '', $erase = false)
+{
+
+    if (!empty($msg)) {
+        $_SESSION['error'] = $msg;
+    } else {
+        if (!empty($_SESSION['error'])) {
+
+            $msg = $_SESSION['error'];
+            if ($erase) {
+                unset($_SESSION['error']);
+            }
+            return $msg;
+        }
+    }
+
+    return false;
+}

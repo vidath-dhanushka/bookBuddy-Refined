@@ -1,5 +1,8 @@
 <?php $this->view('member/includes/sidenav'); ?>
 
+<?php if (message()) : ?>
+    <div class="message"><?= message('', true) ?></div>
+<?php endif; ?>
 <memberProfile>
     <h1 class="title">My Profile</h1>
     <form class="frm-add-book" method="POST">
