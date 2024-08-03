@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= APP_NAME ?></title>
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/elibrary/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
@@ -19,15 +20,14 @@
         <a class="root" href="<?= ROOT ?>/">
             <img class="logo" src="<?= ROOT ?>/assets/images/logo.svg" alt="logo">
         </a>
-        <div class="adminsection">
-            <h2 class="role-title"></h2>
-        </div>
+        
         <?php if (auth::getrole() == 'member') : ?>
             <span class="nav">
-                <a href="<?= ROOT ?>/">Home</a>
-                <a href="<?= ROOT ?>/Books">Books</a>
-                <a href="<?= ROOT ?>/elibrary">E-library</a>
-                <a href="<?= ROOT ?>/aboutUs">About Us</a>
+                <a href="<?= ROOT ?>/Elibrary">Home</a>
+                <a href="#">E - Books</a>
+                <a href="#">Subscription</a>
+                <a href="<?= ROOT ?>/">Book Exchange</a>
+                <!-- <a href="<?= ROOT ?>/aboutUs">About Us</a> -->
             </span>
         <?php endif; ?>
         <?php if (!(Auth::logged_in())) : ?>
@@ -39,12 +39,14 @@
         <?php else : ?>
             <a href="<?= ROOT ?>/member/profile" class="profile usersection"><span userinfo="first_name"><?= Auth::getUsername() ?></span></a>
             <?php if (auth::getrole() == 'member') : ?>
-                <span class="wallet usersection">Rs <span userinfo="balance"><?= Auth::getBalance() ?></span></span>
+
                 <div class="usersection">
-                    <a href="<?= ROOT ?>/cart/viewCart" class="cart-btn">
-                        <span class="material-symbols-outlined">shopping_cart</span>
-                        <span class="badge" userinfo="cart"></span>
+                    <a href="#" class="favorite-btn">
+                        <span class="material-symbols-outlined">favorite</span>
+                        <span class="badge" userinfo="favorites">10</span>
+                        <!-- <?= $favoriteCount ?> -->
                     </a>
+
                 </div>
             <?php endif; ?>
             <div class="adminsection">

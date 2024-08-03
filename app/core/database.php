@@ -262,7 +262,46 @@ class Database
             verify_time DATETIME,
             reg_time    DATETIME           NOT NULL DEFAULT CURRENT_TIMESTAMP,
             mod_time    DATETIME ON UPDATE CURRENT_TIMESTAMP
-        )";
+        );";
+
+        $this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS ebook
+        (
+            `ebook_id` INT AUTO_INCREMENT,
+            `title` VARCHAR(255) NOT NULL,
+            `subtitle` VARCHAR(255),
+            `author` VARCHAR(255) NOT NULL, 
+            `isbn` VARCHAR(17) UNIQUE,
+            `language` VARCHAR(50),
+            `edition` INT,
+            `publisher` VARCHAR(255) NOT NULL,
+            `publish_date` DATE NOT NULL,
+            `pages` INT NOT NULL,
+            `description` TEXT NOT NULL,
+            `book_cover`  VARCHAR(1024) NOT NULL,
+            `file`  VARCHAR(1024) NOT NULL,
+            `license_type` VARCHAR(50) NOT NULL,
+            `borrowing_time` INT NOT NULL,
+            `librarian_id` MEDIUMINT UNSIGNED, 
+            `copyright_status` INT NOT NULL DEFAULT 0,
+            `date_added` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `mod_time` DATETIME ON UPDATE CURRENT_TIMESTAMP,
+            PRIMARY KEY (ebook_id),
+            FOREIGN KEY (librarian_id) REFERENCES user(user_id) ON DELETE SET NULL
+        );";
+
+        $this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS `ebook_category` (
+            `id` INT(11) NOT NULL AUTO_INCREMENT,
+            `ebook_id` INT NOT NULL, 
+            `category_id` SMALLINT UNSIGNED NOT NULL,
+            PRIMARY KEY (id),
+            FOREIGN KEY (ebook_id) REFERENCES ebook(ebook_id) ON DELETE CASCADE,
+            FOREIGN KEY (category_id) REFERENCES category(category_id) ON DELETE CASCADE
+            );
+        ";
 
         $this->query($query);
     }

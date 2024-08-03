@@ -1,0 +1,70 @@
+
+
+.favorite-btn .material-symbols-outlined {
+    font-size: 24px;
+    margin-right: 5px;
+}
+
+.favorite-btn .badge {
+    background-color: rgb(130, 106, 251);
+    color: white;
+    border-radius: 100%;
+    padding: 4px 4px;
+    font-size: 10px;
+    position: absolute;
+    top: 5px;
+    right: -8px;
+}
+
+.app-header .favorite-btn {
+    border-radius: 100%;
+    transition: background-color 200ms;
+    color: inherit;
+    width: 48px;
+    height: 48px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    
+  }
+
+  .favorite-btn:hover .material-symbols-outlined {
+    transform: scale(1.2); /* Scale up the icon on hover */
+    color: rgb(130, 106, 251); /* Change this to your desired hover color */
+}
+
+.banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 100% !important;
+ 
+    margin-top: 0 !important;
+    padding: 20px;
+}
+
+.banner-content {
+    flex: 0 0 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+
+
+.img-container {
+    flex: 0 0 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.img-container img {
+    max-width: 100%;
+    height: auto;
+}
