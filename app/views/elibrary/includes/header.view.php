@@ -20,11 +20,11 @@
         <a class="root" href="<?= ROOT ?>/">
             <img class="logo" src="<?= ROOT ?>/assets/images/logo.svg" alt="logo">
         </a>
-        
+
         <?php if (auth::getrole() == 'member') : ?>
             <span class="nav">
-                <a href="<?= ROOT ?>/Elibrary">Home</a>
-                <a href="#">E - Books</a>
+                <a href="<?= ROOT ?>/elibrary">Home</a>
+                <a href="<?= ROOT ?>/elibrary/search">E - Books</a>
                 <a href="#">Subscription</a>
                 <a href="<?= ROOT ?>/">Book Exchange</a>
                 <!-- <a href="<?= ROOT ?>/aboutUs">About Us</a> -->

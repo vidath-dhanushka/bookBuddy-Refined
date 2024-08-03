@@ -10,25 +10,38 @@ class Ebook extends Model
 
     ];
 
-    public function getRecentEBooks(){
-        $query = "SELECT 
-    e.*,
-    GROUP_CONCAT(c.name SEPARATOR ', ') AS categories
-FROM 
-    ebook e
-LEFT JOIN 
-    ebook_category ec ON e.ebook_id = ec.ebook_id
-LEFT JOIN 
-    category c ON ec.category_id = c.category_id
-GROUP BY 
-    e.ebook_id;
-ORDER BY 
-    e.date_added DESC
-LIMIT 10;
-";
+    public function getRecentEBooks()
+    {
+        $query = "SELECT  e.*, GROUP_CONCAT(c.name SEPARATOR ', ') AS categories
+                FROM 
+                    ebook e
+                LEFT JOIN 
+                    ebook_category ec ON e.ebook_id = ec.ebook_id
+                LEFT JOIN 
+                    category c ON ec.category_id = c.category_id
+                GROUP BY 
+                    e.ebook_id;
+                ORDER BY 
+                    e.date_added DESC
+                LIMIT 10;";
         return $this->query($query);
-     
     }
 
-   
+    public function getCategories()
+    {
+        return $this->query("SELECT category_id,name FROM category ORDER BY category_id");
+    }
+
+    public function getCategoryEBooks($id)
+    {
+        $sql = "SELECT b.*, GROUP_CONCAT(c.name SEPARATOR ', ') AS categories
+                FROM ebook b 
+                LEFT JOIN ebook_category bc ON b.ebook_id = bc.ebook_id
+                LEFT JOIN category c ON bc.category_id = c.category_id
+                WHERE bc.category_id = :category_id
+                GROUP BY b.ebook_id
+                ORDER BY b.date_added DESC;";
+
+        return $this->query($sql, ['category_id' => $id]);
+    }
 }
