@@ -304,5 +304,17 @@ class Database
         ";
 
         $this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS ebook_favourite (
+            id INT(11) AUTO_INCREMENT PRIMARY KEY,
+            user_id MEDIUMINT UNSIGNED,
+            ebook_id INT,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES user(user_id),
+            FOREIGN KEY (ebook_id) REFERENCES ebook(ebook_id)
+        );";
+
+        $this->query($query);
     }
 }

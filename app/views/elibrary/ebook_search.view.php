@@ -27,7 +27,7 @@
                                 <h2><?= $ebook->title ?></h2>
                                 <p class="writer"><?= $ebook->author ?></p>
                                 <br>
-                                <a href="#" class="f-btn">Learn More</a>
+                                <a href="<?= ROOT ?>/elibrary/ebook/<?= $ebook->ebook_id ?>" class="f-btn">Learn More</a>
                                 <br>
                                 <br>
                             </div>

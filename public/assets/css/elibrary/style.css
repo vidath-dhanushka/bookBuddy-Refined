@@ -31,8 +31,8 @@
   }
 
   .favorite-btn:hover .material-symbols-outlined {
-    transform: scale(1.2); /* Scale up the icon on hover */
-    color: rgb(130, 106, 251); /* Change this to your desired hover color */
+    transform: scale(1.2); 
+    color: rgb(130, 106, 251); 
 }
 
 .banner {
@@ -67,4 +67,47 @@
 .img-container img {
     max-width: 100%;
     height: auto;
+}
+
+.favorite-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.favorite-btn span {
+    font-size: 24px;
+    transition: color 0.3s ease;
+}
+
+
+.favorite-btn.favourite-filled {
+    background-color: rgb(130, 106, 251);
+    color: white;
+    border: none;
+}
+
+.favorite-btn.favourite-outlined {
+    background-color: transparent;
+    color: rgb(130, 106, 251);
+    border: 1px solid rgb(130, 106, 251);
+}
+
+.favorite-btn.favourite-outlined:hover {
+    background-color: rgb(130, 106, 251); 
+    color: white;
+}
+
+.sub-tags {
+    display: flex;
+    justify-content: space-between; /* Aligns items to the left and right */
+    align-items: center; /* Vertically centers items */
+}
+.container-right{
+    width: 100%;
 }
