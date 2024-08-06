@@ -7,6 +7,7 @@
     <title><?= APP_NAME ?></title>
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/elibrary/style.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/elibrary/rate-review.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">

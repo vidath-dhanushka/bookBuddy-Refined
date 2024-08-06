@@ -8,6 +8,7 @@
             <div class="container-right">
                 <div class="sub-tags">
                     <!-- <span><?= $subscription->name ?></span> -->
+
                     <span>FREE</span>
                     <?php if (isset($favourite) && $favourite) : ?>
                         <a href="<?= ROOT ?>/elibrary/favourite/<?= $ebook->ebook_id ?>/remove" class="favorite-btn favourite-filled">
@@ -29,6 +30,14 @@
                     <?php endforeach; ?>
                 </div>
                 <br>
+                <p>Subtitle : <span><?= $data['ebook']->subtitle ?></span></p>
+                <p>ISBN : <span><?= $data['ebook']->isbn ?></span></p>
+                <p>Language : <span><?= $data['ebook']->language ?></span></p>
+                <p>Edition : <span><?= $data['ebook']->edition ?></span></p>
+                <p>Publisher : <span><?= $data['ebook']->publisher ?></span></p>
+                <p>Publish Date : <span><?= $data['ebook']->publish_date ?></span></p>
+                <p>Pages : <span><?= $data['ebook']->pages ?></span></p>
+                <p class="description"><?= $data['ebook']->description ?></p>
                 <div>
                     <?php if ($data['status']) : ?>
                         <div class="borrow-btn borrow"><a style="text-decoration:none;color:inherit" href="<?= ROOT ?>/cart/borrowNow/<?= $data['ebook']->book_id ?>"> Borrow Now</a></div>
@@ -40,164 +49,223 @@
                 </div>
             </div>
         </div>
-        <?php if (!empty($data['borrowedBook'])) : ?>
-            <div class="main-container review new-review">
-                <div class="review-content">
-                    <h2>Your Review</h2>
-                    Rating:
-                    <div id="my-stars" class="stars">
-                        <span class="material-symbols-outlined" data-value="1">star</span>
-                        <span class="material-symbols-outlined" data-value="2">star</span>
-                        <span class="material-symbols-outlined" data-value="3">star</span>
-                        <span class="material-symbols-outlined" data-value="4">star</span>
-                        <span class="material-symbols-outlined" data-value="5">star</span>
-                    </div>
-                    <br>
-                    Review:
-                    <textarea rows="8" id="review"></textarea>
-                    <br>
-                    <p class="form-error"></p>
-                    <div class="review-btn" onclick="postReview()">Post Review</div>
-                </div>
-            </div>
-        <?php endif; ?>
+
         <div class="main-container review">
             <div class="review-content">
                 <h2>Reviews</h2>
-                <div id="reviews">
-                    <?php if (!empty($data['reviews'])) : ?>
-                        <?php foreach ($data['reviews'] as $review) : ?>
-                            <div class="r-stars">
-                                <?php for ($i = 0; $i < 5; $i++) : ?>
-                                    <span class="material-symbols-outlined <?= ($i < $review->rating) ? 'filled' : '' ?>">grade</span>
-                                <?php endfor; ?>
-                                <p class="review-text">
-                                    <?= $review->review; ?>
-                                </p>
-                                <p>By <i><?= $review->username ?></i></p>
+                <div class="summary-rating">
+                    <div class="rating_average">
+                        <h1><?= $reviews['average_rating'] ?></h1>
+                        <div class="star-outer">
+                            <div class="star-inner">
+                                <?php
+                                $rating = $reviews['average_rating'];
+                                $intRating = floor($rating);
+                                $decimal = $rating - $intRating;
+
+                                // Print full stars
+                                for ($i = 0; $i < $intRating; $i++) {
+                                    echo '<i class="bx bxs-star gold-star"></i>';
+                                }
+
+                                // Print half star if decimal part is >= 0.5
+                                if ($decimal >= 0.5) {
+                                    echo '<i class="bx bxs-star-half gold-star"></i>';
+                                    $intRating++;
+                                }
+
+                                // Print empty stars
+                                for ($i = $intRating; $i < 5; $i++) {
+                                    echo '<i class="bx bx-star gold-star"></i>';
+                                }
+                                ?>
                             </div>
-                        <?php endforeach ?>
+                        </div>
+
+
+
+
+                        <p><?= $reviews['count'] ?></p>
+                    </div>
+                    <div class="rating-progress">
+                        <?php
+                        $rating_counts = $reviews['rating_count'];
+
+
+                        for ($i = 5; $i >= 1; $i--) {
+                            $count = 0;
+                            foreach ($rating_counts as $rating_count) {
+                                if ($rating_count->rating == $i) {
+                                    $count = $rating_count->count;
+                                    break;
+                                }
+                            }
+                        ?>
+                            <div class="rating_progress-value">
+                                <p><?php echo $i; ?> <span class="star">★</span></p>
+                                <div class="progress">
+                                    <div class="bar" style="width: <?php echo $count; ?>%;"></div>
+                                </div>
+                                <p><?php echo $count; ?></p>
+                            </div>
+                        <?php } ?>
+                    </div>
+
+                    <div class="add-review">
+
+                        <?php
+
+                        if (!empty($reviews['user_review'])) : ?>
+                            <?php $user_review = $reviews['user_review'];  ?>
+                            <div class="box">
+                                <div class="box-header">
+
+                                    <div>
+                                        <a href="<?= ROOT ?>/elibrary/review/<?= $ebook->ebook_id ?>/delete" style="margin-left:5px">
+                                            <i class="fa-solid fa-trash" style="color:red;"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="box-top">
+                                    <div class="profile">
+                                        <div class="profile-img">
+                                            <img src="<?= ROOT ?>/assets/images/avatar.jpg ?>" />
+                                        </div>
+                                        <div class="name-user">
+                                            <strong>@<?= $username ?></strong>
+                                            <span><?= $user_review->date ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="reviews">
+                                        <?php for ($i = 0; $i < $user_review->rating; $i++) : ?>
+                                            <i class="fas fa-star"></i>
+                                        <?php endfor; ?>
+                                        <?php for ($i = $user_review->rating; $i < 5; $i++) : ?>
+                                            <i class="far fa-star"></i>
+                                        <?php endfor; ?>
+                                    </div>
+                                </div>
+                                <div class="client-comment">
+                                    <p>
+                                        <?= $user_review->description ?>
+                                    </p>
+                                </div>
+                            </div>
+                        <?php else : ?>
+                            <p>Write Review Here:</p>
+
+                            <div id="myBtn" class="review-box">Review</div>
+                        <?php endif; ?>
+                    </div>
+
+
+                </div>
+                <div class="box-details-container">
+                    <?php if (!empty($reviews['all'])) : ?>
+                        <?php foreach ($reviews['all'] as $review) : ?>
+                            <div class="box">
+                                <div class="box-top">
+                                    <div class="profile">
+                                        <div class="profile-img">
+                                            <img src="<?= ROOT ?>/assets/images/avatar.jpg ?>" />
+                                        </div>
+                                        <div class="name-user">
+                                            <strong>@<?= $review->username ?></strong>
+                                            <span><?= $review->date ?></span>
+                                        </div>
+                                    </div>
+                                    <div class="reviews">
+                                        <?php for ($i = 0; $i < $review->rating; $i++) : ?>
+                                            <i class="fas fa-star"></i>
+                                        <?php endfor; ?>
+                                        <?php for ($i = $review->rating; $i < 5; $i++) : ?>
+                                            <i class="far fa-star"></i>
+                                        <?php endfor; ?>
+                                    </div>
+                                </div>
+                                <div class="client-comment">
+                                    <p>
+                                        <?= $review->description ?>
+                                    </p>
+                                </div>
+                            </div>
+
+                        <?php endforeach; ?>
+
                     <?php else : ?>
-                        <p>No reviews yet</p>
+                        <p style="margin:50px;">No reviews found.</p>
                     <?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
 </bookDetails>
+<?php $this->view('elibrary/add_review', $data) ?>
+<?php $this->view('elibrary/review', $data) ?>
+<?php $this->view('member/upgrade_plan_alert', $data) ?>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const stars = document.querySelectorAll('.stars .material-symbols-outlined');
-        let cartBtn = document.querySelector('.add-cart');
+    // Get the modal
+    var modal = document.getElementById("myModal");
+    var modal2 = document.getElementById("myModal-2");
+    var modal3 = document.getElementById("myModal-3");
 
-        stars.forEach(star => {
-            star.addEventListener('click', function() {
-                let rating = this.getAttribute('data-value');
-                setRating(rating);
-            });
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+    var moreBtn = document.getElementById("more-btn");
+    var borrowBtn = document.getElementById("borrow-btn");
 
-            star.addEventListener('mouseover', function() {
-                let rating = this.getAttribute('data-value');
-                highlightStars(rating);
-            });
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
 
-            star.addEventListener('mouseout', function() {
-                resetStars();
-            });
+    var span2 = document.getElementsByClassName("close")[1];
+    var span3 = document.getElementsByClassName("close")[2];
+    // When the user clicks the button, open the modal 
+    if (btn) {
+        btn.onclick = function() {
+            modal.style.visibility = "visible";
+        }
+    }
+
+    if (moreBtn) {
+        moreBtn.onclick = function() {
+            modal2.style.visibility = "visible";
+        }
+    }
+    if (borrowBtn) {
+        borrowBtn.onclick = function() {
+            console.log("yes")
+            modal3.style.visibility = "visible";
+        }
+    }
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.visibility = "hidden";
+        modal.classList.remove('animate');
+    }
+    span2.onclick = function() {
+        modal2.style.visibility = "hidden";
+        modal2.classList.remove('animate');
+    }
+    span3.onclick = function() {
+        modal3.style.visibility = "hidden";
+        modal3.classList.remove('animate');
+    }
+    if (document.getElementById('myBtn')) {
+        document.getElementById('myBtn').addEventListener('click', function() {
+            document.getElementById('myModal').classList.add('animate');
         });
+    }
 
-        function setRating(rating) {
-            document.querySelector('.stars').setAttribute('data-rating', rating);
-            highlightStars(rating);
-        }
-
-        function highlightStars(rating) {
-            stars.forEach(star => {
-                if (star.getAttribute('data-value') <= rating) {
-                    star.classList.add('filled');
-                } else {
-                    star.classList.remove('filled');
-                }
-            });
-        }
-
-        function resetStars() {
-            let rating = document.querySelector('.stars').getAttribute('data-rating');
-            highlightStars(rating);
-        }
-
-        window.postReview = function() {
-            let rating = document.querySelector('.stars').getAttribute('data-rating');
-            let review = document.getElementById('review').value;
-
-            if (!rating || !review) {
-                document.querySelector('.form-error').textContent = 'Please provide a rating and a review.';
-                return;
-            }
-
-            let formData = new FormData();
-            formData.append('rating', rating);
-            formData.append('review', review);
-
-            fetch('<?= ROOT ?>/books/addReview/<?= $data['ebook']->book_id ?>', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Review submitted successfully');
-                        const reviewsSection = document.getElementById('reviews');
-                        const newReview = document.createElement('div');
-                        newReview.classList.add('review-item');
-
-                        const stars = document.createElement('div');
-                        stars.classList.add('stars');
-                        for (let i = 0; i < 5; i++) {
-                            const star = document.createElement('span');
-                            star.classList.add('material-symbols-outlined');
-                            star.textContent = 'grade';
-                            if (i < data.rating) {
-                                star.classList.add('filled');
-                            }
-                            stars.appendChild(star);
-                        }
-
-                        const reviewText = document.createElement('p');
-                        reviewText.textContent = data.review;
-
-                        newReview.appendChild(stars);
-                        newReview.appendChild(reviewText);
-                        reviewsSection.appendChild(newReview);
-                    } else {
-                        alert('Failed to submit review');
-                    }
-                })
-                .catch();
-        }
-        cartBtn.addEventListener('click', () => {
-            let cartData = {
-                book: <?= $data['ebook']->book_id ?>
-            }
-            fetch(`<?= ROOT ?>/member/addToCart`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(cartData)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Book added to the cart');
-                    } else {
-                        alert('Already in the cart');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        })
-    });
+    if (document.getElementById('more-btn')) {
+        document.getElementById('more-btn').addEventListener('click', function() {
+            document.getElementById('myModal-2').classList.add('animate');
+        });
+    }
+    if (document.getElementById('borrow-btn')) {
+        document.getElementById('borrow-btn').addEventListener('click', function() {
+            console.log("borrow");
+            document.getElementById('myModal-3').classList.add('animate');
+        });
+    }
 </script>
 <?php $this->view('includes/footer');

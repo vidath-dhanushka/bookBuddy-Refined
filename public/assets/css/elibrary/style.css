@@ -111,3 +111,14 @@
 .container-right{
     width: 100%;
 }
+
+.container-right p {
+    margin: 5px 0; /* Adjust this value to increase or decrease the space */
+    line-height: 1.5; /* Adjust line height for better readability if needed */
+}
+
+.container-right .description {
+    margin-top: 10px; /* Separate from other paragraphs if needed */
+    margin-bottom: 20px; /* Adjust based on design preference */
+}
+
