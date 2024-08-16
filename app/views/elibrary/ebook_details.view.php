@@ -8,7 +8,6 @@
             <div class="container-right">
                 <div class="sub-tags">
                     <!-- <span><?= $subscription->name ?></span> -->
-
                     <span>FREE</span>
                     <?php if (isset($favourite) && $favourite) : ?>
                         <a href="<?= ROOT ?>/elibrary/favourite/<?= $ebook->ebook_id ?>/remove" class="favorite-btn favourite-filled">

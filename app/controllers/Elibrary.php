@@ -75,6 +75,19 @@ class Elibrary extends Controller
         }
     }
 
+    public function remove_favourite($id = null)
+    {
+        $elibrary = new Ebook();
+        $favourite = new Favourite();
+        if (Auth::logged_in()) {
+            $user_id = Auth::getuser_Id();
+            $data['favourite'] = $favourite->removeFavourite($user_id, $id);
+            redirect('elibrary/favourite_list');
+        } else {
+            redirect('login');
+        }
+    }
+
     public function review($id = null, $action = null)
     {
         $elibrary = new Ebook();
@@ -113,6 +126,20 @@ class Elibrary extends Controller
                 }
             }
             redirect('elibrary/ebook/' . $id);
+        } else {
+            redirect('login');
+        }
+    }
+
+    public function favourite_list()
+    {
+        $elibrary = new Ebook();
+        $favourite = new Favourite();
+        $data = [];
+        if (Auth::logged_in()) {
+            $user_id = Auth::getuser_Id();
+            $data['favourite_list'] = $favourite->get_favourite_list($user_id);
+            $this->view('elibrary/favourite', $data);
         } else {
             redirect('login');
         }

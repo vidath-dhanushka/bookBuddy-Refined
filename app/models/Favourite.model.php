@@ -30,4 +30,16 @@ class Favourite extends Model
 
         return !empty($result) && $result[0]->count > 0;
     }
+
+    public function get_favourite_list($userId)
+    {
+        $query = "SELECT e.title, e.author, e.ebook_id, e.book_cover
+              FROM ebook e
+              JOIN ebook_favourite ef ON e.ebook_id = ef.ebook_id
+              WHERE ef.user_id = :user_id";
+
+        $result = $this->query($query, ['user_id' => $userId]);
+
+        return $result;
+    }
 }
