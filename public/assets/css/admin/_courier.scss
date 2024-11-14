@@ -1,0 +1,52 @@
+adminCourier {
+    .search-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+
+
+        .new-courier {
+            margin-left: 50px;
+            width: 100px;
+            height: 40px;
+            border-radius: 10px;
+            background-color: #5179ef;
+            border: 1px solid #5179ef;
+            color: white;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+
+            .material-symbols-outlined {
+                position: relative;
+                top: 0;
+                left: 0;
+            }
+
+        }
+
+        .new-courier:hover {
+            cursor: pointer;
+            background-color: white;
+            color: #5179ef;
+        }
+    }
+
+    table {
+        tr {
+            td {
+                .status {
+                    font-size: 1.7rem;
+                }
+
+                .status:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

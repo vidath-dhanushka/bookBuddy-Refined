@@ -27,7 +27,7 @@
                     <form jsubmit="loginForm" method="POST">
                         <p class="form-error"></p>
                         <div class="details">
-                            <label>email or username</label>
+                            <label>email</label>
                             <input type="text" name="email" required1>
                         </div>
                         <div class="details">

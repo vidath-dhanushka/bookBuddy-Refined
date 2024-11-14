@@ -1,0 +1,28 @@
+adminDashboard {
+    .stats {
+        .row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+
+            .card {
+                height: 250px;
+                width: 250px;
+                background-color: #826afb;
+                border-radius: 20px;
+                margin: 20px;
+                text-align: center;
+                color: white;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                h2 {
+                    font-size: 3rem;
+                }
+            }
+        }
+    }
+}
