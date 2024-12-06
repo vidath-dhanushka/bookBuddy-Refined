@@ -423,6 +423,7 @@ background-color: rgb(130, 106, 251);
 color: white; 
 text-decoration: none;
 text-align: center;
+border: none;
 border-radius: 5px;
 transition: background-color 0.3s ease;
 cursor: pointer;

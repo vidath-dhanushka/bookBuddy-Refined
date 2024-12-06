@@ -127,12 +127,24 @@ class Ebook_review extends Model
 
         $this->errors = [];
         $query = "SELECT ebook_id, user_id FROM `ebook_review` WHERE ebook_id=:ebook_id AND user_id=:user_id";
-        $res = $this->query($query, $data);
-        // show($res);
-        // die;
+        $res = $this->query($query, ["ebook_id" => $data["ebook_id"], "user_id" => $data["user_id"]]);
+
         if (is_array($res) && count($res) > 0) {
             $this->errors['title'] = "Your review already added.";
         }
+        if (!isset($data['rating']) || empty($data['rating'])) {
+            $this->errors[] = "Rating is required.";
+        } elseif (!is_numeric($data['rating']) || $data['rating'] < 1 || $data['rating'] > 5) {
+            $this->errors[] = "Rating must be a number between 1 and 5.";
+        }
+        if (isset($data['description']) && !empty($data['description'])) {
+            if (strlen($data['description']) < 10) {
+                $this->errors[] = "Description must be at least 10 characters long if provided.";
+            } elseif (strlen($data['description']) > 1000) {
+                $this->errors[] = "Description cannot be more than 1000 characters.";
+            }
+        }
+
 
         if (empty($this->errors)) {
 

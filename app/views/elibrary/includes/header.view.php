@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/elibrary/style.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/elibrary/rate-review.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/elibrary/favourite.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/librarian/subscription.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
@@ -29,7 +30,7 @@
             <span class="nav">
                 <a href="<?= ROOT ?>/elibrary">Home</a>
                 <a href="<?= ROOT ?>/elibrary/search">E - Books</a>
-                <a href="#">Subscription</a>
+                <a href="<?= ROOT ?>/librarian/subscriptionHome">Subscription</a>
                 <a href="<?= ROOT ?>/">Book Exchange</a>
                 <!-- <a href="<?= ROOT ?>/aboutUs">About Us</a> -->
             </span>

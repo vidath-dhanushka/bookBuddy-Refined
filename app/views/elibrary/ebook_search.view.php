@@ -25,7 +25,7 @@
                             </div>
                             <div class="top-rated-book-tag">
                                 <h2><?= $ebook->title ?></h2>
-                                <p class="writer"><?= $ebook->author ?></p>
+                                <p class="writer"><?= $ebook->author_name ?></p>
                                 <br>
                                 <a href="<?= ROOT ?>/elibrary/ebook/<?= $ebook->ebook_id ?>" class="f-btn">Learn More</a>
                                 <br>

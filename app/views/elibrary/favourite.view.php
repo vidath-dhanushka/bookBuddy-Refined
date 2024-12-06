@@ -10,7 +10,7 @@
                             <img src="<?= $ebook->book_cover ? ROOT . '/' . $ebook->book_cover : ROOT . '/uploads/books/default.jpg' ?>" alt="Book Cover" class="elibrary-book-cover">
                             <div class="elibrary-book-details">
                                 <h2 class="elibrary-book-title"><?= htmlspecialchars($ebook->title) ?></h2>
-                                <p class="elibrary-book-author"><?= htmlspecialchars($ebook->author) ?></p>
+                                <p class="elibrary-book-author"><?= htmlspecialchars($ebook->author_name) ?></p>
                             </div>
                         </a>
                         <a href="<?= ROOT ?>/elibrary/remove_favourite/<?= $ebook->ebook_id ?>" class="elibrary-favorite-btn elibrary-favourite-filled">

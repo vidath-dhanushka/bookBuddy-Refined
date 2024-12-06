@@ -1,4 +1,23 @@
 <?php $this->view('elibrary/includes/header'); ?>
+<?php if (isset($_SESSION['review_errors'])): ?>
+    <div class="error-messages">
+        <ul>
+            <?php foreach ($_SESSION['review_errors'] as $error): ?>
+                <div class="alert"><?= htmlspecialchars($error) ?></div>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+    <?php unset($_SESSION['review_errors']);
+    ?>
+<?php endif; ?>
+
+<?php if (message()): ?>
+    <div class="<?= isset($_SESSION['message_class']) ? $_SESSION['message_class'] : 'alert'; ?>">
+        <?= message('', true) ?>
+    </div>
+    <?php unset($_SESSION['message_class']); ?>
+<?php endif; ?>
+
 <bookDetails>
     <div class="app-content">
         <div class="main-container">
@@ -21,7 +40,7 @@
 
                 </div>
                 <p class="book-title"><?= $data['ebook']->title ?></p>
-                <p>By <span><?= $data['ebook']->author ?></span></p>
+                <p>By <span><?= $data['ebook']->author_name ?></span></p>
                 <br>
                 <div class="tags" book-data="tags">
                     <?php foreach (explode(',', $data['ebook']->categories) as $category) : ?>
@@ -29,7 +48,6 @@
                     <?php endforeach; ?>
                 </div>
                 <br>
-                <p>Subtitle : <span><?= $data['ebook']->subtitle ?></span></p>
                 <p>ISBN : <span><?= $data['ebook']->isbn ?></span></p>
                 <p>Language : <span><?= $data['ebook']->language ?></span></p>
                 <p>Edition : <span><?= $data['ebook']->edition ?></span></p>
@@ -38,12 +56,27 @@
                 <p>Pages : <span><?= $data['ebook']->pages ?></span></p>
                 <p class="description"><?= $data['ebook']->description ?></p>
                 <div>
-                    <?php if ($data['status']) : ?>
+                    <?php if ($user_subscription->price >= $book_subscription->price) : ?>
+                        <?php if ($isborrowed) : ?>
+                            <!-- <button onclick="location.href='<?= ROOT ?>/Elibrary/borrow_ebook/<?= $ebook->id ?>'">Read</button> -->
+                            <div class="review-box"><a style="text-decoration:none;color:inherit" href="<?= ROOT ?>/Elibrary/borrow_ebook/<?= $ebook->ebook_id ?>"> Read</a></div>
+                        <?php elseif (isset($_SESSION['USER_DATA']->user_id)) : ?>
+
+                            <!-- <button onclick="location.href='<?= ROOT ?>/Elibrary/borrow_ebook/<?= $ebook->id ?>'">Borrow Now</button> -->
+                            <div class="review-box"><a style="text-decoration:none;color:inherit" href="<?= ROOT ?>/Elibrary/borrow_ebook/<?= $ebook->ebook_id ?>"> Borrow Now</a></div>
+                        <?php else : ?>
+                            <button id="borrow-btn" class="review-box">Borrow Now</button>
+                        <?php endif; ?>
+                    <?php else : ?>
+                        <button id="borrow-btn" class="review-box">Borrow Now</button>
+                    <?php endif; ?>
+
+                    <!-- <?php if ($data['status']) : ?>
                         <div class="borrow-btn borrow"><a style="text-decoration:none;color:inherit" href="<?= ROOT ?>/cart/borrowNow/<?= $data['ebook']->book_id ?>"> Borrow Now</a></div>
 
                     <?php else : ?>
                         <div class="borrow-btn na">Currently Unavailable</div>
-                    <?php endif; ?>
+                    <?php endif; ?> -->
 
                 </div>
             </div>
@@ -127,9 +160,6 @@
                                 </div>
                                 <div class="box-top">
                                     <div class="profile">
-                                        <div class="profile-img">
-                                            <img src="<?= ROOT ?>/assets/images/avatar.jpg ?>" />
-                                        </div>
                                         <div class="name-user">
                                             <strong>@<?= $username ?></strong>
                                             <span><?= $user_review->date ?></span>
@@ -165,9 +195,6 @@
                             <div class="box">
                                 <div class="box-top">
                                     <div class="profile">
-                                        <div class="profile-img">
-                                            <img src="<?= ROOT ?>/assets/images/avatar.jpg ?>" />
-                                        </div>
                                         <div class="name-user">
                                             <strong>@<?= $review->username ?></strong>
                                             <span><?= $review->date ?></span>
