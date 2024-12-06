@@ -1,6 +1,6 @@
-<?php $this->view('admin/includes/sidenav'); ?>
-<adminCourier>
-    <h1 class="title">Completed Orders</h1>
+<?php $this->view('courier/includes/sidenav'); ?>
+<courierOngoing>
+    <h1 class="title">Ongoing Orders</h1>
 
     <table>
         <tr>
@@ -10,120 +10,39 @@
             <th>Amount</th>
             <th>Weight</th>
             <th>status</th>
-            <th>actions</th>
+            <th>Details</th>
         </tr>
         <tr>
+            <td>24</td>
             <td>Vidath</td>
-            <td>8/2, Wata mawatha, Horathuduwa, Polgasowita</td>
             <td>772205749</td>
-            <td><span class="material-symbols-outlined status" style="position: relative; top:0; left:25px">toggle_on</span>
-            </td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:0">
-                    edit
-                </span>
-                <span class="material-symbols-outlined" style="position: relative; top:0; left:10px">
-                    delete
-                </span>
-            </td>
+            <td>Rs. 5600</td>
+            <td>480g</td>
+            <td>Ongoing</td>
+            <td><button><a href="courier/singleOrder">View details</a></button></td>
         </tr>
         <tr>
+            <td>24</td>
             <td>Vidath</td>
-            <td>8/2, Wata mawatha, Horathuduwa, Polgasowita</td>
             <td>772205749</td>
-            <td><span class="material-symbols-outlined status" style="position: relative; top:0; left:25px">toggle_on</span>
-            </td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:0">
-                    edit
-                </span>
-                <span class="material-symbols-outlined" style="position: relative; top:0; left:10px">
-                    delete
-                </span>
-            </td>
+            <td>Rs. 5600</td>
+            <td>480g</td>
+            <td>Ongoing</td>
+            <td><button><a href="courier/singleOrder">View details</a></button></td>
         </tr>
         <tr>
+            <td>24</td>
             <td>Vidath</td>
-            <td>8/2, Wata mawatha, Horathuduwa, Polgasowita</td>
             <td>772205749</td>
-            <td><span class="material-symbols-outlined status" style="position: relative; top:0; left:25px">toggle_on</span>
-            </td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:0">
-                    edit
-                </span>
-                <span class="material-symbols-outlined" style="position: relative; top:0; left:10px">
-                    delete
-                </span>
-            </td>
+            <td>Rs. 5600</td>
+            <td>480g</td>
+            <td>Ongoing</td>
+            <td><button><a href="courier/singleOrder">View details</a></button></td>
         </tr>
-        <tr>
-            <td>Vidath</td>
-            <td>8/2, Wata mawatha, Horathuduwa, Polgasowita</td>
-            <td>772205749</td>
-            <td><span class="material-symbols-outlined status" style="position: relative; top:0; left:25px">toggle_on</span>
-            </td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:0">
-                    edit
-                </span>
-                <span class="material-symbols-outlined" style="position: relative; top:0; left:10px">
-                    delete
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <td>Vidath</td>
-            <td>8/2, Wata mawatha, Horathuduwa, Polgasowita</td>
-            <td>772205749</td>
-            <td><span class="material-symbols-outlined status" style="position: relative; top:0; left:25px">toggle_on</span>
-            </td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:0">
-                    edit
-                </span>
-                <span class="material-symbols-outlined" style="position: relative; top:0; left:10px">
-                    delete
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <td>Vidath</td>
-            <td>8/2, Wata mawatha, Horathuduwa, Polgasowita</td>
-            <td>772205749</td>
-            <td><span class="material-symbols-outlined status" style="position: relative; top:0; left:25px">toggle_on</span>
-            </td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:0">
-                    edit
-                </span>
-                <span class="material-symbols-outlined" style="position: relative; top:0; left:10px">
-                    delete
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <td>Vidath</td>
-            <td>8/2, Wata mawatha, Horathuduwa, Polgasowita</td>
-            <td>772205749</td>
-            <td><span class="material-symbols-outlined status" style="position: relative; top:0; left:25px">toggle_on</span>
-            </td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:0">
-                    edit
-                </span>
-                <span class="material-symbols-outlined" style="position: relative; top:0; left:10px">
-                    delete
-                </span>
-            </td>
-        </tr>
+
     </table>
-</adminCourier>
+</courierOngoing>
 
 <script>
-    let status = document.querySelectorAll('.status');
-    status.forEach((stus) => {
-        stus.addEventListener('click', () => {
-            if (stus.innerHTML === 'toggle_on') {
-                stus.innerHTML = 'toggle_off';
-                stus.style.color = 'red';
-            } else {
-                stus.innerHTML = 'toggle_on';
-                stus.style.color = 'green';
-            }
-        })
-    })
+
 </script>
