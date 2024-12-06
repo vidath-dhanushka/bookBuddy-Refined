@@ -65,6 +65,12 @@
   padding: 0 20px;
 }
 
+.signup_login {
+  display: inline-block;
+  position: absolute;
+  left: 85%;
+}
+
 .app-footer {
   padding: 20px 20px;
   text-align: center;
