@@ -62,12 +62,27 @@ class Courier extends Controller
 
     public function ongoingOrders()
     {
-        $this->view('courier/ongoingOrders');
+        if (Auth::logged_in()) {
+            // show($_SESSION['USER_DATA']);
+            // die;
+            $courier_id = $_SESSION['USER_DATA']->courier;
+            $order = new Order();
+
+            $data = $order->getOngoingOrders($courier_id);
+            // show($data);
+            // die;
+            $this->view('courier/ongoingOrders', $data);
+        } else {
+            $this->view('_404');
+        }
     }
 
-    public function viewOrderDetails($id)
+    public function singleOrder($id)
     {
-
-        $this->view('courier/singleOrder');
+        $bookBorrow = new BookBorrow();
+        $data = $bookBorrow->getOrderBooks($id);
+        // show($data);
+        // die;
+        $this->view('courier/singleOrder', $data);
     }
 }
