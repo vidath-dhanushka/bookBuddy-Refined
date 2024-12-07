@@ -21,14 +21,7 @@
                 <td><?= $order->address_line1 ?>, <?= $order->address_line2 ?>, <?= $order->address_city ?>, <?= $order->address_district ?> </td>
                 <td>Rs. <?= $order->price ?></td>
                 <td><?= $order->weight ?>g</td>
-                <td><select name="status" class="status" data-id=<?= $order->book_borrow_id ?>>
-                        <option value="pending" <?= $order->status == 'pending' ? 'selected' : '' ?>>Pending</option>
-                        <option value="collected" <?= $order->status == 'collected' ? 'selected' : '' ?>>Collected from Owner</option>
-                        <option value="recieved" <?= $order->status == 'recieved' ? 'selected' : '' ?>>Sent to Borrower</option>
-                        <option value="returned" <?= $order->status == 'returned' ? 'selected' : '' ?>>Returned by Lender</option>
-                        <option value="completed" <?= $order->status == 'completed' ? 'selected' : '' ?>>Completed</option>
-                    </select>
-                </td>
+                <td>Completed</td>
             </tr>
         <?php endforeach; ?>
 

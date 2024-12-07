@@ -1397,7 +1397,7 @@ table tr td button {
   height: 30px;
 }
 table tr:nth-child(even) {
-  background-color: #c3bedd;
+  background-color: #beb9d8;
 }
 table th {
   background-color: #8b7bda;

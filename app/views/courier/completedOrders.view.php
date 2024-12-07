@@ -7,42 +7,22 @@
             <th>Order Id</th>
             <th>Borrower Name</th>
             <th>contact No.</th>
+            <th>Address</th>
             <th>Amount</th>
             <th>Weight</th>
             <th>Details</th>
         </tr>
-        <tr>
-            <td>23</td>
-            <td>Vidath</td>
-            <td>772205749</td>
-            <td>Rs. 4500</td>
-            <td>675g</td>
-            <td><button>View Details</button></td>
-        </tr>
-        <tr>
-            <td>23</td>
-            <td>Vidath</td>
-            <td>772205749</td>
-            <td>Rs. 4500</td>
-            <td>675g</td>
-            <td><button>View Details</button></td>
-        </tr>
-        <tr>
-            <td>23</td>
-            <td>Vidath</td>
-            <td>772205749</td>
-            <td>Rs. 4500</td>
-            <td>675g</td>
-            <td><button>View Details</button></td>
-        </tr>
-        <tr>
-            <td>23</td>
-            <td>Vidath</td>
-            <td>772205749</td>
-            <td>Rs. 4500</td>
-            <td>675g</td>
-            <td><button>View Details</button></td>
-        </tr>
+        <?php foreach ($data as $order) : ?>
+            <tr>
+                <td><?= $order->order_id ?></td>
+                <td><?= $order->first_name ?> <?= $order->last_name ?></td>
+                <td><?= $order->phone ?></td>
+                <td><?= $order->address_line1 ?>, <?= $order->address_line2 ?>, <?= $order->address_city ?>, <?= $order->address_district ?> </td>
+                <td>Rs. <?= $order->amount ?></td>
+                <td><?= $order->weight ?>g</td>
+                <td><button><a href="<?= ROOT ?>/courier/singleOrderCompleted/<?= $order->order_id ?>">View details</a></button></td>
+            </tr>
+        <?php endforeach; ?>
 
     </table>
 </adminCourier>
