@@ -85,4 +85,39 @@ class Courier extends Controller
         // die;
         $this->view('courier/singleOrder', $data);
     }
+
+    public function updateBookBorrowStatus()
+    {
+        $bookBorrow = new BookBorrow();
+        $data = json_decode(file_get_contents('php://input'), true);
+        $id = $data['id'];
+        $status = $data['status'];
+
+        try {
+            $bookBorrow->updateBookBorrowStatus($id, $status);
+            $response = ['success' => true];
+        } catch (Exception $e) {
+            $error = $e->getMessage();
+            $response = ['success' => false, 'error' => $error];
+        }
+        echo json_encode($response);
+    }
+
+    public function updateOrderStatus()
+    {
+        $order = new Order();
+        $data = json_decode(file_get_contents('php://input'), true);
+        // show($data);
+        // die;
+        $orderNo = $data['orderNo'];
+        $status = $data['status'];
+
+        try {
+            $order->updateStatus($orderNo);
+
+            echo json_encode(['success' => true]);
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+        }
+    }
 }

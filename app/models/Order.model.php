@@ -20,4 +20,9 @@ class Order extends Model
     {
         return $this->query("SELECT * FROM `order` WHERE courier=:courier AND status = 'completed';", ["courier" => $id]);
     }
+
+    public function updateStatus($id)
+    {
+        return $this->query("UPDATE `order` SET `status`='completed' WHERE order_id = :id", ['id' => $id]);
+    }
 }
