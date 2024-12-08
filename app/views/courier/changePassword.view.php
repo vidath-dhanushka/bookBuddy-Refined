@@ -29,3 +29,5 @@
 
     </form>
 </changePassword>
+
+<?php $this->view('includes/footer'); ?>

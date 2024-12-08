@@ -116,7 +116,7 @@
         </tr>
     </table>
 </adminCourier>
-
+<?php $this->view('includes/footer'); ?>
 <script>
     let status = document.querySelectorAll('.status');
     status.forEach((stus) => {

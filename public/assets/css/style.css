@@ -71,18 +71,31 @@
   left: 85%;
 }
 
+.couriersection {
+  position: absolute;
+  left: 90%;
+}
+
+.adminsection {
+  position: absolute;
+  left: 95%;
+}
+
 .app-footer {
+  position: absolute;
+  top: 90vh;
+  width: 100%;
   padding: 20px 20px;
   text-align: center;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 home .banner {
+  background-color: #998cd0;
   display: flex;
   justify-content: center;
   max-height: 800px;
   align-items: stretch;
-  margin-top: 60px;
 }
 @media (max-width: 1400px) {
   home .banner {
@@ -92,6 +105,7 @@ home .banner {
 home .banner .img-container {
   display: flex;
   justify-content: center;
+  margin-top: 60px;
 }
 home .banner .img-container img {
   display: block;
@@ -107,6 +121,7 @@ home .banner .banner-content {
   flex: 600px;
   text-align: center;
   margin-bottom: 50px;
+  margin-top: 60px;
 }
 home .banner .banner-content span {
   color: #5179ef;
@@ -186,7 +201,15 @@ home .aboutUs p {
   text-align: justify;
 }
 
+signUp {
+  height: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 signUp .login-component-container {
+  height: inherit;
+  width: 100%;
   display: flex;
   background: rgb(99, 9, 121);
   background: linear-gradient(135deg, rgb(122, 58, 175) 0%, rgb(116, 158, 224) 100%);
@@ -292,7 +315,15 @@ signUp .login-component-container .signup-subcontainer-right .signup-form-data .
   cursor: pointer;
 }
 
+login {
+  height: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 login .login-component-container {
+  height: inherit;
+  width: 100%;
   display: flex;
   background: rgb(99, 9, 121);
   background: linear-gradient(135deg, rgb(122, 58, 175) 0%, rgb(116, 158, 224) 100%);
@@ -871,6 +902,7 @@ memberSidenav .app-container {
   max-height: 100vh;
 }
 memberSidenav .app-content {
+  height: 90vh;
   display: flex;
   gap: 20px;
   align-items: stretch;
@@ -1379,6 +1411,7 @@ courierDashboard h2 {
 }
 
 body {
+  height: 85vh;
   font-family: "Rubik", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;

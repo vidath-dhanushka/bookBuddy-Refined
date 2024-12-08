@@ -53,15 +53,15 @@
                     <?php break ?>
                 <?php
                 case "admin": ?>
-                    <a href="<?= ROOT ?>/admin/profile" class="profile usersection"><span userinfo="first_name"><?= Auth::getUsername() ?></span></a>
+                    <a href="<?= ROOT ?>/admin/profile" class="profile couriersection"><span userinfo="first_name"><?= Auth::getUsername() ?></span></a>
                     <?php break ?>
                 <?php
                 case 'courier': ?>
-                    <a href="<?= ROOT ?>/courier/profile" class="profile usersection"><span userinfo="first_name"><?= Auth::getUsername() ?></span></a>
+                    <a href="<?= ROOT ?>/courier/profile" class="profile couriersection"><span userinfo="first_name"><?= Auth::getUsername() ?></span></a>
                     <?php break ?>
                 <?php
                 case 'librarian': ?>
-                    <a href="<?= ROOT ?>/librarian/profile" class="profile usersection"><span userinfo="first_name"><?= Auth::getUsername() ?></span></a>
+                    <a href="<?= ROOT ?>/librarian/profile" class="profile couriersection"><span userinfo="first_name"><?= Auth::getUsername() ?></span></a>
                     <?php break ?>
             <?php endswitch; ?>
             <div class="adminsection">

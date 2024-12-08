@@ -91,7 +91,7 @@
 
     </form>
 </addBook>
-
+<?php $this->view('includes/footer'); ?>
 <script>
     let error = document.querySelector('.form-error');
     let form = document.querySelector('.frm-add-courier');

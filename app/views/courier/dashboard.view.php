@@ -27,6 +27,7 @@
         </div>
     </div>
 </courierDashboard>
+
 <script>
     // Earnings Chart (Line Chart)
     const earningsCtx = document.getElementById('earningsChart').getContext('2d');

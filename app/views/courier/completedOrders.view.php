@@ -26,3 +26,4 @@
 
     </table>
 </adminCourier>
+<?php $this->view('includes/footer');

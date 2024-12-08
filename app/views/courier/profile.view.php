@@ -113,4 +113,3 @@
     let district = document.querySelector('#district_list');
     district.value = userData['address_district'];
 </script>
-<?php $this->view('member/includes/footer'); ?>

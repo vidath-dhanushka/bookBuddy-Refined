@@ -29,3 +29,4 @@
         </section>
     </section>
 </adminDashboard>
+<?php $this->view('includes/footer'); ?>

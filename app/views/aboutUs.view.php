@@ -49,4 +49,4 @@
         </div>
     </div>
 </aboutUs>
-<?php $this->view('includes/footer');
+<!-- <?php $this->view('includes/footer'); ?> -->
