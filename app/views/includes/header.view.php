@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"   />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -39,16 +40,30 @@
                 <a href="<?= ROOT ?>/login" class="profile guestsection">Login</span></a>
             </div>
         <?php else : ?>
-            <a href="<?= ROOT ?>/member/profile" class="profile usersection"><span userinfo="first_name"><?= Auth::getUsername() ?></span></a>
-            <?php if (auth::getrole() == 'member') : ?>
-                <span class="wallet usersection">Rs <span userinfo="balance"><?= Auth::getBalance() ?></span></span>
-                <div class="usersection">
-                    <a href="<?= ROOT ?>/cart/viewCart" class="cart-btn">
-                        <span class="material-symbols-outlined">shopping_cart</span>
-                        <span class="badge" userinfo="cart"></span>
-                    </a>
-                </div>
-            <?php endif; ?>
+            <?php switch (auth::getrole()):
+                case 'member': ?>
+                    <a href="<?= ROOT ?>/member/profile" class="profile usersection"><span userinfo="first_name"><?= Auth::getUsername() ?></span></a>
+                    <span class="wallet usersection">Rs <span userinfo="balance"><?= Auth::getBalance() ?></span></span>
+                    <div class="usersection">
+                        <a href="<?= ROOT ?>/cart/viewCart" class="cart-btn">
+                            <span class="material-symbols-outlined">shopping_cart</span>
+                            <span class="badge" userinfo="cart"></span>
+                        </a>
+                    </div>
+                    <?php break ?>
+                <?php
+                case "admin": ?>
+                    <a href="<?= ROOT ?>/admin/profile" class="profile usersection"><span userinfo="first_name"><?= Auth::getUsername() ?></span></a>
+                    <?php break ?>
+                <?php
+                case 'courier': ?>
+                    <a href="<?= ROOT ?>/courier/profile" class="profile usersection"><span userinfo="first_name"><?= Auth::getUsername() ?></span></a>
+                    <?php break ?>
+                <?php
+                case 'librarian': ?>
+                    <a href="<?= ROOT ?>/librarian/profile" class="profile usersection"><span userinfo="first_name"><?= Auth::getUsername() ?></span></a>
+                    <?php break ?>
+            <?php endswitch; ?>
             <div class="adminsection">
                 <a href="<?= ROOT ?>/logout" class="cart-btn">
                     <span class="material-symbols-outlined">logout</span>

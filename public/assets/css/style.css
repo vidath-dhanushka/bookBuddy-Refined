@@ -1357,6 +1357,10 @@ adminCourier table tr td .status:hover {
   cursor: pointer;
 }
 
+courierDashboard h2 {
+  text-align: center !important;
+}
+
 .error {
   color: red;
   font-size: 0.7rem;
