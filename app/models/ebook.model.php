@@ -408,7 +408,7 @@ class Ebook extends Model
 
     public function get_file($data)
     {
-        $query =  "SELECT `file` FROM `ebook` WHERE `id` = :book_id;";
+        $query =  "SELECT `file` FROM `ebook` WHERE `ebook_id` = :book_id;";
         $res = $this->query($query, $data);
         if (is_array($res)) {
             return $res[0];

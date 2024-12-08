@@ -17,12 +17,11 @@
     </div>
     <?php unset($_SESSION['message_class']); ?>
 <?php endif; ?>
-<script src="<?= ROOT ?>/Elibrary/ebook_url/<?= $ebook->id ?>"></script>
+<script src="<?= ROOT ?>/Elibrary/ebook_url/<?= $ebook->ebook_id ?>"></script>
 <link rel="stylesheet" href="<?= ROOT ?>/assets/css/elibrary/ebook-reader.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js" integrity="sha512-ml/QKfG3+Yes6TwOzQb7aCNtJF4PUyha6R3w8pSTo/VJSywl7ZreYvvtUso7fKevpsI+pYVVwnu82YO0q3V6eg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <main>
-
     <div class="book-reader">
         <div class="pdfNavigation">
             <div class="left"></div>
