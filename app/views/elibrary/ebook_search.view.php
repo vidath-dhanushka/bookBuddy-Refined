@@ -19,11 +19,12 @@
             <div class="top-rated-book-box book-list">
                 <?php if (!empty($data['ebookList'])) : ?>
                     <?php foreach ($data['ebookList'] as $ebook) : ?>
-                        <div class="top-rated-book-card" data-title="<?= $ebook->title ?>" data-author="<?= $ebook->author ?>">
+                        <div class="top-rated-book-card" data-title="<?= $ebook->title ?>" data-author="<?= $ebook->author_name ?>">
                             <div class="top-rated-book-img">
                                 <img src="<?= $ebook->book_cover ? ROOT . '/' . $ebook->book_cover : ROOT . '/uploads/books/default.jpg'; ?>">
                             </div>
                             <div class="top-rated-book-tag">
+
                                 <h2><?= $ebook->title ?></h2>
                                 <p class="writer"><?= $ebook->author_name ?></p>
                                 <br>
@@ -42,18 +43,24 @@
 </books>
 <script>
     const search = document.querySelector("#search");
-    const items = document.querySelectorAll(".top-rated-book-card")
-    search.addEventListener("input", (e) => {
+    const items = document.querySelectorAll(".top-rated-book-card");
 
-        let inputValue = e.target.value.toLowerCase();
+    search.addEventListener("input", (e) => {
+        const inputValue = e.target.value.toLowerCase().trim();
+
         items.forEach(item => {
-            if (item.dataset.author.toLowerCase().includes(inputValue) || item.dataset.title.toLowerCase().includes(inputValue)) {
+            const title = item.dataset.title.toLowerCase();
+            const author = item.dataset.author.toLowerCase();
+
+
+            if (inputValue === "" || title.indexOf(inputValue) !== -1 || author.indexOf(inputValue) !== -1) {
+
                 item.classList.remove("no-display");
             } else {
 
                 item.classList.add("no-display");
             }
-        })
-    })
+        });
+    });
 </script>
 <?php $this->view('includes/footer'); ?>

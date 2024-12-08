@@ -2,13 +2,13 @@
 <addBook>
     <h1 class="title update-book">Update E-Book</h1>
     <form id="updateForm" class="frm-update-book" method="post" enctype="multipart/form-data">
-        <?= show($data) ?>
+
         <!-- Container for two-column layout -->
         <div class="form-grid">
             <div class="form-column">
                 <!-- Book Cover Image Upload -->
                 <div class="form-field">
-                    <label>Book Cover</label>
+                    <label>Book Cover *</label>
                     <div class="image-uploader">
                         <input type="file" accept="image/*" id="filename" name="book_cover" onchange="load_image(this.files[0])" style="display: none;">
                         <div class="upload-mark" onclick="document.querySelector('#filename').click()">+</div>
@@ -21,8 +21,8 @@
 
                 <!-- Book Title -->
                 <div class="form-field">
-                    <label>Book Name</label>
-                    <input type="text" name="title" value="<?= set_value('title', $ebook->title) ?>">
+                    <label>Book Name *</label>
+                    <input type="text" name="title" value="<?= set_value("title", $ebook->title) ?>">
                     <?php if (!empty($errors['title'])) : ?>
                         <small class="form-error"><?= $errors['title'] ?></small>
                     <?php endif; ?>
@@ -30,8 +30,8 @@
 
                 <!-- Description -->
                 <div class="form-field">
-                    <label>Description</label>
-                    <textarea rows="6" name="description"><?= set_value('description', $ebook->description) ?></textarea>
+                    <label>Description *</label>
+                    <textarea rows="6" name="description"><?= set_value_edit('description', $ebook->description) ?></textarea>
                     <?php if (!empty($errors['description'])) : ?>
                         <small class="form-error"><?= $errors['description'] ?></small>
                     <?php endif; ?>
@@ -39,8 +39,8 @@
 
                 <!-- Author -->
                 <div class="form-field">
-                    <label>Author</label>
-                    <input type="text" name="author_name" value="<?= set_value('author_name', $ebook->author_name) ?>">
+                    <label>Author *</label>
+                    <input type="text" name="author_name" value="<?= set_value_edit('author_name', $ebook->author_name) ?>">
                     <?php if (!empty($errors['author_name'])) : ?>
                         <small class="form-error"><?= $errors['author_name'] ?></small>
                     <?php endif; ?>
@@ -48,8 +48,8 @@
 
                 <!-- Language -->
                 <div class="form-field">
-                    <label for="language">Language</label>
-                    <input type="text" id="language" name="language" value="<?= set_value('language', $ebook->language) ?>">
+                    <label for="language">Language *</label>
+                    <input type="text" id="language" name="language" value="<?= set_value_edit('language', $ebook->language) ?>">
                     <?php if (!empty($errors['language'])) : ?>
                         <small class="form-error"><?= $errors['language'] ?></small>
                     <?php endif; ?>
@@ -61,7 +61,7 @@
                 <!-- ISBN -->
                 <div class="form-field">
                     <label>ISBN</label>
-                    <input type="text" name="isbn" value="<?= set_value('isbn', $ebook->isbn) ?>">
+                    <input type="text" name="isbn" value="<?= set_value_edit('isbn', $ebook->isbn) ?>">
                     <?php if (!empty($errors['isbn'])) : ?>
                         <small class="form-error"><?= $errors['isbn'] ?></small>
                     <?php endif; ?>
@@ -69,8 +69,8 @@
 
                 <!-- Publisher -->
                 <div class="form-field">
-                    <label>Publisher</label>
-                    <input type="text" name="publisher" value="<?= set_value('publisher', $ebook->publisher) ?>">
+                    <label>Publisher *</label>
+                    <input type="text" name="publisher" value="<?= set_value_edit('publisher', $ebook->publisher) ?>">
                     <?php if (!empty($errors['publisher'])) : ?>
                         <small class="form-error"><?= $errors['publisher'] ?></small>
                     <?php endif; ?>
@@ -78,8 +78,8 @@
 
                 <!-- Publish Date -->
                 <div class="form-field">
-                    <label>Publish Date</label>
-                    <input type="date" name="publish_date" value="<?= set_value('publish_date', $ebook->publish_date) ?>">
+                    <label>Publish Date *</label>
+                    <input type="date" name="publish_date" value="<?= set_value_edit('publish_date', $ebook->publish_date) ?>">
                     <?php if (!empty($errors['publish_date'])) : ?>
                         <small class="form-error"><?= $errors['publish_date'] ?></small>
                     <?php endif; ?>
@@ -87,8 +87,8 @@
 
                 <!-- Pages -->
                 <div class="form-field">
-                    <label>Pages</label>
-                    <input type="number" name="pages" value="<?= set_value('pages', $ebook->pages) ?>">
+                    <label>Pages *</label>
+                    <input type="number" name="pages" value="<?= set_value_edit('pages', $ebook->pages) ?>">
                     <?php if (!empty($errors['pages'])) : ?>
                         <small class="form-error"><?= $errors['pages'] ?></small>
                     <?php endif; ?>
@@ -96,11 +96,11 @@
 
                 <!-- License Type -->
                 <div class="form-field">
-                    <label>License</label>
+                    <label>License *</label>
                     <select name="license_type">
-                        <option value="" disabled <?= empty(set_value('license_type', $ebook->license_type)) ? 'selected' : '' ?>>Select License</option>
-                        <option value="Public Domain" <?= set_value('license_type', $ebook->license_type) === 'Public Domain' ? 'selected' : '' ?>>Public Domain</option>
-                        <option value="Licensed" <?= set_value('license_type', $ebook->license_type) === 'Licensed' ? 'selected' : '' ?>>Creative Commons Attribution (CC BY)</option>
+                        <option value="" disabled <?= empty(set_value_edit('license_type', $ebook->license_type)) ? 'selected' : '' ?>>Select License</option>
+                        <option value="Public Domain" <?= set_value_edit('license_type', $ebook->license_type) === 'Public Domain' ? 'selected' : '' ?>>Public Domain</option>
+                        <option value="Licensed" <?= set_value_edit('license_type', $ebook->license_type) === 'Licensed' ? 'selected' : '' ?>>Creative Commons Attribution (CC BY)</option>
                     </select>
                     <?php if (!empty($errors['license_type'])) : ?>
                         <small class="form-error"><?= $errors['license_type'] ?></small>
@@ -110,7 +110,7 @@
                 <!-- Edition -->
                 <div class="form-field">
                     <label>Edition</label>
-                    <input type="number" name="edition" value="<?= set_value('edition', $ebook->edition) ?>">
+                    <input type="number" name="edition" value="<?= set_value_edit('edition', $ebook->edition) ?>">
                     <?php if (!empty($errors['edition'])) : ?>
                         <small class="form-error"><?= $errors['edition'] ?></small>
                     <?php endif; ?>
@@ -118,7 +118,7 @@
 
                 <!-- E-Book File Upload -->
                 <div class="form-field">
-                    <label for="file-input">E-book File</label>
+                    <label for="file-input">E-book File *</label>
                     <div class="drop_box">
                         <input class="file-input" type="file" name="file" id="file-input" hidden accept=".pdf" onchange="updateFileName()">
                         <header>
@@ -135,11 +135,15 @@
 
             <!-- Categories -->
             <div class="form-field full-width">
-                <label>Categories</label>
+                <label>Categories *</label>
                 <div class="cats">
+                    <?php
+                    // Extract category IDs from $data['ebook']->categories
+                    $selectedCategoryIds = array_column($data['ebook']->categories, 'category_id');
+                    ?>
                     <?php foreach ($data['categories'] as $category) : ?>
                         <p>
-                            <input name="category[]" type="checkbox" value="<?= $category->category_id; ?>" <?= in_array($category->category_id, $data['ebook']->categories) ? 'checked' : '' ?> />
+                            <input name="category[]" type="checkbox" value="<?= $category->category_id; ?>" <?= in_array($category->category_id, $selectedCategoryIds) ? 'checked' : '' ?> />
                             <?= $category->name; ?>
                         </p>
                     <?php endforeach; ?>

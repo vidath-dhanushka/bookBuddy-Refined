@@ -18,6 +18,7 @@
                 <th>Title</th>
                 <th>Author</th>
                 <th>Borrowed Date</th>
+                <th>Due Date</th>
                 <th>Return Status</th>
                 <th>Action</th>
             </tr>
@@ -30,6 +31,8 @@
                         <td><?= htmlspecialchars($borrowed_ebook->title) ?></td>
                         <td><?= htmlspecialchars(camelCaseToWords($borrowed_ebook->author_name)) ?></td>
                         <td><?= htmlspecialchars(date('Y-m-d', strtotime($borrowed_ebook->borrow_date))) ?></td>
+                        <td><?= htmlspecialchars(date('Y-m-d', strtotime($borrowed_ebook->borrow_date . ' +' . $data['user_subscription']->borrowing_period . ' days'))) ?></td>
+
                         <td>
                             <?php if ($borrowed_ebook->active) : ?>
                                 <p class="status borrowed">Borrowed</p>

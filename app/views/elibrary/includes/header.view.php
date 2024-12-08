@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/elibrary/style.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/elibrary/rate-review.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/elibrary/favourite.css">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/elibrary/notification.css">
     <link rel="stylesheet" href="<?= ROOT ?>/assets/css/librarian/subscription.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,14 +46,23 @@
             <a href="<?= ROOT ?>/member/profile" class="profile usersection"><span userinfo="first_name"><?= Auth::getUsername() ?></span></a>
             <?php if (auth::getrole() == 'member') : ?>
 
+                <span>
+                    <div class="nf-all">
+                        <div class="nf-area">
+                            <button class="btn-noti" id="nf-btn"><i class="fas fa-bell"></i></button>
+                            <span id="nf-n">0</span>
+                        </div>
+                        <div class="nf-message" id="notifications">Nothing</div>
+                    </div>
+                </span>
+
                 <div class="usersection">
                     <a href="<?= ROOT ?>/elibrary/favourite_list" class="favorite-btn">
-                        <span class="material-symbols-outlined">favorite</span>
-                        <span class="badge" userinfo="favorites">10</span>
-                        <!-- <?= $favoriteCount ?> -->
+                        <i class="far fa-heart"></i>
+                        <span class="badge" userinfo="favorites" id="nf-t">0</span>
                     </a>
-
                 </div>
+
             <?php endif; ?>
             <div class="adminsection">
                 <a href="<?= ROOT ?>/logout" class="cart-btn">
@@ -61,3 +71,28 @@
             </div>
         <?php endif; ?>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            function fetchFavoriteCount() {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "<?= ROOT ?>/elibrary/get_favorite_count_endpoint", true);
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.favorite_count !== undefined) {
+
+                            document.querySelector('.badge[userinfo="favorites"]').textContent = response.favorite_count;
+                        }
+                    } else {
+                        console.error("Error fetching favorite count.");
+                    }
+                };
+                xhr.send();
+            }
+
+
+            fetchFavoriteCount();
+        });
+    </script>
+    <script src="<?= ROOT ?>/assets/js/notification.js"></script>

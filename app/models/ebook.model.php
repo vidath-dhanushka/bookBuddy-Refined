@@ -118,6 +118,7 @@ class Ebook extends Model
 
         $this->errors = [];
         $maxLength = 255;
+
         if (empty($data['title'])) {
             $this->errors['title'] = "Error: Title cannot be empty.";
         } else 
@@ -135,10 +136,14 @@ class Ebook extends Model
                 $this->errors['author_name'] = "Error: Only letters, white space, hyphen, period, and apostrophe are allowed in author name";
             }
         }
-
-        if (empty($data['pages'])) {
+        if (empty($data['pages']) && $data['pages'] !== '0') {
             $this->errors['pages'] = "Error: Number of pages cannot be empty.";
+        } else if ($data['pages'] == '0') {
+            $this->errors['pages'] = "Error: Number of pages cannot be zero.";
+        } else if ($data['pages'] < 0) {
+            $this->errors['pages'] = "Error: Number of pages must be a positive number.";
         }
+
 
         if (isset($data['isbn']) && !empty(trim($data['isbn']) && $data['isbn'] != "")) {
             if (!$this->isValidISBN($data['isbn'])) {
@@ -207,6 +212,7 @@ class Ebook extends Model
 
         $this->errors = [];
         $maxLength = 255;
+
         if (empty($data['title'])) {
             $this->errors['title'] = "Error: Title cannot be empty.";
         } else 
@@ -224,15 +230,24 @@ class Ebook extends Model
                 $this->errors['author_name'] = "Error: Only letters, white space, hyphen, period, and apostrophe are allowed in author name";
             }
         }
-
-        if (empty($data['pages'])) {
+        if (empty($data['pages']) && $data['pages'] !== '0') {
             $this->errors['pages'] = "Error: Number of pages cannot be empty.";
+        } else if ($data['pages'] == '0') {
+            $this->errors['pages'] = "Error: Number of pages cannot be zero.";
+        } else if ($data['pages'] < 0) {
+            $this->errors['pages'] = "Error: Number of pages must be a positive number.";
         }
 
 
-        if (isset($data['isbn']) && !$this->isValidISBN($data['isbn'])) {
-            $this->errors['isbn'] = "Error: The ISBN format is invalid.";
+        if (isset($data['isbn']) && !empty(trim($data['isbn']) && $data['isbn'] != "")) {
+            if (!$this->isValidISBN($data['isbn'])) {
+                $this->errors['isbn'] = "Error: The ISBN format is invalid.";
+            } elseif ($this->isIsbnExists($data['isbn'])) {
+                $this->errors['isbn'] = "Error: The ISBN already exists in the database.";
+            }
         }
+
+
         if (isset($data['edtion']) && !$this->validateEdition($data['edtion'])) {
             $this->errors['isbn'] = "Error: The Edition format is invalid.";
         }
@@ -267,13 +282,15 @@ class Ebook extends Model
             $this->errors['description'] = "Error: The description should be between 10 and 1000 characters long.";
         }
 
-        if (empty($data['book_cover']) && !isset($_SESSION["temp_cover_path"])) {
-            $this->errors['book_cover'] = "Error: Please provide a value for the cover_image.";
+        if (isset($data['book_cover']) && empty($data['book_cover'])) {
+            $this->errors['book_cover'] = "Error: Please provide a value for the book cover.";
         }
 
-        if (empty($data['file']) && !isset($_SESSION["temp_file_path"])) {
+
+        if (isset($data['file']) && empty($data['file'])) {
             $this->errors['file'] = "Error: Please provide a value for the file.";
         }
+
         if (empty($data['category'])) {
             $this->errors['category'] = "Error: Please select at least one category.";
         }
@@ -312,13 +329,17 @@ class Ebook extends Model
 
     public function getCategoryEBooks($id)
     {
-        $query = "SELECT b.*, GROUP_CONCAT(c.name SEPARATOR ', ') AS categories
+        $query = "
+                SELECT b.*, GROUP_CONCAT(c.name SEPARATOR ', ') AS categories
                 FROM ebook b 
                 LEFT JOIN ebook_category bc ON b.ebook_id = bc.ebook_id
                 LEFT JOIN category c ON bc.category_id = c.category_id
                 WHERE bc.category_id = :category_id
+                AND b.copyright_status = 1
                 GROUP BY b.ebook_id
-                ORDER BY b.date_added DESC;";
+                ORDER BY b.date_added DESC;
+            ";
+
 
         return $this->query($query, ['category_id' => $id]);
     }
@@ -383,5 +404,16 @@ class Ebook extends Model
         }
 
         return $ebook; // Return the eBook object with categories
+    }
+
+    public function get_file($data)
+    {
+        $query =  "SELECT `file` FROM `ebook` WHERE `id` = :book_id;";
+        $res = $this->query($query, $data);
+        if (is_array($res)) {
+            return $res[0];
+        } else {
+            return false;
+        }
     }
 }

@@ -173,6 +173,12 @@
     gap: 20px; 
 }
 
+.form-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; 
+    gap: 20px; 
+}
+
 .form-column {
     display: flex;
     flex-direction: column;

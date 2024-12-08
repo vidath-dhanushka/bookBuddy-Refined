@@ -50,7 +50,7 @@ class Subscription extends Model
             if ($planData['name'] !== $currentPlanName) {
                 $existingPlan = $this->findPlanByName($planData['name']);
                 if ($existingPlan) {
-                    $this->errors['name'] = "The subscription name must be unique.";
+                    $this->errors['name'] = "Subscription name already exists. Please choose a unique name.";
                 }
             }
         }
@@ -182,7 +182,7 @@ class Subscription extends Model
         LIMIT 1
     ";
 
-        $result = $this->query($sql, $id);
+        $result = $this->query($sql, ['id' => $id]);
         if (isset($result) && count($result) > 0) {
             return $result[0];
         }

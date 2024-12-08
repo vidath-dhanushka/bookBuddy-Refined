@@ -21,38 +21,39 @@ class Copyright extends Model
 
     function validate($data)
     {
-        // Validate 'ebook_id'
-        if (!isset($data['ebook_id'])) {
-            $this->errors['ebook_id'] = "Ebook ID is required.";
-        } elseif (!filter_var($data['ebook_id'], FILTER_VALIDATE_INT)) {
-            $this->errors['ebook_id'] = "Ebook ID must be an integer.";
-        }
 
-        // Validate 'agreement'
-        if (isset($_FILES) && empty($data['agreement'])) {
-            show($_FILES);
+        // show($_FILES);
+        // die;
+
+
+        if (!isset($_FILES)) {
             $this->errors['agreement'] = "Agreement is required.";
-        } elseif (!is_string($data['agreement'])) {
-            $this->errors['agreement'] = "Agreement must be a string.";
         }
 
         // Validate 'license_type'
         $validLicenseTypes = ['cc0', 'cc_by', 'cc_by_sa', 'cc_by_nc_sa', 'cc_by_nc', 'cc_by_nc_nd', 'cc_by_nd'];
+        if (!isset($data['license_type']) || empty($data['license_type']) || $data['license_type'] == "default") {
+            $this->errors['license_type'] = "Licensed type is required.";
+        } else
         if (!isset($data['license_type']) || !in_array($data['license_type'], $validLicenseTypes)) {
             $this->errors['license_type'] = "Invalid license type.";
         }
 
-        // Validate 'licensed_copies'
         if (!isset($data['licensed_copies'])) {
+            $this->errors['licensed_copies'] = "Licensed copies is required.";
+        } elseif ($data['licensed_copies'] === 0 || $data['licensed_copies'] === '0') {
+            $this->errors['licensed_copies'] = "Licensed copies cannot be zero.";
+        } elseif ($data['licensed_copies'] === '' || $data['licensed_copies'] === null) {
             $this->errors['licensed_copies'] = "Licensed copies is required.";
         } elseif (!filter_var($data['licensed_copies'], FILTER_VALIDATE_INT)) {
             $this->errors['licensed_copies'] = "Licensed copies must be an integer.";
-        } elseif ($data['licensed_copies'] <= 0) {
+        } elseif ($data['licensed_copies'] < 0) {
             $this->errors['licensed_copies'] = "Licensed copies must be a positive integer.";
         }
 
+
         // Validate 'copyright_fee'
-        if (!isset($data['copyright_fee'])) {
+        if (!isset($data['copyright_fee']) || empty($data['copyright_fee'])) {
             $this->errors['copyright_fee'] = "Copyright fee is required.";
         } elseif (!is_numeric($data['copyright_fee'])) {
             $this->errors['copyright_fee'] = "Copyright fee must be a number.";
@@ -74,6 +75,9 @@ class Copyright extends Model
             $this->errors['license_end_date'] = "License end date must be a valid date.";
         } elseif (strtotime($data['license_end_date']) < strtotime($data['license_start_date'])) {
             $this->errors['license_end_date'] = "License end date cannot be before the start date.";
+        }
+        if (!isset($data['subscriptions']) || empty($data['subscriptions'])) {
+            $this->errors['subscriptions'] = "Error: Please select at least one subscription.";
         }
 
         if (empty($this->errors)) {
@@ -126,7 +130,7 @@ class Copyright extends Model
 
         $result = $this->query($sql, ['id' => $id]);
 
-        if (isset($result) && count($result) > 0) {
+        if (!empty($result) && count($result) > 0) {
             return $result[0];
         }
 

@@ -4,6 +4,7 @@
 
     <div class="<?= isset($_SESSION['message_class']) ? $_SESSION['message_class'] : 'alert'; ?>">
         <?= message('', true) ?>
+
     </div>
     <?php unset($_SESSION['message_class']); ?>
 <?php endif; ?>
@@ -57,7 +58,7 @@
                             <?php if ($ebooks->copyright_status and !($ebooks->license_type == "Public Domain")) : ?>
                                 <a href="<?= ROOT . '/librarian/copyright/edit/' . $ebooks->id; ?>" class="action-btn">Edit</a>
                             <?php elseif ($ebooks->license_type == "Public Domain") : ?>
-                                <a href="#" class="action-btn disabled" title="This book is in the public domain and does not require copyright">Add</a>
+                                <a href="<?= ROOT . '/librarian/my_message'; ?>" class="action-btn">Add</a>
                             <?php else : ?>
                                 <a href="<?= ROOT . '/librarian/copyright/add/' . $ebooks->ebook_id; ?>" class="action-btn">Add</a>
                             <?php endif; ?>

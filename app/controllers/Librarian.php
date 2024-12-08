@@ -8,27 +8,22 @@ class Librarian extends Controller
         $user = new User();
         $data = [];
         $id = Auth::getuser_Id();
-        // echo ($id);
 
         $data['user_data'] = $user->first(['user_id' => $id]);
-        // show($data);
-        // // show($_SESSION['USER_DATA']);
-        // die;
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // show($data);
-
-            // show($_POST);
-            // die;
-            if ($user->edit_validate($_POST, $id)) {
+            if ($user->edit_validate_librarian($_POST)) {
                 $user->update($id, $_POST);
                 $_SESSION['USER_DATA'] =  $data['user_data'] = $user->first(['user_id' => $id]);
-                // show($row);
+                $_SESSION['message_class'] = 'alert-success';
+                message("Profile updated successfully");
+            } else {
+                message("Profile updated unsuccessfully");
+                $data["user_data"]->first_name = $_POST["first_name"];
+                $data["user_data"]->last_name = $_POST["last_name"];
+                $data["user_data"]->phone = $_POST["phone"];
             }
-            // die;
         }
         $data['errors'] = $user->errors;
-        // show($data);
-        // die;
         $this->view('librarian/profile', $data);
     }
 
@@ -37,28 +32,28 @@ class Librarian extends Controller
     {
         if (Auth::logged_in()) {
             $user = new User();
+            $data = [];
             $id = Auth::getuser_Id();
-            $currentUserData = $_SESSION['USER_DATA'];
-            // show($currentUserData);
-            // die;
+
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                // show($_POST);
-                // die;
-                if (password_verify($_POST['password'], $currentUserData->password)) {
-                    if ($_POST['new_password'] == $_POST['confirm_password']) {
-                        $password = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
-                        $user->update($id, ['password' => $password]);
-                        message("Password changed successfully");
-                        redirect('librarian/profile');
-                    } else {
-                        error("new password and confirm Password is not matching");
-                    }
+                if ($user->librarian_password_validate($_POST)) {
+                    $password = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
+                    $user->update($id, ['password' => $password]);
+                    $_SESSION['message_class'] = 'alert-success';
+                    message("Password changed successfully");
+                    redirect('librarian/changePassword');
                 } else {
-                    error("entered current Password is incorrect");
+
+                    message("Password updated unsuccessfully");
+                    $data["user"] = new stdClass();
+                    $data["user"]->password = $_POST["password"];
+                    $data["user"]->new_password = $_POST["new_password"];
+                    $data["user"]->confirm_password = $_POST["confirm_password"];
                 }
             }
         }
-        $this->view('librarian/changePassword');
+        $data['errors'] = $user->errors;
+        $this->view('librarian/changePassword', $data);
     }
 
     public function ebooks($action = null, $ebook_id = null)
@@ -145,15 +140,21 @@ class Librarian extends Controller
                     }
                 }
 
-                if (empty($_POST)) {
+                if (empty($_POST["isbn"])) {
                     $_POST["isbn"] = null;
+                }
+                if (empty($_POST["edition"])) {
+                    $_POST["edition"] = null;
                 }
 
                 if ($elibrary->validate($_POST)) {
 
                     if (empty($elibrary->errors)) {
+                        $_POST['book_cover'] = $_SESSION['temp_cover_path'];
+                        $_POST['file'] = $_SESSION['temp_file_path'];
                         if ($_POST['license_type'] == "Public Domain") {
                             $_POST['copyright_status'] = 1;
+
                             $ebook_id = $elibrary->insert($_POST);
                         } else {
                             $_POST['copyright_status'] = 0;
@@ -192,10 +193,12 @@ class Librarian extends Controller
 
     public function updateEbook($ebook_id)
     {
+
         if (Auth::logged_in()) {
             $id = Auth::getuser_Id();
             $category = new Category();
             $elibrary = new Ebook();
+
 
 
             $data['ebook'] = $elibrary->getEbookDetailsForEdit($ebook_id);
@@ -204,7 +207,6 @@ class Librarian extends Controller
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_POST['librarian_id'] = $id;
 
-                // Handle book cover
                 $folderCover = "uploads/ebooks/cover/";
                 if (!file_exists($folderCover)) {
                     mkdir($folderCover, 0777, true);
@@ -219,19 +221,13 @@ class Librarian extends Controller
                             $destination = $folderCover . time() . $_FILES['book_cover']['name'];
                             move_uploaded_file($_FILES['book_cover']['tmp_name'], $destination);
                             $_POST['book_cover'] = $destination;
-                            // Optionally delete the old cover file if needed
-                            if (file_exists($data['ebook']['book_cover'])) {
-                                unlink($data['ebook']['book_cover']);
-                            }
+                            $_SESSION['temp_cover_path'] = $destination;
                         } else {
                             $elibrary->errors['book_cover'] = "Invalid file type";
                         }
                     } else {
                         $elibrary->errors['book_cover'] = "Could not upload the images";
                     }
-                } else {
-                    // If no new cover is uploaded, use the current cover
-                    $_POST['book_cover'] = $data['ebook']['book_cover'];
                 }
 
                 // Handle ebook file
@@ -252,25 +248,28 @@ class Librarian extends Controller
                         } else if (in_array($_FILES['file']['type'], $allowed)) {
                             $destination = $folder . time() . $_FILES['file']['name'];
                             move_uploaded_file($_FILES['file']['tmp_name'], $destination);
+                            $_SESSION['temp_file_path'] = $destination;
                             $_POST['file'] = $destination;
-                            // Optionally delete the old file if needed
-                            if (file_exists($data['ebook']['file'])) {
-                                unlink($data['ebook']['file']);
-                            }
                         } else {
                             $elibrary->errors['file'] = "This file type is not allowed";
                         }
                     } else {
                         $elibrary->errors['file'] = "Could not upload file";
                     }
-                } else {
-                    // If no new file is uploaded, use the current file
-                    $_POST['file'] = $data['ebook']['file'];
                 }
 
-                if ($elibrary->validate($_POST)) {
+                if (empty($_POST["isbn"])) {
+                    $_POST["isbn"] = null;
+                }
+                if (empty($_POST["edition"])) {
+                    $_POST["edition"] = null;
+                }
+
+                if ($elibrary->editValidate($_POST)) {
+
                     if (empty($elibrary->errors)) {
                         // Update ebook details
+
                         $elibrary->update($ebook_id, $_POST);
 
                         // Handle categories update
@@ -297,10 +296,19 @@ class Librarian extends Controller
                         $_SESSION['message_class'] = 'alert-success';
                         redirect('librarian/ebooks');
                     }
+                } else {
+                    foreach ($elibrary->errors as $key => $error) {
+                        if (isset($_POST[$key])) {
+                            $data['ebook']->$key = $_POST[$key];
+                        }
+                    }
                 }
             }
 
+
+
             $data['errors'] = $elibrary->errors;
+
             $this->view("librarian/updateEbook", $data);
         } else {
             $this->view('_404');
@@ -327,7 +335,7 @@ class Librarian extends Controller
             }
             $data['ebook']  = $ebook->getEbookDetails(['b.id' => $id]);
             $data['copyright'] = $copyright->getCopyright(["ebook_id" => $id]);
-            $data['book_subscription'] = $sub = $subscription->get_subscription_by_id(["id" => $data['copyright']->subscription]);
+            $data['book_subscription'] = $sub = $subscription->get_subscription_by_id($data['copyright']->subscription);
             $data['user_subscription'] = $user_sub = $member_subscription->getSubscription(["id" => $data['row']->id]);
             if ($user_sub->price < $sub->price) {
                 // add to cart
@@ -409,44 +417,18 @@ class Librarian extends Controller
         }
     }
 
-    public function editSubscription($id = null, $action = null)
+    public function deacivateSubscription($id = null)
     {
-        $data = [];
         $subscription = new Subscription();
         if (Auth::logged_in()) {
             $data['subscriptions'] = $subscription->get_all_subscriptions();
-            $data['subscription'] = $tmp = $subscription->get_subscription_by_id($id);
 
-            if ($action === 'edit') {
-                if (empty($id)) {
-                    $this->view("librarians/subscription");
-                } else {
+            $data['subscription']  = $subscription->get_subscription_by_id($id);
 
-                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                        if ($subscription->validateUpdate($id, $_POST)) {
-                            $subscription->update($id, $_POST);
-                            $_SESSION['message_class'] = 'alert-success';
-                            message("Subscription updated successfully!");
-                            redirect('librarian/subscription');
-                        } else {
-                            $tmp->name = $_POST['name'];
-                            $tmp->price = $_POST['price'];
-                            $tmp->max_books = $_POST['max_books'];
-                            $tmp->borrowing_period = $_POST['borrowing_period'];
-                            $data['errors'] = $subscription->errors;
-
-                            $this->view('librarian/editSubscription', $data);
-                        }
-                    } else {
-                        $this->view('librarian/editSubscription', $data);
-                    }
-                }
-            } elseif ($action === 'delete') {
-                $subscription->delete_subscription_by_id($id);
-                $_SESSION['message_class'] = 'alert-success';
-                message('Subscription deleted successfully !');
-                redirect('librarian/subscription');
-            }
+            $subscription->delete_subscription_by_id($id);
+            $_SESSION['message_class'] = 'alert-success';
+            message('Subscription deleted successfully !');
+            redirect('librarian/subscription');
         } else {
             $this->view('_404');
         }
@@ -468,16 +450,51 @@ class Librarian extends Controller
             if ($action === 'add') {
 
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    // show($_FILES);
+                    // die;
+                    $folder = "uploads/ebooks/agreement/";
+                    $allowed = [
+                        'application/pdf',
+                    ];
+                    if (!file_exists($folder)) {
+                        mkdir($folder, 0777, true);
+                        file_put_contents($folder . "index.php", "<h2>Access denied!</h2>");
+                        file_put_contents("uploads/index.php", "<h2>Access denied!</h2>");
+                    }
+
+
+                    if (!empty($_FILES['file']['name'])) {
+                        if ($_FILES['file']['error'] == 0) {
+                            $fileSize = $_FILES['file']['size'];
+                            $maxSize = 5 * 1024 * 1024;
+                            if ($fileSize > $maxSize) {
+                                $copyright->errors['agreement'] = "File is too large. Maximum file size is 5 MB.";
+                            } else
+                        if (in_array($_FILES['file']['type'], $allowed)) {
+                                $destination = $folder . time() . $_FILES['file']['name'];
+                                move_uploaded_file($_FILES['file']['tmp_name'], $destination);
+                                $_SESSION['temp_file_path'] = $destination;
+                                $_POST['agreement'] = $destination;
+                            } else {
+                                $copyright->errors['file'] = "This file type is not allowed";
+                            }
+                        } else {
+                            $copyright->errors['file'] = "Could not upload file";
+                        }
+                    }
                     if ($copyright->validate($_POST)) {
+                        $_POST['agreement'] = $_SESSION['temp_file_path'];
+
+
                         $copyright->insert($_POST);
                         message("Subscription inserted successfully!");
-                        redirect('librarian/subscription');
+                        redirect('librarian/copyright');
                     } else {
                         $data['errors'] = $copyright->errors;
-                        $this->view('librarian/addSubscription', $data);
+                        $this->view('librarian/addCopyright', $data);
                     }
                 } else {
-                    $this->view('librarian/addSubscription', $data);
+                    $this->view('librarian/addCopyright', $data);
                 }
             } elseif ($action === 'delete') {
                 $copyright->delete_copyright_by_id($id);
@@ -516,5 +533,11 @@ class Librarian extends Controller
         } else {
             $this->view('_404');
         }
+    }
+
+    public function my_message()
+    {
+        message("Copyright not required for public domain books.");
+        redirect('librarian/ebooks');
     }
 }

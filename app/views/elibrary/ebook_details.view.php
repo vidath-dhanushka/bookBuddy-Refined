@@ -19,6 +19,7 @@
 <?php endif; ?>
 
 <bookDetails>
+
     <div class="app-content">
         <div class="main-container">
             <div class="container-left">
@@ -183,8 +184,14 @@
                         <?php else : ?>
                             <p>Write Review Here:</p>
 
-                            <div id="myBtn" class="review-box">Review</div>
+                            <?php if ($isEverborrowed) : ?>
+                                <div id="myBtn" class="review-box">Review</div>
+                            <?php else : ?>
+                                <a href="<?= ROOT ?>/elibrary/my_message/<?= $ebook->ebook_id ?>" class="review-box">Review</a>
+                            <?php endif; ?>
+
                         <?php endif; ?>
+
                     </div>
 
 

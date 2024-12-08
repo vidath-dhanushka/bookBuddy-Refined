@@ -42,4 +42,18 @@ class Favourite extends Model
 
         return $result;
     }
+
+    public function get_favourite_count($userId)
+    {
+
+        $query = "SELECT COUNT(*) AS favorite_count FROM ebook_favourite WHERE user_id = :user_id";
+
+        $result = $this->query($query, ['user_id' => $userId]);
+
+        if (!empty($result) && isset($result[0]->favorite_count)) {
+            return (int)$result[0]->favorite_count;
+        }
+
+        return 0;
+    }
 }

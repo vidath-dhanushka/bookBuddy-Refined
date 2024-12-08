@@ -30,7 +30,7 @@
                         <h3 class="subscription__title subscription__title--<?= strtolower($subscription->name) ?>">
                             <?= htmlspecialchars($subscription->name) ?>
                         </h3>
-                        <span class="subscription__price">LKR <?= htmlspecialchars(number_format($subscription->price, 2)) ?> <span class="subscription__price-month">/ mo</span></span>
+                        <span class="subscription__price">LKR <?= htmlspecialchars(number_format($subscription->price, 2)) ?> <span class="subscription__price-month">/ mon</span></span>
                         <ul class="subscription__list">
                             <li class="subscription__item">
                                 <i class="icon-subscription fas fa-check-circle"></i>
@@ -46,9 +46,7 @@
                             </li>
                         </ul>
                         <?php if ($subscription->subscription_id != 1) : ?>
-                            <a href="<?= ROOT ?>/librarian/editSubscription/<?= $subscription->subscription_id ?>/edit" class="subscription__edit button-edit">Edit</a>
-
-                            <a href="<?= ROOT ?>/librarian/editSubscription/<?= $subscription->subscription_id ?>/delete" class="subscription__delete button-delete">Delete</a>
+                            <a href="<?= ROOT ?>/librarian/deacivateSubscription/<?= $subscription->subscription_id ?>" class="subscription__delete button-delete">Deactive</a>
                         <?php endif; ?>
                     </label>
                 <?php endforeach; ?>

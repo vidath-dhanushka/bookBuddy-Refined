@@ -393,8 +393,22 @@ class Database
                 added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,
                 FOREIGN KEY (ebook_id) REFERENCES ebook(ebook_id) ON DELETE CASCADE
-);
-";
+                );";
+
+        $this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS `notification` (
+            `notification_id` int(11) NOT NULL AUTO_INCREMENT,
+            `user_id` MEDIUMINT UNSIGNED NULL,
+            `message` varchar(255) NOT NULL,
+            `date` datetime NOT NULL DEFAULT current_timestamp(),
+            `seen` tinyint(1) NOT NULL DEFAULT 0,
+            PRIMARY KEY (`notification_id`),
+            FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
+            
+          );
+          
+          ";
 
         $this->query($query);
     }

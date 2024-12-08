@@ -1,7 +1,12 @@
 <?php $this->view('librarian/includes/sidenav'); ?>
 
-<?php if (message()) : ?>
-    <div class="message"><?= message('', true) ?></div>
+<?php if (message()): ?>
+
+    <div class="<?= isset($_SESSION['message_class']) ? $_SESSION['message_class'] : 'alert'; ?>">
+        <?= message('', true) ?>
+    </div>
+    <?php unset($_SESSION['message_class']); ?>
+
 <?php endif; ?>
 <memberProfile>
     <h1 class="title">My Profile</h1>
@@ -46,9 +51,5 @@
 
     </form>
 </memberProfile>
-<script>
-    let userData = <?php echo json_encode($data['user_data']); ?>;
-    let district = document.querySelector('#district_list');
-    district.value = userData['address_district'];
-</script>
+
 <?php $this->view('member/includes/footer'); ?>
