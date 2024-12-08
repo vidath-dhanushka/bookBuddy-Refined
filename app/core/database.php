@@ -203,9 +203,11 @@ class Database
         $query = "CREATE TABLE IF NOT EXISTS `order`
         (
             order_id       MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-            lender            MEDIUMINT UNSIGNED NOT NULL REFERENCES user (user_id),
+            user            MEDIUMINT UNSIGNED NOT NULL REFERENCES user (user_id),
+            amount                    DECIMAL(9,2) NOT NULL,
             weight                    DECIMAL(9, 2) NOT NULL,
             charge                    DECIMAL(9, 2),
+            status          VARCHAR(64),
             courier                   SMALLINT UNSIGNED REFERENCES courier (courier_id),
             reg_time        DATETIME           NOT NULL DEFAULT CURRENT_TIMESTAMP,
             mod_time        DATETIME ON UPDATE CURRENT_TIMESTAMP

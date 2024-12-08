@@ -104,7 +104,7 @@ class Cart extends Controller
                         'book' => (int)$book['bookId'],
                         'user' => (int)$userId,
                         'orderNo' => (int)$orderId,
-                        'status' => "PENDING"
+                        'status' => "pending"
                     ];
                     $bookBorrowId = $bookBorrow->insert($bookBorrowData);
 

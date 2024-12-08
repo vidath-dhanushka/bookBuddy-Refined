@@ -38,4 +38,34 @@ class BookBorrow extends Model
             ['user' => $userId]
         );
     }
+
+    public function getOrderBooks($id)
+    {
+        return $this->query("SELECT 
+    bb.*, 
+    b.title, 
+    b.weight, 
+    b.owner, 
+    b.price,
+    u.first_name, 
+    u.last_name, 
+    u.address_line1, 
+    u.address_line2, 
+    u.address_city, 
+    u.address_district,
+    u.phone
+FROM 
+    book_borrow bb
+LEFT JOIN 
+    book b ON b.book_id = bb.book
+LEFT JOIN 
+    user u ON u.user_id = b.owner
+WHERE 
+    bb.orderNo = :orderNo;", ["orderNo" => $id]);
+    }
+
+    public function updateBookBorrowStatus($id, $status)
+    {
+        return $this->query("UPDATE book_borrow SET status = :status WHERE book_borrow_id = :id", ['id' => $id, 'status' => $status]);
+    }
 }

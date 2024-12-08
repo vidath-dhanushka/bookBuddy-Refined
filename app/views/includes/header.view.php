@@ -32,11 +32,13 @@
             </span>
         <?php endif; ?>
         <?php if (!(Auth::logged_in())) : ?>
-            <a href="<?= ROOT ?>/signup" class="profile guestsection">Sign&nbsp;Up</span></a>
-            &nbsp;
-            &nbsp;
-            &nbsp;
-            <a href="<?= ROOT ?>/login" class="profile guestsection">Login</span></a>
+            <div class="signup_login">
+                <a href="<?= ROOT ?>/signup" class="profile guestsection">Sign&nbsp;Up</span></a>
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                <a href="<?= ROOT ?>/login" class="profile guestsection">Login</span></a>
+            </div>
         <?php else : ?>
             <a href="<?= ROOT ?>/member/profile" class="profile usersection"><span userinfo="first_name"><?= Auth::getUsername() ?></span></a>
             <?php if (auth::getrole() == 'member') : ?>

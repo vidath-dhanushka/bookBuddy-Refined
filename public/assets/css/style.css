@@ -65,6 +65,12 @@
   padding: 0 20px;
 }
 
+.signup_login {
+  display: inline-block;
+  position: absolute;
+  left: 85%;
+}
+
 .app-footer {
   padding: 20px 20px;
   text-align: center;
@@ -1384,10 +1390,21 @@ table tr {
 table tr td {
   padding: 5px;
 }
+table tr td button {
+  border: 1px solid white;
+  border-radius: 5px;
+  background-color: #8b7bda;
+  height: 30px;
+}
 table tr:nth-child(even) {
-  background-color: #c3bedd;
+  background-color: #beb9d8;
 }
 table th {
   background-color: #8b7bda;
   color: rgb(229, 227, 227);
+}
+
+a {
+  text-decoration: none;
+  color: white;
 }/*# sourceMappingURL=style.css.map */

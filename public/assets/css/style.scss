@@ -52,11 +52,18 @@ table {
 
         td {
             padding: 5px;
+
+            button {
+                border: 1px solid white;
+                border-radius: 5px;
+                background-color: #8b7bda;
+                height: 30px
+            }
         }
     }
 
     tr:nth-child(even) {
-        background-color: #c3bedd;
+        background-color: #beb9d8;
     }
 
     th {
@@ -64,4 +71,9 @@ table {
         color: rgb(229, 227, 227);
     }
 
+}
+
+a {
+    text-decoration: none;
+    color: white;
 }
