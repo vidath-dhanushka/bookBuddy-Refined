@@ -15,6 +15,7 @@
 .app-header .nav {
     flex: 100%;
     padding: 0 20px;
+    padding-right: 0;
 }
 
 .app-header .nav a {
@@ -32,6 +33,7 @@
 .app-header .wallet {
     width: 130px;
     padding: 20px;
+    padding-right: 0px;
 }
 
 .app-header .cart-btn {
@@ -45,6 +47,21 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    /* padding-right: 20px; */
+}
+
+.app-header .cart-btn-admin {
+    border-radius: 100%;
+    transition: background-color 200ms;
+    color: inherit;
+    width: 48px;
+    height: 48px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 95%;
     /* padding-right: 20px; */
 }
 
@@ -76,7 +93,8 @@
     left: 90%;
 }
 
-.adminsection {
-    position: absolute;
-    left: 95%;
+
+
+.usersection {
+    display: flex;
 }

@@ -49,25 +49,39 @@
                             <span class="material-symbols-outlined">shopping_cart</span>
                             <span class="badge" userinfo="cart"></span>
                         </a>
+
+                        <a href="<?= ROOT ?>/logout" class="cart-btn">
+                            <span class="material-symbols-outlined">logout</span>
+                        </a>
+
                     </div>
                     <?php break ?>
                 <?php
                 case "admin": ?>
                     <a href="<?= ROOT ?>/admin/profile" class="profile couriersection"><span userinfo="first_name"><?= Auth::getUsername() ?></span></a>
+
+                    <a href="<?= ROOT ?>/logout" class="cart-btn-admin">
+                        <span class="material-symbols-outlined">logout</span>
+                    </a>
+
                     <?php break ?>
                 <?php
                 case 'courier': ?>
                     <a href="<?= ROOT ?>/courier/profile" class="profile couriersection"><span userinfo="first_name"><?= Auth::getUsername() ?></span></a>
+
+                    <a href="<?= ROOT ?>/logout" class="cart-btn-admin">
+                        <span class="material-symbols-outlined">logout</span>
+                    </a>
+
                     <?php break ?>
                 <?php
                 case 'librarian': ?>
                     <a href="<?= ROOT ?>/librarian/profile" class="profile couriersection"><span userinfo="first_name"><?= Auth::getUsername() ?></span></a>
+                    <a href="<?= ROOT ?>/logout" class="cart-btn-admin">
+                        <span class="material-symbols-outlined">logout</span>
+                    </a>
+
                     <?php break ?>
             <?php endswitch; ?>
-            <div class="adminsection">
-                <a href="<?= ROOT ?>/logout" class="cart-btn">
-                    <span class="material-symbols-outlined">logout</span>
-                </a>
-            </div>
         <?php endif; ?>
     </div>
