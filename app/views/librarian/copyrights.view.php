@@ -1,7 +1,11 @@
 <?php $this->view('librarian/includes/sidenav'); ?>
+<?php if (message()): ?>
 
-<?php if (message()) : ?>
-    <div class="message"><?= message('', true) ?></div>
+    <div class="<?= isset($_SESSION['message_class']) ? $_SESSION['message_class'] : 'alert'; ?>">
+        <?= message('', true) ?>
+
+    </div>
+    <?php unset($_SESSION['message_class']); ?>
 <?php endif; ?>
 
 <memberProfile>
@@ -63,7 +67,8 @@
                         </td>
                         <td>
                             <?php if ($copyright && $copyright->agreement) : ?>
-                                <button class="open-modal" data-pdf="<?= htmlspecialchars($copyright->agreement) ?>">View Agreement</button>
+                                <a href="#" onclick="openPdfModal('<?= ROOT . '/' . $copyright->agreement ?>'); return false;">( View Agreement )</a>
+                                <button class="open-modal" style="color: white;" data-pdf="<?= ROOT ?>/<?= htmlspecialchars($copyright->agreement) ?>">View Agreement</button>
                             <?php else : ?>
                                 N/A
                             <?php endif; ?>
@@ -105,6 +110,7 @@
         document.querySelectorAll('.open-modal').forEach(function(btn) {
             btn.addEventListener('click', function() {
                 var pdfUrl = this.getAttribute('data-pdf');
+                console.log('PDF URL:', pdfUrl);
                 iframe.src = pdfUrl;
                 modal.style.display = 'block';
             });
@@ -122,5 +128,18 @@
             }
         });
     });
+
+    function openPdfModal(url) {
+        document.getElementById('pdf-iframe').src = url;
+        document.getElementById('pdf-modal').style.display = 'block';
+    }
+
+    function closePdfModal() {
+        document.getElementById('pdf-modal').style.display = 'none';
+        document.getElementById('pdf-iframe').src = '';
+    }
+
+    // Initially hide the modal
+    document.getElementById('pdf-modal').style.display = 'none';
 </script>
 <?php $this->view('member/includes/footer'); ?>

@@ -220,7 +220,6 @@ class Elibrary extends Controller
             $data['user_subscription'] = $user_sub = $member_subscription->getSubscription($row->user_id);
             if ($user_sub->price < $sub->price) {
                 message("To access all the features and benefits, please upgrade your account.");
-
                 redirect('elibrary/view_ebook/' . $id);
             } else {
                 // show($row);

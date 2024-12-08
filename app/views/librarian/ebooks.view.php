@@ -56,7 +56,7 @@
                         </td>
                         <td>
                             <?php if ($ebooks->copyright_status and !($ebooks->license_type == "Public Domain")) : ?>
-                                <a href="<?= ROOT . '/librarian/copyright/edit/' . $ebooks->id; ?>" class="action-btn">Edit</a>
+                                <a href="<?= ROOT . '/librarian/copyright/edit/' . $ebooks->ebook_id; ?>" class="action-btn">Edit</a>
                             <?php elseif ($ebooks->license_type == "Public Domain") : ?>
                                 <a href="<?= ROOT . '/librarian/my_message'; ?>" class="action-btn">Add</a>
                             <?php else : ?>

@@ -17,9 +17,9 @@
         </a>
         Add Copyright
     </h1>
-    <?= show($_SESSION) ?>
-    <form class="frm-edit-copyright" action="<?= ROOT ?>/librarian/Copyright/add" method="POST" enctype="multipart/form-data">
+    <form class="frm-edit-copyright" method="POST" enctype="multipart/form-data">
         <div class="form-grid-3">
+
             <div class="form-column">
                 <div class="form-field">
                     <label>License Type</label>
@@ -43,6 +43,26 @@
                     <?php if (!empty($errors['license_start_date'])) : ?>
                         <div class="error"><?= $errors['license_start_date'] ?></div>
                     <?php endif; ?>
+                    <div class="form-field">
+                        <label>Subscription Levels *</label>
+                        <div class="cats">
+                            <?php
+                            $selectedSubscriptions = isset($_POST['subscriptions']) ? $_POST['subscriptions'] : [];
+
+                            foreach ($data['subscriptions'] as $subscription) : ?>
+                                <p>
+                                    <input type="checkbox"
+                                        name="subscriptions[]"
+                                        value="<?= $subscription->subscription_id; ?>"
+                                        <?= (in_array($subscription->subscription_id, $selectedSubscriptions)) ? 'checked' : ''; ?>>
+                                    <?= htmlspecialchars($subscription->name); ?>
+                                </p>
+                            <?php endforeach; ?>
+                        </div>
+                        <?php if (!empty($errors['subscriptions'])) : ?>
+                            <small class="form-error"><?= htmlspecialchars($errors['subscriptions']); ?></small>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
             <div class="form-column">
@@ -64,43 +84,30 @@
             <div class="form-column">
                 <div class="form-field">
                     <label>Copyright Fee (Rs)</label>
-                    <input type="number" step="0.01" name="copyright_fee" value="<?= set_value('copyright_fee') ?>">
+                    <input type="number" name="copyright_fee" value="<?= set_value('copyright_fee') ?>">
                     <?php if (!empty($errors['copyright_fee'])) : ?>
                         <div class="error"><?= $errors['copyright_fee'] ?></div>
                     <?php endif; ?>
+
                 </div>
                 <div class="form-field">
-                    <label for="agreement">Agreement PDF</label>
-                    <input type="file" id="agreement" name="agreement" value="<?= set_value('agreement', $_SESSION['temp_file_path']) ?>" accept="application/pdf">
-
-
+                    <label for="file-input">Agreement *</label>
+                    <div class="drop_box">
+                        <input class="file-input" type="file" name="agreement" id="file-input" hidden accept=".pdf" onchange="updateFileName()">
+                        <header>
+                            <h4 id="selected-file-name"><?= isset($_SESSION['agreement']) ? basename($_SESSION['agreement']) : 'Browse File to Upload'; ?></h4>
+                        </header>
+                        <p>Files Supported: PDF</p>
+                        <button type="button" class="btn" id="choose-file-button" onclick="document.querySelector('#file-input').click()">Choose File</button>
+                    </div>
                     <?php if (!empty($errors['agreement'])) : ?>
-                        <div class="error"><?= htmlspecialchars($errors['agreement']) ?></div>
+                        <small class="form-error"><?= $errors['agreement'] ?></small>
                     <?php endif; ?>
                 </div>
             </div>
         </div>
 
-        <div class="form-field">
-            <label>Subscription Levels *</label>
-            <div class="cats">
-                <?php
-                $selectedSubscriptions = isset($_POST['subscriptions']) ? $_POST['subscriptions'] : [];
 
-                foreach ($data['subscriptions'] as $subscription) : ?>
-                    <p>
-                        <input type="checkbox"
-                            name="subscriptions[]"
-                            value="<?= $subscription->subscription_id; ?>"
-                            <?= (in_array($subscription->subscription_id, $selectedSubscriptions)) ? 'checked' : ''; ?>>
-                        <?= htmlspecialchars($subscription->name); ?>
-                    </p>
-                <?php endforeach; ?>
-            </div>
-            <?php if (!empty($errors['subscriptions'])) : ?>
-                <small class="form-error"><?= htmlspecialchars($errors['subscriptions']); ?></small>
-            <?php endif; ?>
-        </div>
 
 
         <!-- Submit Button -->
@@ -134,6 +141,21 @@
 
     // Initially hide the modal
     document.getElementById('pdf-modal').style.display = 'none';
+
+    function updateFileName() {
+        const fileInput = document.querySelector('#file-input');
+        const fileNameDisplay = document.querySelector('#selected-file-name');
+        const chooseFileButton = document.querySelector('#choose-file-button');
+
+        if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            fileNameDisplay.textContent = file.name;
+            chooseFileButton.textContent = 'Change File';
+        } else {
+            fileNameDisplay.textContent = 'Browse File to Upload';
+            chooseFileButton.textContent = 'Choose File';
+        }
+    }
 </script>
 
 <?php $this->view("member/includes/footer") ?>

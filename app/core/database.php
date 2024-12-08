@@ -350,12 +350,10 @@ class Database
                 copyright_fee DECIMAL(10,2) NOT NULL,
                 license_start_date DATE NOT NULL,
                 license_end_date DATE NOT NULL,
-                subscription_id INT,
                 date_added DATETIME NOT NULL DEFAULT current_timestamp(),
                 modify_date DATETIME NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
                 PRIMARY KEY (copyright_id),
-                FOREIGN KEY (ebook_id) REFERENCES ebook(ebook_id) ON DELETE CASCADE,
-                FOREIGN KEY (`subscription_id`) REFERENCES `subscription`(`subscription_id`) ON DELETE CASCADE
+                FOREIGN KEY (ebook_id) REFERENCES ebook(ebook_id) ON DELETE CASCADE
             );";
 
         $this->query($query);
@@ -411,6 +409,18 @@ class Database
           );
           
           ";
+
+        $this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS `ebook_copyright` (
+            `id` INT(11) NOT NULL AUTO_INCREMENT,
+            `ebook_id` INT NOT NULL, 
+            `subscription_id` INT,
+            PRIMARY KEY (id),
+            FOREIGN KEY (ebook_id) REFERENCES ebook(ebook_id) ON DELETE CASCADE,
+            FOREIGN KEY (subscription_id) REFERENCES subscription(subscription_id) ON DELETE CASCADE
+            );
+        ";
 
         $this->query($query);
     }
