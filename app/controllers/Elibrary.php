@@ -86,10 +86,10 @@ class Elibrary extends Controller
 
             $data['isborrowed'] = $member_borrowing->hasUserBorrowed(["ebook_id" => $id, "user_id" => $user_id]);
             $data['isEverborrowed'] = $member_borrowing->hasUserEverBorrowed(["ebook_id" => $id, "user_id" => $user_id]);
-            if (empty($data['copyright']->subscription_id)) {
-                $data['book_subscription'] =  $subscription->get_subscription_by_id(1);
+            if (empty($data['copyright'])) {
+                $data['book_subscription'][0] =  $subscription->get_subscription_by_id(1);
             } else {
-                $data['book_subscription'] =   $subscription->get_subscription_by_id($data['copyright']->subscription_id);
+                $data['book_subscription'] =   $copyright->getSubscriptionsByEbookId(["ebook_id" => $id]);
             }
         }
         $data['reviews']['all'] = $review->get_review(["ebook_id" => $id]);
@@ -201,85 +201,61 @@ class Elibrary extends Controller
         $subscription = new Subscription();
         $member_subscription = new Member_subscription();
         $copyright = new Copyright();
+        $borrowed_ebook = new Borrowed_ebook();
 
         if (Auth::logged_in()) {
             $row = $_SESSION['USER_DATA'];
 
             if ($row->role !== 'member') {
-
                 message("To access all the features and benefits, please sign in as a member.");
-                redirect('elibrary/view_ebook/' . $id);
+                redirect('login');
             }
-            $data['ebook']  = $elibrary->getEbookDetails($id);
-            $data['copyright'] = $copyright->getCopyright(["ebook_id" => $id]);
-            if (empty($data['copyright']->subscription_id)) {
-                $data['book_subscription'] = $sub = $subscription->get_subscription_by_id(1);
-            } else {
-                $data['book_subscription'] = $sub =  $subscription->get_subscription_by_id($data['copyright']->subscription_id);
-            }
+
             $data['user_subscription'] = $user_sub = $member_subscription->getSubscription($row->user_id);
-            if ($user_sub->price < $sub->price) {
-                message("To access all the features and benefits, please upgrade your account.");
-                redirect('elibrary/view_ebook/' . $id);
-            } else {
-                // show($row);
-                // die;
-                $borrowed_ebook = new Borrowed_ebook();
-
-                if ($data['ebook']->license_type != "Public Domain") {
-                    $licensed_copies = $data['copyright']->licensed_copies;
-                }
-
-                $borrowing_count = ($borrowed_ebook->countBorrowedCopies(["ebook_id" => $id]))->borrowed_copies;
-                $user_borrowing = ($borrowed_ebook->countUserBorrowedBooks(["user_id" => $row->user_id]))->user_borrowed_books;
-
-                $isborrowed = $borrowed_ebook->hasUserBorrowed(["user_id" => $row->user_id, "ebook_id" => $id]);
-
-                if ($data['ebook']->license_type == "Public Domain") {
-
-
-                    if (!$isborrowed) {
-                        // show($row);
-                        $borrowed_ebook->insert(["user_id" => $row->user_id, "ebook_id" => $id]);
-                    }
-
-                    $borrowing = $borrowed_ebook->borrowedEbookDetails(["user_id" => $row->user_id, "ebook_id" => $id]);
-                    $date = new DateTime($borrowing->borrow_date);
-
-                    $numDays = $data['user_subscription']->borrowing_period;
-                    $interval =  new DateInterval('P' . $numDays . 'D');
-                    $due_date = $date->add($interval);
-                    $due_date = $date->format('l, F j, Y g:i ');
-                    $data['due_date'] = $due_date;
-                    $this->view('elibrary/ebook_reader', $data);
-                } elseif ($licensed_copies > $borrowing_count && $user_sub->numberOfBooks >= $user_borrowing) {
-
-                    if (!$isborrowed) {
-                        // show($row);
-                        $borrowed_ebook->insert(["user_id" => $row->userID, "ebook_id" => $id]);
-                    }
-                    $borrowing = $borrowed_ebook->borrowedEbookDetails(["user_id" => $row->userID, "ebook_id" => $id]);
-                    $date = new DateTime($borrowing->borrow_date);
-                    $numDays = $data['user_subscription']->borrowing_period;
-                    $interval =  new DateInterval('P' . $numDays . 'D');
-                    $due_date = $date->add($interval);
-                    $due_date = $date->format('l, F j, Y g:i A');
-                    $data['due_date'] = $due_date;
-                    $this->view('elibrary/ebook_reader', $data);
-                } else {
-
-
-                    message("Book currently unavailable.");
+            $user_borrowing = ($borrowed_ebook->countUserBorrowedBooks(["user_id" => $row->user_id]))->user_borrowed_books;
+            $borrowing_book_count = ($borrowed_ebook->countBorrowedCopies(["ebook_id" => $id]))->borrowed_copies;
+            $data['copyright'] = $right = $copyright->getCopyright(["ebook_id" => $id]);
+            $data['subscriptions'] = $sub = $copyright->getSubscriptionsByEbookId(['ebook_id' => $id]);
+            $data['ebook']  = $elibrary->getEbookDetails($id);
+            $isborrowed = $borrowed_ebook->hasUserBorrowed(["user_id" => $row->user_id, "ebook_id" => $id]);
+            if ($sub) {
+                $notExists = empty(array_filter($sub, function ($subscription) use ($user_sub) {
+                    return $subscription->subscription_id == $user_sub->subscription_id;
+                }));
+            }
+            if (!$isborrowed) {
+                if ($user_borrowing >= $user_sub->max_books) {
+                    message("To access all the features and benefits, please upgrade your account.");
                     redirect('elibrary/ebook/' . $id);
+                } else if ($notExists) {
+                    message("This eBook is not available for your current subscription plan.");
+                    redirect('elibrary/ebook/' . $id);
+                } else if (!empty($right) && ($right->licensed_copies >= $borrowing_book_count)) {
+                    message("All available copies of this eBook are currently borrowed. Please try again later.");
+                    redirect('elibrary/ebook/' . $id);
+                } else {
+                    $borrowed_ebook->insert(["user_id" => $row->user_id, "ebook_id" => $id]);
                 }
+            } else {
+
+                $borrowing = $borrowed_ebook->borrowedEbookDetails(["user_id" => $row->user_id, "ebook_id" => $id]);
+                $date = new DateTime($borrowing->borrow_date);
+
+                $numDays = $data['user_subscription']->borrowing_period;
+                $interval =  new DateInterval('P' . $numDays . 'D');
+                $due_date = $date->add($interval);
+                $due_date = $date->format('l, F j, Y');
+
+                $data['due_date'] = $due_date;
+                $this->view('elibrary/ebook_reader', $data);
             }
         }
     }
 
+
     public function return_book($id = null)
     {
         $borrowed_ebook = new Borrowed_ebook;
-        $elibrary = new Ebook;
         $member_subscription = new Member_subscription;
         $row = $_SESSION['USER_DATA'];
         $data['user_subscription'] = $user_sub = $member_subscription->getSubscription($row->user_id);

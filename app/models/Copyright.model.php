@@ -272,13 +272,26 @@ class Copyright extends Model
     public function getSubscriptionsByEbookId($data)
     {
         $query = "
-        SELECT s.subscription_id, s.name
-        FROM ebook_copyright ec
-        INNER JOIN subscription s ON ec.subscription_id = s.subscription_id
-        WHERE ec.ebook_id = :ebook_id
-    ";
+            SELECT s.subscription_id, s.name
+            FROM ebook_copyright ec
+            INNER JOIN subscription s ON ec.subscription_id = s.subscription_id
+            WHERE ec.ebook_id = :ebook_id
+        ";
 
         $result = $this->query($query, $data);
+
+        if (empty($result)) {
+
+            $defaultQuery = "
+                SELECT subscription_id, name
+                FROM subscription
+                WHERE subscription_id = 1
+            ";
+
+            $defaultResult = $this->query($defaultQuery);
+            return $defaultResult;
+        }
+
         return $result;
     }
 }

@@ -20,6 +20,7 @@
 
 <bookDetails>
 
+
     <div class="app-content">
         <div class="main-container">
             <div class="container-left">
@@ -28,7 +29,12 @@
             <div class="container-right">
                 <div class="sub-tags">
                     <!-- <span><?= $subscription->name ?></span> -->
-                    <span>FREE</span>
+                    <div class="tags" book-data="tags">
+                        <?php foreach ($data['book_subscription'] as $sub) : ?>
+                            <span><?= htmlspecialchars($sub->name) ?></span>
+                        <?php endforeach; ?>
+                    </div>
+
                     <?php if (isset($favourite) && $favourite) : ?>
                         <a href="<?= ROOT ?>/elibrary/favourite/<?= $ebook->ebook_id ?>/remove" class="favorite-btn favourite-filled">
                             <i class="fas fa-heart"></i>
@@ -57,20 +63,19 @@
                 <p>Pages : <span><?= $data['ebook']->pages ?></span></p>
                 <p class="description"><?= $data['ebook']->description ?></p>
                 <div>
-                    <?php if ($user_subscription->price >= $book_subscription->price) : ?>
-                        <?php if ($isborrowed) : ?>
-                            <!-- <button onclick="location.href='<?= ROOT ?>/Elibrary/borrow_ebook/<?= $ebook->id ?>'">Read</button> -->
-                            <div class="review-box"><a style="text-decoration:none;color:inherit" href="<?= ROOT ?>/Elibrary/borrow_ebook/<?= $ebook->ebook_id ?>"> Read</a></div>
-                        <?php elseif (isset($_SESSION['USER_DATA']->user_id)) : ?>
 
-                            <!-- <button onclick="location.href='<?= ROOT ?>/Elibrary/borrow_ebook/<?= $ebook->id ?>'">Borrow Now</button> -->
-                            <div class="review-box"><a style="text-decoration:none;color:inherit" href="<?= ROOT ?>/Elibrary/borrow_ebook/<?= $ebook->ebook_id ?>"> Borrow Now</a></div>
-                        <?php else : ?>
-                            <button id="borrow-btn" class="review-box">Borrow Now</button>
-                        <?php endif; ?>
+                    <?php if ($isborrowed) : ?>
+                        <!-- <button onclick="location.href='<?= ROOT ?>/Elibrary/borrow_ebook/<?= $ebook->id ?>'">Read</button> -->
+                        <div class="review-box"><a style="text-decoration:none;color:inherit" href="<?= ROOT ?>/Elibrary/borrow_ebook/<?= $ebook->ebook_id ?>"> Read</a></div>
+                    <?php elseif (isset($_SESSION['USER_DATA']->user_id)) : ?>
+
+                        <!-- <button onclick="location.href='<?= ROOT ?>/Elibrary/borrow_ebook/<?= $ebook->id ?>'">Borrow Now</button> -->
+                        <div class="review-box"><a style="text-decoration:none;color:inherit" href="<?= ROOT ?>/Elibrary/borrow_ebook/<?= $ebook->ebook_id ?>"> Borrow Now</a></div>
                     <?php else : ?>
                         <button id="borrow-btn" class="review-box">Borrow Now</button>
                     <?php endif; ?>
+
+
 
                     <!-- <?php if ($data['status']) : ?>
                         <div class="borrow-btn borrow"><a style="text-decoration:none;color:inherit" href="<?= ROOT ?>/cart/borrowNow/<?= $data['ebook']->book_id ?>"> Borrow Now</a></div>
