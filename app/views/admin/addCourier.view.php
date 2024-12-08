@@ -95,6 +95,7 @@
 
     </form>
 </addBook>
+<?php $this->view('includes/footer'); ?>
 
 <script>
     let error = document.querySelector('.form-error');

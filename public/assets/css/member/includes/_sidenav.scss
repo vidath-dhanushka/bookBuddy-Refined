@@ -1,9 +1,11 @@
 memberSidenav {
+
     .app-container {
         max-height: 100vh
     }
 
     .app-content {
+        height: 90vh;
         display: flex;
         gap: 20px;
         align-items: stretch;

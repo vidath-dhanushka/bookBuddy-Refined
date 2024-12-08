@@ -1,10 +1,11 @@
 home {
     .banner {
+        background-color: #998cd0;
         display: flex;
         justify-content: center;
         max-height: 800px;
         align-items: stretch;
-        margin-top: 60px;
+
 
         @media (max-width: 1400px) {
             flex-direction: column;
@@ -13,6 +14,7 @@ home {
         .img-container {
             display: flex;
             justify-content: center;
+            margin-top: 60px;
 
             img {
                 display: block;
@@ -29,6 +31,7 @@ home {
             flex: 600px;
             text-align: center;
             margin-bottom: 50px;
+            margin-top: 60px;
 
             span {
                 color: #5179ef;

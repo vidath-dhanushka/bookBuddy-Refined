@@ -15,6 +15,7 @@
 @import "member/changePassword";
 @import "admin/dashboard";
 @import "admin/courier";
+@import "courier/dashboard";
 
 
 .error {
@@ -38,6 +39,7 @@
 
 
 body {
+    height: 85vh;
     font-family: "Rubik", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;

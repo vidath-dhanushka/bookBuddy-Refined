@@ -29,6 +29,7 @@
 
     </table>
 </courierOngoing>
+<?php $this->view('includes/footer'); ?>
 
 <script>
 

@@ -34,6 +34,7 @@
 
     </table>
 </courierSingleOrder>
+<?php $this->view('includes/footer'); ?>
 
 <script>
     const data = <?php echo json_encode($data); ?>;
