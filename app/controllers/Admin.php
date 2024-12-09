@@ -74,6 +74,40 @@ class Admin extends Controller
     }
     public function addLibrarian()
     {
-        $this->view('admin/addLibrarian');
+        $data['errors'] = []; // To store errors and pass them to the view
+        $user = new User(); // User model instance
+    
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Debug the POST data for troubleshooting (remove in production)
+            // show($_POST);
+            
+            // Validate user inputs
+            if ($user->validate($_POST)) {
+                // Set the role as 'librarian' and hash the password
+                $_POST['role'] = 'librarian';
+                $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    
+                try {
+                    // Insert the new librarian into the database
+                    $user->insert($_POST);
+    
+                    // Display a success message
+                    message("Your account was created successfully.");
+    
+                    // Redirect to the librarian management page
+                    redirect('admin/librarian');
+                } catch (Exception $e) {
+                    // Log and store the error for debugging
+                    error_log("Insert Error: " . $e->getMessage());
+                    $data['errors'][] = "There was an error adding the librarian. Please try again later.";
+                }
+            } else {
+                // If validation fails, store errors from the validate method
+                $data['errors'] = $user->errors;
+            }
+        }
+    
+        // Load the view with errors (if any)
+        $this->view("admin/addLibrarian", $data);
     }
 }

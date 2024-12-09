@@ -2,13 +2,13 @@ adminCourier {
     .search-container {
         width: 100%;
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
         align-items: center;
         margin-bottom: 20px;
 
 
         .new-courier {
-            margin-left: 50px;
+            margin-left: 0px;
             width: 100px;
             height: 40px;
             border-radius: 10px;
