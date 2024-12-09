@@ -1,6 +1,9 @@
 <?php $this->view('admin/includes/sidenav'); ?>
 <adminCourier>
     <h1 class="title">Couriers</h1>
+    <?php if (message()) : ?>
+                    <div class="message"><?= message('', true) ?></div>
+                <?php endif; ?>
     <div class="search-container">
         <input id="search" placeholder="Search ...." type="search">
         <span class="material-symbols-outlined">search</span>
@@ -9,114 +12,46 @@
             New</a>
     </div>
     <table>
+    <thead>
         <tr>
-            <th>Name</th>
-            <th>Address</th>
-            <th>contact No.</th>
-            <th>status</th>
-            <th>actions</th>
+            <th>Company Name</th>
+            <th>Reg No</th>
+            <th>Email</th>
+            <th>Contact No.</th>
+            <th>Rate First kg</th>
+            <th>Rate Extra kg</th>
+            <th>Actions</th>
         </tr>
+        </thead>
+       
+        <tbody> 
+        <?php if (!empty($data['courier'][0]->courier_id)): ?>
+            <?php foreach ($data['courier'] as $courier):?>
         <tr>
-            <td>Vidath</td>
-            <td>8/2, Wata mawatha, Horathuduwa, Polgasowita</td>
-            <td>772205749</td>
-            <td><span class="material-symbols-outlined status" style="position: relative; top:0; left:25px">toggle_on</span>
-            </td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:0">
-                    edit
-                </span>
-                <span class="material-symbols-outlined" style="position: relative; top:0; left:10px">
+            <td><?php echo $courier->company_name ?></td>
+            <td><?php echo $courier->reg_no ?></td>
+            <td><?php echo $courier->email ?></td>
+            <td><?php echo $courier->phone ?></td>
+            <td><?php echo $courier->rate_first_kg ?></td>
+            <td><?php echo $courier->rate_extra_kg ?></td>
+            
+            <td>
+            <a class="book-btn delete" href="<?= ROOT ?>/admin/deleteCourier/<?= $courier->courier_id ?>">
+            <span class="material-symbols-outlined" style="position: relative; top:0; left:10px">
                     delete
                 </span>
+                            </a>
+                
             </td>
         </tr>
-        <tr>
-            <td>Vidath</td>
-            <td>8/2, Wata mawatha, Horathuduwa, Polgasowita</td>
-            <td>772205749</td>
-            <td><span class="material-symbols-outlined status" style="position: relative; top:0; left:25px">toggle_on</span>
-            </td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:0">
-                    edit
-                </span>
-                <span class="material-symbols-outlined" style="position: relative; top:0; left:10px">
-                    delete
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <td>Vidath</td>
-            <td>8/2, Wata mawatha, Horathuduwa, Polgasowita</td>
-            <td>772205749</td>
-            <td><span class="material-symbols-outlined status" style="position: relative; top:0; left:25px">toggle_on</span>
-            </td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:0">
-                    edit
-                </span>
-                <span class="material-symbols-outlined" style="position: relative; top:0; left:10px">
-                    delete
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <td>Vidath</td>
-            <td>8/2, Wata mawatha, Horathuduwa, Polgasowita</td>
-            <td>772205749</td>
-            <td><span class="material-symbols-outlined status" style="position: relative; top:0; left:25px">toggle_on</span>
-            </td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:0">
-                    edit
-                </span>
-                <span class="material-symbols-outlined" style="position: relative; top:0; left:10px">
-                    delete
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <td>Vidath</td>
-            <td>8/2, Wata mawatha, Horathuduwa, Polgasowita</td>
-            <td>772205749</td>
-            <td><span class="material-symbols-outlined status" style="position: relative; top:0; left:25px">toggle_on</span>
-            </td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:0">
-                    edit
-                </span>
-                <span class="material-symbols-outlined" style="position: relative; top:0; left:10px">
-                    delete
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <td>Vidath</td>
-            <td>8/2, Wata mawatha, Horathuduwa, Polgasowita</td>
-            <td>772205749</td>
-            <td><span class="material-symbols-outlined status" style="position: relative; top:0; left:25px">toggle_on</span>
-            </td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:0">
-                    edit
-                </span>
-                <span class="material-symbols-outlined" style="position: relative; top:0; left:10px">
-                    delete
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <td>Vidath</td>
-            <td>8/2, Wata mawatha, Horathuduwa, Polgasowita</td>
-            <td>772205749</td>
-            <td><span class="material-symbols-outlined status" style="position: relative; top:0; left:25px">toggle_on</span>
-            </td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:0">
-                    edit
-                </span>
-                <span class="material-symbols-outlined" style="position: relative; top:0; left:10px">
-                    delete
-                </span>
-            </td>
-        </tr>
+        <?php endforeach; ?>
+        <?php endif; ?>
+        </tbody>
+
+       
     </table>
 </adminCourier>
-<?php $this->view('includes/footer'); ?>
+
 <script>
     let status = document.querySelectorAll('.status');
     status.forEach((stus) => {

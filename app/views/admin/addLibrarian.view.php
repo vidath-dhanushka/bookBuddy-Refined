@@ -24,12 +24,8 @@
             <input type="text" name="phone" pattern=".{9,12}" value="<?= set_value('phone') ?>" required1>
         </div>
         <div class="form-field">
-            <label>Address Line 1</label>
+            <label>Address</label>
             <input type="text" name="author" required>
-        </div>
-        <div class="form-field">
-            <label>Address Line 2</label>
-            <input type="text" name="author" required1>
         </div>
         <div class="form-field">
             <label>City</label>
@@ -91,7 +87,7 @@
 
     </form>
 </addBook>
-<?php $this->view('includes/footer'); ?>
+
 <script>
     
 </script>
