@@ -2,8 +2,7 @@
 <adminCourier>
     <h1 class="title">Librarians</h1>
     <div class="search-container">
-        <input id="search" placeholder="Search ...." type="search">
-        <span class="material-symbols-outlined">search</span>
+        
         <a class="new-courier" href="<?= ROOT ?>/admin/addLibrarian">
             <span class="material-symbols-outlined">add</span>
             New</a>
