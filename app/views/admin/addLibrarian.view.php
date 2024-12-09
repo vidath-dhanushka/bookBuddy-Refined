@@ -1,6 +1,6 @@
 <?php $this->view("admin/includes/sidenav") ?>
 <addBook>
-    <h1 class="title add-book">Add Courier Company</h1>
+    <h1 class="title add-book">Add Librarian</h1>
     <form class="frm-add-courier" id="uploadForm" method="POST">
         <!-- <label>Book Image</label> -->
         <div class="form-field">
@@ -83,7 +83,7 @@
         <p>
             <button type="submit" class="add-btn">
                 <span class="material-symbols-outlined">save</span>
-                <span class="add-book">Add Courier</span>
+                <span class="add-book">Add Librarian</span>
                 <!-- <span class="edit-book">Update Info</span> -->
             </button>
         </p>
@@ -93,15 +93,5 @@
 </addBook>
 <?php $this->view('includes/footer'); ?>
 <script>
-    let error = document.querySelector('.form-error');
-    let form = document.querySelector('.frm-add-courier');
-    form.addEventListener('submit', (event) => {
-        // alert("submit clicked");
-        event.preventDefault();
-        let pwd = document.querySelector('#password').value;
-        let cnfmPwd = document.querySelector('#confirm-pwd').value;
-        if (pwd !== cnfmPwd) {
-            error.innerText = "Passwords do not match!";
-        }
-    })
+    
 </script>

@@ -9,125 +9,42 @@
             New</a>
     </div>
     <table>
+    <thead>
         <tr>
-            <th>Name</th>
-            <th>Address</th>
-            <th>contact No.</th>
-            <th>status</th>
-            <th>actions</th>
+            <th>User Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Contact No.</th>
+            <th>Actions</th>
+         
         </tr>
+        </thead>
+       
+        <tbody> 
+        <?php if (!empty($data['librarian'][0]->user_id)): ?>
+            <?php foreach ($data['librarian'] as $librarian):?>
         <tr>
-            <td>Vidath</td>
-            <td>8/2, Wata mawatha, Horathuduwa, Polgasowita</td>
-            <td>772205749</td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:25px">
-                    toggle_on
-                </span>
-            </td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:0">
-                    edit
-                </span>
-                <span class="material-symbols-outlined" style="position: relative; top:0; left:10px">
+            <td><?php echo $librarian->username ?></td>
+            <td><?php echo $librarian->first_name ?></td>
+            <td><?php echo $librarian->last_name ?></td>
+            <td><?php echo $librarian->email ?></td>
+            <td><?php echo $librarian->phone ?></td>
+           
+            
+            
+            <td>
+            
+            <a class="book-btn delete" href="<?= ROOT ?>/admin/deleteLibrarian/<?= $librarian->user_id ?>">
+            <span class="material-symbols-outlined" style="position: relative; top:0; left:10px">
                     delete
                 </span>
+                            </a>
             </td>
         </tr>
-        <tr>
-            <td>Vidath</td>
-            <td>8/2, Wata mawatha, Horathuduwa, Polgasowita</td>
-            <td>772205749</td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:25px">
-                    toggle_on
-                </span>
-            </td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:0">
-                    edit
-                </span>
-                <span class="material-symbols-outlined" style="position: relative; top:0; left:10px">
-                    delete
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <td>Vidath</td>
-            <td>8/2, Wata mawatha, Horathuduwa, Polgasowita</td>
-            <td>772205749</td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:25px">
-                    toggle_on
-                </span>
-            </td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:0">
-                    edit
-                </span>
-                <span class="material-symbols-outlined" style="position: relative; top:0; left:10px">
-                    delete
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <td>Vidath</td>
-            <td>8/2, Wata mawatha, Horathuduwa, Polgasowita</td>
-            <td>772205749</td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:25px">
-                    toggle_on
-                </span>
-            </td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:0">
-                    edit
-                </span>
-                <span class="material-symbols-outlined" style="position: relative; top:0; left:10px">
-                    delete
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <td>Vidath</td>
-            <td>8/2, Wata mawatha, Horathuduwa, Polgasowita</td>
-            <td>772205749</td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:25px">
-                    toggle_on
-                </span>
-            </td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:0">
-                    edit
-                </span>
-                <span class="material-symbols-outlined" style="position: relative; top:0; left:10px">
-                    delete
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <td>Vidath</td>
-            <td>8/2, Wata mawatha, Horathuduwa, Polgasowita</td>
-            <td>772205749</td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:25px">
-                    toggle_on
-                </span>
-            </td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:0">
-                    edit
-                </span>
-                <span class="material-symbols-outlined" style="position: relative; top:0; left:10px">
-                    delete
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <td>Vidath</td>
-            <td>8/2, Wata mawatha, Horathuduwa, Polgasowita</td>
-            <td>772205749</td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:25px">
-                    toggle_on
-                </span>
-            </td>
-            <td><span class="material-symbols-outlined" style="position: relative; top:0; left:0">
-                    edit
-                </span>
-                <span class="material-symbols-outlined" style="position: relative; top:0; left:10px">
-                    delete
-                </span>
-            </td>
-        </tr>
+        <?php endforeach; ?>
+        <?php endif; ?>
+        </tbody> 
+       
     </table>
 </adminCourier>
-<?php $this->view('includes/footer'); ?>

@@ -110,4 +110,9 @@ class User extends Model
 
         return false;
     }
+
+    public function getAllLibrarian()
+    {
+        return $this->where(['role' => "librarian"]);   
+    }
 }
