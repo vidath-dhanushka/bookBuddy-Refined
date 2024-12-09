@@ -151,3 +151,14 @@ function error($msg = '', $erase = false)
 
     return false;
 }
+
+function set_value_edit($key, $default = '')
+{
+    // Check if the key exists in $_POST and is not an empty string
+    if (isset($_POST[$key]) && $_POST[$key] !== '') {
+        return $_POST[$key];
+    }
+
+    // Return the default value if $_POST[$key] is not set or is an empty string
+    return $default;
+}

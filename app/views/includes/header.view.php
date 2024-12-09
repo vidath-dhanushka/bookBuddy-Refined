@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/librarian/subscription.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"   />
@@ -27,7 +28,7 @@
             <span class="nav">
                 <a href="<?= ROOT ?>/">Home</a>
                 <a href="<?= ROOT ?>/Books">Books</a>
-                <a href="<?= ROOT ?>/e-library">E-library</a>
+                <a href="<?= ROOT ?>/elibrary">E-library</a>
                 <a href="<?= ROOT ?>/aboutUs">About Us</a>
             </span>
         <?php endif; ?>

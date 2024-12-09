@@ -1,0 +1,125 @@
+
+
+.favorite-btn .material-symbols-outlined {
+    font-size: 24px;
+    margin-right: 5px;
+}
+
+.favorite-btn .badge {
+    background-color: rgb(130, 106, 251);
+    color: white;
+    border-radius: 100%;
+    padding: 4px 4px;
+    font-size: 10px;
+    position: absolute;
+    top: 5px;
+    right: -8px;
+}
+
+.app-header .favorite-btn {
+    border-radius: 100%;
+    transition: background-color 200ms;
+    color: inherit;
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    
+  }
+
+  .favorite-btn:hover .material-symbols-outlined {
+    transform: scale(1.2); 
+    color: rgb(130, 106, 251); 
+}
+
+.banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 100% !important;
+ 
+    margin-top: 0 !important;
+    padding: 20px;
+}
+
+.banner-content {
+    flex: 0 0 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+
+
+.img-container {
+    flex: 0 0 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.img-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+.favorite-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.favorite-btn span {
+    font-size: 24px;
+    transition: color 0.3s ease;
+}
+
+
+.favorite-btn.favourite-filled {
+    background-color: rgb(130, 106, 251);
+    color: white;
+    border: none;
+}
+
+.favorite-btn.favourite-outlined {
+    background-color: transparent;
+    color: rgb(130, 106, 251);
+    border: 1px solid rgb(130, 106, 251);
+}
+
+.favorite-btn.favourite-outlined:hover {
+    background-color: rgb(130, 106, 251); 
+    color: white;
+}
+
+.sub-tags {
+    display: flex;
+    justify-content: space-between; /* Aligns items to the left and right */
+    align-items: center; /* Vertically centers items */
+}
+.container-right{
+    width: 100%;
+}
+
+.container-right p {
+    margin: 5px 0; /* Adjust this value to increase or decrease the space */
+    line-height: 1.5; /* Adjust line height for better readability if needed */
+}
+
+.container-right .description {
+    margin-top: 10px; /* Separate from other paragraphs if needed */
+    margin-bottom: 20px; /* Adjust based on design preference */
+}
+

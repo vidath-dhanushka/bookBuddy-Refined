@@ -10,7 +10,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
     define('DBHOST', 'localhost:3306');
     define('DBNAME', 'bookbuddy_db');
     define('DBUSER', 'root');
-    define('DBPASS', '');
+    define('DBPASS', '1234');
     define('DBDRIVER', 'mysql');
 
     define('ROOT', 'http://localhost/bookBuddy/public');
@@ -19,6 +19,6 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
     define('DBHOST', 'localhost');
     define('DBNAME', 'bookbuddy_db');
     define('DBUSER', 'root');
-    define('DBPASS', '');
+    define('DBPASS', '1234');
     define('DBDRIVER', 'mysql');
 }

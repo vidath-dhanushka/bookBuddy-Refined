@@ -18,6 +18,14 @@
                 <!-- <span class="material-symbols-outlined">sync_alt</span> -->
                 My Borrowings
             </a>
+            <a href="<?= ROOT ?>/elibrary/borrowing">
+                <!-- <span class="material-symbols-outlined">sync_alt</span> -->
+                E - Book Borrowings
+            </a>
+            <a href="<?= ROOT ?>/elibrary/subscription">
+                <!-- <span class="material-symbols-outlined">sync_alt</span> -->
+                Subscription
+            </a>
             <a href="<?= ROOT ?>/logout">
                 <!-- <span class="material-symbols-outlined">logout</span> -->
                 Logout
