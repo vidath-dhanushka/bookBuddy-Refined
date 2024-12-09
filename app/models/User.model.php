@@ -111,6 +111,11 @@ class User extends Model
         return false;
     }
 
+    public function getAllLibrarian()
+    {
+        return $this->where(['role' => "librarian"]);
+    }
+
     public function edit_validate_librarian($data)
     {
         $this->errors = [];

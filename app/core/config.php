@@ -7,7 +7,7 @@ define('APP_DESC', 'Book sharing platform for everyone');
 
 // database configs
 if ($_SERVER['SERVER_NAME'] == 'localhost') {
-    define('DBHOST', 'localhost');
+    define('DBHOST', 'localhost:3306');
     define('DBNAME', 'bookbuddy_db');
     define('DBUSER', 'root');
     define('DBPASS', '1234');
