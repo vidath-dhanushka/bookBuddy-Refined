@@ -7,10 +7,41 @@ class Elibrary extends Controller
         $elibrary = new Ebook();
         $data['recent_ebooks'] = $elibrary->getRecentEBooks();
 
+        if (Auth::logged_in()) {
+            $user_borrowing = new Borrowed_ebook();
+            $member_sub = new Member_subscription();
+            $id = Auth::getuser_Id();
+            $borrowing = $user_borrowing->userCurrentBorrowing(["user_id" => $id]);
+
+            if (!empty($borrowing)) {
+
+                foreach ($borrowing as  $borrow) {
+                    // Get subscription details
+
+                    $sub = $member_sub->getSubscription($id);
+
+                    if ($sub) {
+
+                        $borrowDate = new DateTime($borrow->borrow_date);
+                        $numDays = $sub->borrowing_period;
+                        $interval = new DateInterval('P' . $numDays . 'D');
+                        $dueDate = $borrowDate->add($interval);
+
+
+                        $currentDate = new DateTime();
+                        if ($currentDate > $dueDate) {
+
+                            $user_borrowing->returnBorrowedEbook(["id" => $borrow->id]);
+                        }
+                    }
+                }
+            }
+        }
 
         $data['title'] = 'Home';
         $this->view('elibrary/library_home', $data);
     }
+
 
     public function search($action = null, $id = null)
     {

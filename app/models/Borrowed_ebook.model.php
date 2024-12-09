@@ -122,6 +122,30 @@ class Borrowed_ebook extends Model
         return $res; // Return all rows as the user might have borrowed multiple ebooks
     }
 
+    public function userCurrentBorrowing($data)
+    {
+        $query = "
+        SELECT 
+            b.*,
+            e.*
+        FROM 
+            {$this->table} b
+        JOIN 
+            ebook e ON b.ebook_id = e.ebook_id
+        WHERE 
+            b.user_id = :user_id
+        AND active = 1;
+    ";
+
+        $res = $this->query($query, $data);
+
+        if (empty($res)) {
+            return false;
+        }
+
+        return $res;
+    }
+
 
     public function returnBorrowedEbook($data)
     {
