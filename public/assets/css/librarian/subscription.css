@@ -1,0 +1,377 @@
+.subscription-component {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 0vh;
+   
+}
+
+.subscription-component .header {
+    width: 100%;
+    max-width: 560px;
+    margin-bottom: 35px;
+    text-align: center;
+    color: #FFF;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.subscription-component .header__title {
+    font-size: 32px;
+}
+
+.subscription-component .header__text {
+    color: #C0CBF2;
+}
+
+.subscription-component .subscription-container {
+    display: flex;
+    align-items: center;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 990px;
+}
+
+.subscription-component .subscription__title, 
+.subscription-component .subscription__main-feature, 
+.subscription-component .subscription__price {
+    text-transform: uppercase;
+    font-family: 'Open Sans', sans-serif;
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #85A9C1;
+}
+
+.subscription-component .subscription__title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    margin-top: 20px;
+    font-size: 20px;
+    color: #6F89E3;
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.subscription-component .subscription__icon {
+    margin-top: 10px;
+    font-size: 38px;
+    background: #F2F5FF;
+    padding: 30px;
+    border-radius: 50%;
+}
+
+.subscription-component .subscription__price {
+    display: block;
+    width: 90%;
+    text-align: center;
+    font-size: 32px;
+    color: #262223;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #EFF1F3;
+}
+
+.subscription-component .subscription__price-month {
+    font-size: 18px;
+    color: #C8CDD1;
+}
+
+.subscription-component .subscription__list {
+    padding: 0 15px;
+    margin: 10px 0;
+    list-style-type: none;
+}
+
+.subscription-component .subscription__item {
+    display: flex;
+    margin: 20px 0;
+    font-size: 16px;
+    color: #666662;
+}
+
+.subscription-component .subscription__item-text {
+    color: #AEAEAC;
+    font-size: 14px;
+}
+
+.subscription-component .icon-subscription {
+    color: #C8CDD1;
+    margin-right: 5px;
+}
+
+.subscription-component .subscription__button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Roboto, sans-serif;
+    width: 275px;
+    margin: 20px 0;
+    padding: 0;
+    border-radius: 10px;
+    background: #FFF;
+    box-shadow: 0 4px 13px 0 #6F89E3;
+    transition: transform .5s;
+    cursor: pointer;
+}
+
+
+
+.subscription__edit {
+ 
+    display: block;
+    text-align: center;
+    padding: 10px;
+    width: 80%;
+    border-radius: 5px;
+    margin-bottom: 25px;
+    border: solid 2px #6F89E3;
+    transition: .5s;
+    text-decoration: none;
+    color: #6F89E3;
+}
+
+.subscription__delete {
+ 
+    display: block;
+    text-align: center;
+    padding: 10px;
+    
+    width: 80%;
+    border-radius: 5px;
+    margin-bottom: 25px;
+    border: solid 2px red;
+    transition: .5s;
+    text-decoration: none;
+    color: red;
+}
+
+
+
+.subscription-component input[type="radio"] {
+    display: none;
+}
+
+.subscription-component input[type="radio"]:checked + label:after {
+    background: #6F89E3;
+    color: white;
+}
+
+.subscription-component input[type="radio"]:checked + label {
+    background: white;
+    transform: scale(1.09);
+    transition: transform .5s;
+    box-shadow: 0 4px 15px 0 #6F89E3;
+}
+
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px; 
+}
+
+.form-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; 
+    gap: 20px; 
+}
+
+.form-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.full-width {
+    width: 100%;
+}
+
+
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr; /* Single column layout for smaller screens */
+    }
+}
+
+
+/* back button */
+
+.custom-button.back-button {
+
+    background-color: white;
+    text-align: center;
+    height: 3.5rem; /* 14 * 0.25 rem = 3.5 rem */
+    border-radius: 1.25rem; /* 2 * 0.625 rem = 1.25 rem */
+    font-family: 'Sans-serif';
+    color: black;
+    font-size: 1.25rem; /* 1.25 rem = 1.25 rem */
+    font-weight: 600; /* Semi-bold */
+    overflow: hidden;
+    border: none;
+    cursor: pointer;
+
+  }
+  
+  .custom-button.back-button .icon-container.back-icon {
+    height: 3rem; /* 12 * 0.25 rem = 3 rem */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: width 0.5s;
+    z-index: 10;
+    
+  }
+
+  /* copyright modal */
+  
+
+  .pdf-modal {
+    /* Styles for the PDF modal */
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+}
+
+.pdf-modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 98%;
+
+}
+
+.pdf-close {
+    color: #fff;
+    float: right;
+    font-size: 28px;
+    height: 25px;
+    width: 25px;
+    font-weight: bold;
+    background-color: #5179ef;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.pdf-close:hover,
+.pdf-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.copyright-edit {
+    width: 50px;
+    text-decoration: none;
+    border: 1px solid #5179ef;
+    background-color: #5179ef;
+    color: white;
+    padding: 5px 25px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 500;
+    justify-content: center;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.copyright-delete {
+    width: 50px;
+    text-decoration: none;
+    background-color: #e7546f;
+    border-color: #e73300;
+    color: white;
+    padding: 5px 25px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 500;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.open-modal{
+    border: 1px solid #5179ef;
+    color: #5179ef;
+
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px 25px;
+}
+
+
+.btn-close {
+  margin: 0;
+  border: 5px;
+  padding: 0;
+  background: #5179ef;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 150ms;
+  color: white;
+
+  
+  &:hover,
+  &:focus {
+    transform: rotateZ(90deg);
+  }
+
+}
+
+.pricing-header {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: rgb(130, 106, 251);
+    color: white;
+}
+
+.pricing-header h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.pricing-header p {
+    font-size: 1.2rem;
+}
+
+
+.pricing-header a {
+    color: rgb(90, 73, 175); /* Text color */
+    background-color: #ffffff; /* White background */
+    border: 2px solid rgb(90, 73, 175); /* Border color */
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px; /* Rounded corners */
+    display: inline-block;
+    transition: background-color 0.3s, color 0.3s; /* Smooth hover transition */
+}
+
+.pricing-header a:hover {
+    background-color: #f0f0f0; /* Lighter background on hover */
+    color: rgb(90, 73, 175); /* Darker text on hover */
+    border-color: rgb(90, 73, 175); /* Darker border on hover */
+}
+
+

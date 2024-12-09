@@ -60,9 +60,17 @@ class Admin extends Controller
     {
         $this->view('admin/addCourier');
     }
+   
     public function librarian()
     {
-        $this->view('admin/librarians');
+        $librarian = new User();
+        $librariandata = $librarian->getAllLibrarian();
+        $data = [
+            'librarian' => $librariandata,
+
+        ];
+
+        $this->view('admin/librarians',$data);
     }
     public function addLibrarian()
     {

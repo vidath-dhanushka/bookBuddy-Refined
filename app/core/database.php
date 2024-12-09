@@ -264,7 +264,163 @@ class Database
             verify_time DATETIME,
             reg_time    DATETIME           NOT NULL DEFAULT CURRENT_TIMESTAMP,
             mod_time    DATETIME ON UPDATE CURRENT_TIMESTAMP
-        )";
+        );";
+
+        $this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS ebook
+        (
+            `ebook_id` INT AUTO_INCREMENT,
+            `title` VARCHAR(255) NOT NULL,
+            `author_name` VARCHAR(255) NOT NULL, 
+            `isbn` VARCHAR(17),
+            `language` VARCHAR(50),
+            `edition` INT,
+            `publisher` VARCHAR(255) NOT NULL,
+            `publish_date` DATE NOT NULL,
+            `pages` INT NOT NULL,
+            `description` TEXT NOT NULL,
+            `book_cover`  VARCHAR(1024) NOT NULL,
+            `file`  VARCHAR(1024) NOT NULL,
+            `license_type` VARCHAR(50) NOT NULL,
+            `librarian_id` MEDIUMINT UNSIGNED, 
+            `copyright_status` INT NOT NULL DEFAULT 0,
+            `date_added` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            `mod_time` DATETIME ON UPDATE CURRENT_TIMESTAMP,
+            PRIMARY KEY (ebook_id),
+            FOREIGN KEY (librarian_id) REFERENCES user(user_id) ON DELETE SET NULL
+        );";
+
+        $this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS `ebook_category` (
+            `id` INT(11) NOT NULL AUTO_INCREMENT,
+            `ebook_id` INT NOT NULL, 
+            `category_id` SMALLINT UNSIGNED NOT NULL,
+            PRIMARY KEY (id),
+            FOREIGN KEY (ebook_id) REFERENCES ebook(ebook_id) ON DELETE CASCADE,
+            FOREIGN KEY (category_id) REFERENCES category(category_id) ON DELETE CASCADE
+            );
+        ";
+
+        $this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS `ebook_review` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `ebook_id` INT DEFAULT NULL,
+            `user_id` MEDIUMINT UNSIGNED NULL,
+            `rating` int(11) DEFAULT NULL,
+            `description` text DEFAULT NULL,
+            `date` timestamp NOT NULL DEFAULT current_timestamp(),
+            PRIMARY KEY (`id`),
+            FOREIGN KEY (`ebook_id`) REFERENCES `ebook`(`ebook_id`) ON DELETE CASCADE,
+            FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`) ON DELETE CASCADE
+        );";
+
+        $this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS subscription (
+                `subscription_id` INT AUTO_INCREMENT,
+                `name` VARCHAR(255) NOT NULL,
+                `price` DECIMAL(10, 2) NOT NULL,
+                `max_books` INT NOT NULL,
+                `borrowing_period` INT NOT NULL,
+                `date_added` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                `modify_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                `status` ENUM('active', 'inactive', 'deleted') NOT NULL DEFAULT 'active',
+                PRIMARY KEY (`subscription_id`)
+            );";
+
+        $this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS copyright (
+                copyright_id INT AUTO_INCREMENT,
+                ebook_id INT NOT NULL,
+                agreement VARCHAR(1024) NOT NULL,
+                license_type ENUM(
+                    'cc0',
+                    'cc_by',
+                    'cc_by_sa',
+                    'cc_by_nc_sa',
+                    'cc_by_nc',
+                    'cc_by_nc_nd',
+                    'cc_by_nd'
+                ) NOT NULL,
+                licensed_copies INT NOT NULL,
+                copyright_fee DECIMAL(10,2) NOT NULL,
+                license_start_date DATE NOT NULL,
+                license_end_date DATE NOT NULL,
+                date_added DATETIME NOT NULL DEFAULT current_timestamp(),
+                modify_date DATETIME NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+                PRIMARY KEY (copyright_id),
+                FOREIGN KEY (ebook_id) REFERENCES ebook(ebook_id) ON DELETE CASCADE
+            );";
+
+        $this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS `borrowed_ebooks` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `ebook_id` INT NOT NULL,
+            `user_id` MEDIUMINT UNSIGNED NULL,
+            `borrow_date` DATETIME DEFAULT current_timestamp(),
+            `active` TINYINT(1) DEFAULT 1,
+            PRIMARY KEY (`id`),
+            FOREIGN KEY (`ebook_id`) REFERENCES `ebook`(`ebook_id`) ON DELETE CASCADE,
+            FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`) ON DELETE CASCADE
+        );
+        
+        ";
+        $this->query($query);
+
+
+        $query = "CREATE TABLE IF NOT EXISTS `member_subscription` (
+            `id` INT AUTO_INCREMENT,
+            `user_id` MEDIUMINT UNSIGNED NULL,
+            `subscription_id` INT,
+            `start_date` DATETIME NOT NULL DEFAULT current_timestamp(),
+            `end_date` DATETIME,
+            PRIMARY KEY (`id`),
+            FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`) ON DELETE CASCADE,
+            FOREIGN KEY (`subscription_id`) REFERENCES `subscription`(`subscription_id`) ON DELETE CASCADE
+        );";
+
+        $this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS ebook_favourite (
+                favourite_id INT AUTO_INCREMENT PRIMARY KEY,
+                user_id MEDIUMINT UNSIGNED NULL,
+                ebook_id INT NOT NULL,
+                added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,
+                FOREIGN KEY (ebook_id) REFERENCES ebook(ebook_id) ON DELETE CASCADE
+                );";
+
+        $this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS `notification` (
+            `notification_id` int(11) NOT NULL AUTO_INCREMENT,
+            `user_id` MEDIUMINT UNSIGNED NULL,
+            `message` varchar(255) NOT NULL,
+            `date` datetime NOT NULL DEFAULT current_timestamp(),
+            `seen` tinyint(1) NOT NULL DEFAULT 0,
+            PRIMARY KEY (`notification_id`),
+            FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
+            
+          );
+          
+          ";
+
+        $this->query($query);
+
+        $query = "CREATE TABLE IF NOT EXISTS `ebook_copyright` (
+            `id` INT(11) NOT NULL AUTO_INCREMENT,
+            `ebook_id` INT NOT NULL, 
+            `subscription_id` INT,
+            PRIMARY KEY (id),
+            FOREIGN KEY (ebook_id) REFERENCES ebook(ebook_id) ON DELETE CASCADE,
+            FOREIGN KEY (subscription_id) REFERENCES subscription(subscription_id) ON DELETE CASCADE
+            );
+        ";
 
         $this->query($query);
     }

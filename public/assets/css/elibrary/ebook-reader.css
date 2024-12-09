@@ -1,0 +1,99 @@
+
+@media print {
+    /* Hide the PDF area when printing */
+    .pdf-area {
+        display: none !important; 
+    }
+}
+/* Define a class to hide the PDF area */
+.pdf-area {
+    display: block; /* Or any other display property */
+}
+
+/* Media query for printing */
+
+.pdf-area{
+    width: 100%;
+    flex-grow: 1;
+    height:20vh;
+    background-color:#A9A9A980;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;
+    margin: 2px;
+    position: relative;
+}
+
+.book-reader {
+width: 99%;
+height: 82.8vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+/* background: #000; */
+}
+
+.pdfNavigation {
+width:100%;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 10px;
+background: #333;
+color: #fff;
+}
+
+
+.pdfNavigation .left, .pdfNavigation .middle, .pdfNavigation .right {
+display: flex;
+align-items: center;
+gap:10px;
+}
+
+
+.pdfNavigation button {
+background: #666;
+border: none;
+color: #fff;
+padding: 10px;
+margin: 0 5px;
+border-radius: 5px;
+cursor: pointer;
+}
+.pdfNavigation button:hover {
+background: #999;
+}
+.pdfNavigation input {
+width: 50px;
+padding: 5px;
+color: #000;
+}
+
+.pdfNavigation .middle .return-btn {
+    color: #fff;
+    background-color: #f00;
+    padding: 10px;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    border-radius: 8px;
+}
+.pdfNavigation .middle .return-time {
+    color: #fff;
+    padding: 10px;
+}
+.pdfNavigation .middle .return-btn:hover {
+    /* Your hover CSS rules here */
+    color: #f00;
+    background-color: #fff;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.7);
+}
+.return-btn {
+    color: #fff;
+    background-color: #f00;
+    padding: 10px;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    border-radius: 8px;
+}
