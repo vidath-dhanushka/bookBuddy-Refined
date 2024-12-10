@@ -77,7 +77,7 @@
     </div>
 </cart>
 
-<script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
+<!-- <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script> -->
 
 <script>
     let data = <?= $jsonData ?>;
@@ -293,4 +293,4 @@
     }
     // document.querySelector('#topup').addEventListener('click', payment_gateway());
 </script>
-<?php $this->view('includes/footer'); ?>
+<!-- <?php $this->view('includes/footer'); ?> -->

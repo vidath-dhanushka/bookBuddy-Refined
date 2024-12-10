@@ -37,6 +37,8 @@ class Books extends Controller
             // show($previousReview);
             // die;
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // show($_POST);
+                // die;
                 $data['rating'] = $_POST['rating'];
                 $data['review'] = $_POST['review'];
 
@@ -47,16 +49,16 @@ class Books extends Controller
                     } catch (Exception $e) {
                         echo json_encode(['success' => false]);
                     }
+                } else {
+                    if ($review->insert($data)) {
+                        echo json_encode(['success' => true]);
+                    } else {
+                        echo json_encode(['success' => false]);
+                    }
                 }
             } else {
-                if ($review->insert($data)) {
-                    echo json_encode(['success' => true]);
-                } else {
-                    echo json_encode(['success' => false]);
-                }
+                $this->view('_404');
             }
-        } else {
-            $this->view('_404');
         }
     }
 

@@ -55,4 +55,4 @@
         })
     })
 </script>
-<?php $this->view('includes/footer'); ?>
+<!-- <?php $this->view('includes/footer'); ?> -->

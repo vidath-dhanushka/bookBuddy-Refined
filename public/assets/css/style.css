@@ -1409,6 +1409,12 @@ courierDashboard h2 {
   text-align: center !important;
 }
 
+.status_select {
+  border: none;
+  border-radius: 10px;
+  height: 30px;
+}
+
 .error {
   color: red;
   font-size: 0.7rem;
