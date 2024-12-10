@@ -1,5 +1,6 @@
 <?php $this->view('includes/header'); ?>
 <bookDetails>
+
     <div class="app-content">
         <div class="main-container">
             <div class="container-left">
@@ -127,7 +128,7 @@
             let formData = new FormData();
             formData.append('rating', rating);
             formData.append('review', review);
-
+            // alert("passed");
             fetch('<?= ROOT ?>/books/addReview/<?= $data['bookDetails'][0]->book_id ?>', {
                     method: 'POST',
                     body: formData
@@ -189,4 +190,4 @@
         })
     });
 </script>
-<?php $this->view('includes/footer');
+<!-- <?php $this->view('includes/footer'); ?> -->

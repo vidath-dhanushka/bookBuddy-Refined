@@ -21,7 +21,7 @@
                 <td><?= $order->address_line1 ?>, <?= $order->address_line2 ?>, <?= $order->address_city ?>, <?= $order->address_district ?> </td>
                 <td>Rs. <?= $order->price ?></td>
                 <td><?= $order->weight ?>g</td>
-                <td><select name="status" class="status" data-id=<?= $order->book_borrow_id ?>>
+                <td><select name="status" class="status_select" data-id=<?= $order->book_borrow_id ?>>
                         <option value="pending" <?= $order->status == 'pending' ? 'selected' : '' ?>>Pending</option>
                         <option value="collected" <?= $order->status == 'collected' ? 'selected' : '' ?>>Collected from Owner</option>
                         <option value="recieved" <?= $order->status == 'recieved' ? 'selected' : '' ?>>Sent to Borrower</option>
@@ -39,7 +39,7 @@
 <script>
     const data = <?php echo json_encode($data); ?>;
 
-    let status = document.querySelectorAll(".status").forEach(select => {
+    let status = document.querySelectorAll(".status_select").forEach(select => {
         select.addEventListener('change', (event) => {
             let bookBorrowId = event.target.dataset.id;
             let selectedStatus = event.target.value;
