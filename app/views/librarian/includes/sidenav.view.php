@@ -5,7 +5,7 @@
             <a href="<?= ROOT ?>/librarian">
                 Dashboard
             </a>
-            <a href="<?= ROOT ?>/librarian">
+            <a href="<?= ROOT ?>/librarian/profile">
                 Profile
             </a>
             <a href="<?= ROOT ?>/librarian/changePassword">

@@ -5,6 +5,12 @@ class Librarian extends Controller
 
     public function index()
     {
+        $this->view("librarian/dashboard");
+    }
+
+
+    public function profile()
+    {
         $user = new User();
         $data = [];
         $id = Auth::getuser_Id();

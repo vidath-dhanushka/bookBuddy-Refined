@@ -1,0 +1,74 @@
+
+    main .insights>div {
+        background-color: #fff;
+        padding: 1.8rem;
+        border-radius: 2rem;
+        box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+        transition: all .3s ease;
+    }
+
+    main .insights {
+        display: grid;
+      
+        gap: 1rem;
+ 
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+
+  
+        
+    }
+    .box-4{
+        grid-column: span 2 / span 2;
+    grid-row: span 2 / span 2;
+    grid-row-start: 2;
+    }
+    .box-5{
+        grid-column-start: 3;
+    grid-row-start: 2;
+    }
+    .box-6{
+        grid-column-start: 3;
+    grid-row-start: 3;
+    
+    }
+    .box-6 svg{
+        float: right;
+        color: #5179ef;
+    }
+
+    .box-6 h4{
+        margin: 0;
+    }
+
+
+    main .insights>div span {
+        background: #5179ef;
+        padding: 0.5rem;
+        border-radius: 50%;
+        color: #fff;
+        font-size: 2rem;
+
+    }
+
+    .chart {
+       
+        height:50%;
+        background-color: #fff;
+        padding: 1.8rem;
+        border-radius: 2rem;
+       
+        box-shadow: 0 2rem 3rem rgba(132, 139, 200, 0.18);
+    }
+
+
+    main .insights>div .middle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+
+    small {
+        font-size: .75rem;
+    }
