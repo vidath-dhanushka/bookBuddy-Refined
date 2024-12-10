@@ -26,7 +26,7 @@
                     </div>
 
                 </div>
-                <small>Last 24 hours</small>
+                <small><a href="<?= ROOT ?>/librarian/ebooks" style="color:black">Go to E - books</a></small>
             </div>
             <div class="sales box-2">
 
@@ -40,7 +40,7 @@
                     </div>
 
                 </div>
-                <small>Last 24 hours</small>
+
             </div>
             <div class="sales box-3">
 
@@ -54,7 +54,7 @@
                     </div>
 
                 </div>
-                <small>Last 24 hours</small>
+
             </div>
             <div class="sales box-5">
 
@@ -68,7 +68,7 @@
                     </div>
 
                 </div>
-                <small>Last 24 hours</small>
+
             </div>
             <div class="sales box-6" style="height:5px">
 

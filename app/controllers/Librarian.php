@@ -640,4 +640,18 @@ class Librarian extends Controller
         message("Copyright not required for public domain books.");
         redirect('librarian/ebooks');
     }
+
+    public function borrowing()
+    {
+        $data = [];
+        $borrowing = new Borrowed_ebook;
+        $member_subscription = new Member_subscription();
+
+        if (Auth::logged_in()) {
+            $user_id = Auth::getuser_Id();
+            $data['borrowed_ebooks'] = $borrowing->getAllBorrowingRecords();
+        }
+
+        $this->view('librarian/ebookBorrowing', $data);
+    }
 }

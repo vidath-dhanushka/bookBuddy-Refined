@@ -171,4 +171,28 @@ class Borrowed_ebook extends Model
 
         return 0;
     }
+
+    public function getAllBorrowingRecords()
+    {
+        $query = "
+        SELECT 
+            b.*,        
+            e.*,       
+            u.*        
+        FROM 
+            {$this->table} b
+        JOIN 
+            ebook e ON b.ebook_id = e.ebook_id
+        JOIN 
+            user u ON b.user_id = u.user_id
+    ";
+
+        $res = $this->query($query);
+
+        if (empty($res)) {
+            return false;
+        }
+
+        return $res;
+    }
 }
