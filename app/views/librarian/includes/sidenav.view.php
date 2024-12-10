@@ -20,6 +20,9 @@
             <a href="<?= ROOT ?>/librarian/subscription">
                 Subscriptions
             </a>
+            <a href="<?= ROOT ?>/librarian/borrowing">
+                Borrowings
+            </a>
 
             <a href="<?= ROOT ?>/logout">
                 Logout
