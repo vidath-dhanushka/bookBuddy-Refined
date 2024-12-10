@@ -5,7 +5,19 @@ class Librarian extends Controller
 
     public function index()
     {
-        $this->view("librarian/dashboard");
+        $ebook = new Ebook();
+        $borrowing = new Borrowed_ebook();
+        $user = new User();
+
+        $data = [];
+        $data['ebook_count'] = $ebook->getEbookCount();
+        $data['borrowed_ebook_count'] = $borrowing->getBorrowedEbookCount();
+        $data['member_count'] = $user->getMemberCount();
+        $data['profit'] = $ebook->calculateProfit();
+        $data['profit_chart'] = $ebook->getProfitabilityData();
+        // show($data);
+        // die;
+        $this->view("librarian/dashboard", $data);
     }
 
 

@@ -158,4 +158,17 @@ class Borrowed_ebook extends Model
 
         return true;
     }
+
+    public function getBorrowedEbookCount()
+    {
+        $query = "SELECT COUNT(*) AS borrowed_count FROM borrowed_ebooks";
+        $result = $this->query($query);
+
+        if ($result) {
+
+            return $result[0]->borrowed_count;
+        }
+
+        return 0;
+    }
 }
