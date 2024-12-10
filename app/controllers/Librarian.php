@@ -100,7 +100,6 @@ class Librarian extends Controller
             $id = Auth::getuser_Id();
             $category = new Category();
             $elibrary = new Ebook();
-
             $data['categories'] = $elibrary->getCategories();
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -139,18 +138,20 @@ class Librarian extends Controller
 
 
                 if (!empty($_FILES['file']['name'])) {
+
                     if ($_FILES['file']['error'] == 0) {
                         $fileSize = $_FILES['file']['size'];
-                        $maxSize = 5 * 1024 * 1024;
+                        $maxSize = 10 * 1024 * 1024;
                         if ($fileSize > $maxSize) {
-                            $elibrary->errors['file'] = "File is too large. Maximum file size is 5 MB.";
+                            $elibrary->errors['file'] = "File is too large. Maximum file size is 10 MB.";
                         } else
                         if (in_array($_FILES['file']['type'], $allowed)) {
                             $destination = $folder . time() . $_FILES['file']['name'];
                             move_uploaded_file($_FILES['file']['tmp_name'], $destination);
-                            $_SESSION['temp_file_path'] = $destination;
                             $_POST['file'] = $destination;
+                            $_SESSION['temp_file_path'] = $destination;
                         } else {
+
                             $elibrary->errors['file'] = "This file type is not allowed";
                         }
                     } else {
@@ -170,6 +171,7 @@ class Librarian extends Controller
                     if (empty($elibrary->errors)) {
                         $_POST['book_cover'] = $_SESSION['temp_cover_path'];
                         $_POST['file'] = $_SESSION['temp_file_path'];
+
                         if ($_POST['license_type'] == "Public Domain") {
                             $_POST['copyright_status'] = 1;
 

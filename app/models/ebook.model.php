@@ -76,15 +76,6 @@ class Ebook extends Model
     }
 
 
-    private function validateEdition($edition)
-    {
-
-        if (filter_var($edition, FILTER_VALIDATE_INT, array("options" => array("min_range" => 1)))) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     public function isIsbnExists($isbn)
     {
@@ -154,8 +145,8 @@ class Ebook extends Model
         }
 
 
-        if (isset($data['edtion']) && !$this->validateEdition($data['edtion'])) {
-            $this->errors['isbn'] = "Error: The Edition format is invalid.";
+        if (isset($data['edtion']) && $data['edtion'] < 0) {
+            $this->errors['edtion'] = "Error: The Edition can't be negative value.";
         }
 
         if (empty($data['language'])) {
@@ -248,8 +239,8 @@ class Ebook extends Model
         }
 
 
-        if (isset($data['edtion']) && !$this->validateEdition($data['edtion'])) {
-            $this->errors['isbn'] = "Error: The Edition format is invalid.";
+        if (isset($data['edtion']) && $data['edtion'] < 0) {
+            $this->errors['edtion'] = "Error: The Edition can't be negative value.";
         }
 
         if (empty($data['language'])) {
