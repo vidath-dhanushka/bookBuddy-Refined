@@ -58,4 +58,15 @@ class Notification extends Model
         return $res; // Use the instance to call the non-static method
 
     }
+
+    public function addNotification($userId, $message)
+    {
+        $query = "INSERT INTO notification (user_id, message, date, seen) 
+                  VALUES (:user_id, :message, NOW(), 0)";
+
+        return $this->query($query, [
+            'user_id' => $userId,
+            'message' => $message,
+        ]);
+    }
 }

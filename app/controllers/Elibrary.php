@@ -10,6 +10,7 @@ class Elibrary extends Controller
         if (Auth::logged_in()) {
             $user_borrowing = new Borrowed_ebook();
             $member_sub = new Member_subscription();
+            $notification = new Notification();
             $id = Auth::getuser_Id();
             $borrowing = $user_borrowing->userCurrentBorrowing(["user_id" => $id]);
 
@@ -30,7 +31,7 @@ class Elibrary extends Controller
 
                         $currentDate = new DateTime();
                         if ($currentDate > $dueDate) {
-
+                            $notification->addNotification($id, "The book '$borrow->title' has been auto-returned today. Thank you!");
                             $user_borrowing->returnBorrowedEbook(["id" => $borrow->id]);
                         }
                     }
