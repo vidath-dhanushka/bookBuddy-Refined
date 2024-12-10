@@ -416,4 +416,104 @@ class Ebook extends Model
             return false;
         }
     }
+
+    public function getEbookCount()
+    {
+        $query = "SELECT COUNT(*) AS ebook_count FROM ebook";
+        $result = $this->query($query);
+
+        if ($result) {
+            return $result[0]->ebook_count;
+        }
+        return 0;
+    }
+
+    public function calculateProfit()
+    {
+
+        $query_subscription = "
+            SELECT SUM(s.price) AS total_revenue
+            FROM member_subscription ms
+            JOIN subscription s ON ms.subscription_id = s.subscription_id
+            WHERE s.status = 'active' AND ms.end_date >= NOW();";
+
+        $subscription_result = $this->query($query_subscription);
+
+        $total_revenue = $subscription_result[0]->total_revenue;
+
+
+        $query_copyright = "
+            SELECT SUM(c.copyright_fee) AS total_copyright_fee
+            FROM copyright c
+            WHERE c.license_end_date >= NOW();";
+
+        $copyright_result = $this->query($query_copyright);
+        $total_copyright_fee = $copyright_result[0]->total_copyright_fee;
+
+
+        $total_profit = $total_revenue - $total_copyright_fee;
+
+        return $total_profit;
+    }
+
+    function getProfitabilityData()
+    {
+
+        // Query to get monthly subscription revenue
+        $query_subscription_revenue = "
+                SELECT
+                    MONTH(date_added) AS month,
+                    SUM(price) AS revenue
+                FROM member_subscription
+                JOIN subscription ON member_subscription.subscription_id = subscription.subscription_id
+                WHERE YEAR(date_added) = YEAR(CURDATE()) -- Current year
+                GROUP BY MONTH(date_added)
+            ";
+
+        // Query to get monthly copyright expenses
+        $query_copyright_expenses = "
+                SELECT
+                    MONTH(license_start_date) AS month,
+                    SUM(copyright_fee) AS expenses
+                FROM copyright
+                WHERE YEAR(license_start_date) = YEAR(CURDATE()) -- Current year
+                GROUP BY MONTH(license_start_date)
+            ";
+
+
+        $subscription_data = $this->query($query_subscription_revenue);
+        $copyright_data = $this->query($query_copyright_expenses);
+
+
+
+        // Initialize arrays for the chart data
+        $labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        $revenue = array_fill(0, 12, 0); // Initialize an array for subscription revenue
+        $expenses = array_fill(0, 12, 0); // Initialize an array for copyright expenses
+        $profit = array_fill(0, 12, 0);   // Initialize an array for profit
+
+        // Populate revenue data
+        foreach ($subscription_data as $row) {
+
+            $revenue[$row->month - 1] = $row->revenue;
+        }
+
+        // Populate copyright expenses data
+        foreach ($copyright_data as $row) {
+            $expenses[$row->month - 1] = $row->expenses;
+        }
+
+        // Calculate profit (revenue - expenses)
+        for ($i = 0; $i < 12; $i++) {
+            $profit[$i] = $revenue[$i] - $expenses[$i];
+        }
+
+        // Return the formatted data for the chart
+        return [
+            'labels' => $labels,
+            'revenue' => $revenue,
+            'expenses' => $expenses,
+            'profit' => $profit
+        ];
+    }
 }

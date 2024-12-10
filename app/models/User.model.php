@@ -173,4 +173,16 @@ class User extends Model
 
         return empty($this->errors);
     }
+
+    public function getMemberCount()
+    {
+        $query = "SELECT COUNT(*) AS member_count FROM user WHERE role = 'MEMBER'";
+        $result = $this->query($query);
+
+        if ($result) {
+            return $result[0]->member_count;
+        }
+
+        return 0;
+    }
 }
