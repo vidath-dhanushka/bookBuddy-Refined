@@ -44,7 +44,7 @@
                                 </span>
                             </li>
                         </ul>
-                        <a href="" onclick="payment_gateway()" class="subscription__edit button-edit"><?= $buttonText ?></a>
+                        <a href="" class="subscription__edit button-edit"><?= $buttonText ?></a>
                     </label>
                 <?php endforeach; ?>
             <?php else : ?>
@@ -54,5 +54,5 @@
     </div>
 
 </memberProfile>
-<script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
+
 <?php $this->view('member/includes/footer'); ?>
