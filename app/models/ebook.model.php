@@ -144,10 +144,10 @@ class Ebook extends Model
             }
         }
 
-
-        if (isset($data['edtion']) && $data['edtion'] < 0) {
-            $this->errors['edtion'] = "Error: The Edition can't be negative value.";
+        if (isset($data['edition']) && $data['edition'] <= 0) {
+            $this->errors['edition'] = "Error: The Edition can't be negative or zero value.";
         }
+
 
         if (empty($data['language'])) {
             $this->errors['language'] = "Error: Language cannot be empty.";
@@ -239,9 +239,11 @@ class Ebook extends Model
         }
 
 
-        if (isset($data['edtion']) && $data['edtion'] < 0) {
-            $this->errors['edtion'] = "Error: The Edition can't be negative value.";
+
+        if (isset($data['edition']) && $data['edition'] <= 0) {
+            $this->errors['edition'] = "Error: The Edition can't be negative or zero value.";
         }
+
 
         if (empty($data['language'])) {
             $this->errors['language'] = "Error: Language cannot be empty.";

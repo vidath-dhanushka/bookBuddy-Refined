@@ -67,8 +67,7 @@
                         </td>
                         <td>
                             <?php if ($copyright && $copyright->agreement) : ?>
-                                <a href="#" onclick="openPdfModal('<?= ROOT . '/' . $copyright->agreement ?>'); return false;">( View Agreement )</a>
-                                <button class="open-modal" style="color: white;" data-pdf="<?= ROOT ?>/<?= htmlspecialchars($copyright->agreement) ?>">View Agreement</button>
+                                <button class="open-modal" style="color: white;height:auto" data-pdf="<?= ROOT ?>/<?= htmlspecialchars($copyright->agreement) ?>">View Agreement</button>
                             <?php else : ?>
                                 N/A
                             <?php endif; ?>
@@ -113,6 +112,7 @@
                 console.log('PDF URL:', pdfUrl);
                 iframe.src = pdfUrl;
                 modal.style.display = 'block';
+                modal.style.visibility = 'visible';
             });
         });
 
@@ -124,6 +124,7 @@
         window.addEventListener('click', function(event) {
             if (event.target == modal) {
                 modal.style.display = 'none';
+
                 iframe.src = '';
             }
         });
@@ -131,6 +132,7 @@
 
     function openPdfModal(url) {
         document.getElementById('pdf-iframe').src = url;
+
         document.getElementById('pdf-modal').style.display = 'block';
     }
 

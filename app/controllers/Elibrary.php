@@ -256,8 +256,9 @@ class Elibrary extends Controller
                 }));
             }
             if (!$isborrowed) {
+
                 if ($user_borrowing >= $user_sub->max_books) {
-                    message("To access all the features and benefits, please upgrade your account.");
+                    message("You have exceeded your borrowing limit, please upgrade your account.");
                     redirect('elibrary/ebook/' . $id);
                 } else if ($notExists) {
                     message("This eBook is not available for your current subscription plan.");
