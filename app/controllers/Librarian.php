@@ -159,10 +159,11 @@ class Librarian extends Controller
                     }
                 }
 
+
                 if (empty($_POST["isbn"])) {
                     $_POST["isbn"] = null;
                 }
-                if (empty($_POST["edition"])) {
+                if (!isset($_POST["edition"])) {
                     $_POST["edition"] = null;
                 }
 
@@ -277,11 +278,13 @@ class Librarian extends Controller
                         $elibrary->errors['file'] = "Could not upload file";
                     }
                 }
+                // show($_POST);
+                // die;
 
                 if (empty($_POST["isbn"])) {
                     $_POST["isbn"] = null;
                 }
-                if (empty($_POST["edition"])) {
+                if (!isset($_POST["edition"])) {
                     $_POST["edition"] = null;
                 }
 

@@ -144,10 +144,10 @@ class Ebook extends Model
             }
         }
 
-
-        if (isset($data['edtion']) && $data['edtion'] < 0) {
-            $this->errors['edtion'] = "Error: The Edition can't be negative value.";
+        if (isset($data['edition']) && $data['edition'] <= 0) {
+            $this->errors['edition'] = "Error: The Edition can't be negative or zero value.";
         }
+
 
         if (empty($data['language'])) {
             $this->errors['language'] = "Error: Language cannot be empty.";
@@ -239,9 +239,11 @@ class Ebook extends Model
         }
 
 
-        if (isset($data['edtion']) && $data['edtion'] < 0) {
-            $this->errors['edtion'] = "Error: The Edition can't be negative value.";
+
+        if (isset($data['edition']) && $data['edition'] <= 0) {
+            $this->errors['edition'] = "Error: The Edition can't be negative or zero value.";
         }
+
 
         if (empty($data['language'])) {
             $this->errors['language'] = "Error: Language cannot be empty.";
@@ -483,16 +485,21 @@ class Ebook extends Model
         $expenses = array_fill(0, 12, 0); // Initialize an array for copyright expenses
         $profit = array_fill(0, 12, 0);   // Initialize an array for profit
 
-        // Populate revenue data
-        foreach ($subscription_data as $row) {
-
-            $revenue[$row->month - 1] = $row->revenue;
+        if (!empty($subscription_data) && (is_array($subscription_data) || is_object($subscription_data))) {
+            foreach ($subscription_data as $row) {
+                $revenue[$row->month - 1] = $row->revenue;
+            }
         }
+
 
         // Populate copyright expenses data
         foreach ($copyright_data as $row) {
-            $expenses[$row->month - 1] = $row->expenses;
+            // Check if the month is within the valid range (1 to 12)
+            if ($row->month >= 1 && $row->month <= 12) {
+                $expenses[$row->month - 1] = isset($row->expenses) ? $row->expenses : 0; // Default to 0 if not set
+            }
         }
+
 
         // Calculate profit (revenue - expenses)
         for ($i = 0; $i < 12; $i++) {

@@ -10,6 +10,7 @@ class Elibrary extends Controller
         if (Auth::logged_in()) {
             $user_borrowing = new Borrowed_ebook();
             $member_sub = new Member_subscription();
+            $notification = new Notification();
             $id = Auth::getuser_Id();
             $borrowing = $user_borrowing->userCurrentBorrowing(["user_id" => $id]);
 
@@ -30,7 +31,7 @@ class Elibrary extends Controller
 
                         $currentDate = new DateTime();
                         if ($currentDate > $dueDate) {
-
+                            $notification->addNotification($id, "The book '$borrow->title' has been auto-returned today. Thank you!");
                             $user_borrowing->returnBorrowedEbook(["id" => $borrow->id]);
                         }
                     }
@@ -255,8 +256,9 @@ class Elibrary extends Controller
                 }));
             }
             if (!$isborrowed) {
+
                 if ($user_borrowing >= $user_sub->max_books) {
-                    message("To access all the features and benefits, please upgrade your account.");
+                    message("You have exceeded your borrowing limit, please upgrade your account.");
                     redirect('elibrary/ebook/' . $id);
                 } else if ($notExists) {
                     message("This eBook is not available for your current subscription plan.");
