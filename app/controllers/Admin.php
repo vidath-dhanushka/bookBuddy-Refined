@@ -5,7 +5,24 @@ class Admin extends Controller
 
     public function index()
     {
-        $this->view('admin/dashboard');
+        $book = new Book();
+        $user = new User();
+        $courier = new Courier();
+
+        $data = [];
+
+        $book_count = $book->getTotalBooksCount();
+        $member_count = $user->getTotalMemberCount();
+        $librarian_count = $user->getTotalLibrarianCount();
+        $courier_count = $courier->getTotalCourierCount();
+
+        $data = [
+            'book_count' => $book_count,
+            'member_count' => $member_count,
+            'librarian_count' => $librarian_count,
+            'courier_count' => $courier_count,
+            ] ;
+        $this->view('admin/dashboard', $data);
     }
     public function profile()
     {
@@ -121,22 +138,22 @@ class Admin extends Controller
         }
     }
 
-    public function deleteCourier($id)
-    {
-        if (Auth::logged_in()) {
-            $courier = new Courier();
-            try {
+    // public function deleteCourier($id)
+    // {
+    //     if (Auth::logged_in()) {
+    //         $courier = new Courier();
+    //         try {
                
-                $courier->delete($id);
-            } catch (Exception $e) {
-                message("Failed to remove the courier try again" . $e);
-                //     return json_encode($e);
-            }
-            redirect('admin/couriers');
-        } else {
-            $this->view('_404');
-        }
-    }
+    //             $courier->delete($id);
+    //         } catch (Exception $e) {
+    //             message("Failed to remove the courier try again" . $e);
+    //             //     return json_encode($e);
+    //         }
+    //         redirect('admin/couriers');
+    //     } else {
+    //         $this->view('_404');
+    //     }
+    // }
    
     public function librarian()
     {
@@ -189,32 +206,52 @@ class Admin extends Controller
     $this->view("admin/addLibrarian", $data);
 }
 
-public function deleteLibrarian($id)
-{
-    if (Auth::logged_in()) {
-        $librarian = new User();
-        try {
+// public function deleteLibrarian($id)
+// {
+//     if (Auth::logged_in()) {
+//         $librarian = new User();
+//         try {
            
-            $librarian->delete($id);
-        } catch (Exception $e) {
-            message("Failed to remove the librarian try again" . $e);
-            //     return json_encode($e);
-        }
-        redirect('admin/librarian');
-    } else {
-        $this->view('_404');
+//             $librarian->delete($id);
+//         } catch (Exception $e) {
+//             message("Failed to remove the librarian try again" . $e);
+//             //     return json_encode($e);
+//         }
+//         redirect('admin/librarian');
+//     } else {
+//         $this->view('_404');
+//     }
+// }
+
+public function deleteLibrarian($user_id){
+    $librarian = new User();
+    try {
+        $librarian-> removeLibrarian($user_id);
+        $response = [
+            'success' => true
+        ];
+    } catch (Exception $e) {
+        $response = [
+            'success' => false
+        ];
     }
+    echo json_encode($response);
 }
 
-    
-    
-
-   
-
-     
-
-   
-
+public function deleteCourier($courier_id){
+    $courier = new Courier();
+    try {
+        $courier-> removeCourier($courier_id);
+        $response = [
+            'success' => true
+        ];
+    } catch (Exception $e) {
+        $response = [
+            'success' => false
+        ];
+    }
+    echo json_encode($response);
+}
    
 }
 

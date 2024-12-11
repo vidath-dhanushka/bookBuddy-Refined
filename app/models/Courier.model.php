@@ -36,4 +36,14 @@ class Courier extends Model
         return $this->query("SELECT * FROM courier WHERE courier_id = :courier_id" , ['courier_id' => $id]);
        
     }
+
+    public function getTotalCourierCount()
+    {
+        $result = $this->query("SELECT COUNT(*) as total FROM courier");
+        return $result[0]->total;
+    }
+
+    public function removeCourier($courier_id){
+        $this->query("DELETE FROM courier WHERE courier_id = :courier_id", ['courier_id' => $courier_id]);
+}
 }

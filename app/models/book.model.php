@@ -206,4 +206,10 @@ class Book extends Model
             book b ON ur.book = b.book_id
         WHERE b.owner = :owner", ['owner' => $userId]);
     }
+
+    public function getTotalBooksCount()
+{
+    $result = $this->query("SELECT COUNT(*) as total FROM book");
+    return $result[0]->total;
+}
 }

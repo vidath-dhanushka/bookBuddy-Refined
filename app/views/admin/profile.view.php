@@ -100,7 +100,7 @@
         <p class="form-error"></p>
         <p>
             <button type="submit" class="add-btn">
-                <!-- <span class="material-symbols-outlined">person</span> -->
+               <!-- <span class="material-symbols-outlined">person</span>  -->
                 Update Profile
             </button>
         </p>

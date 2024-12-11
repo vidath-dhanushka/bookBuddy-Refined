@@ -173,4 +173,21 @@ class User extends Model
 
         return empty($this->errors);
     }
+
+    public function getTotalMemberCount()
+    {
+        $result = $this->query("SELECT COUNT(*) as total FROM user WHERE role = 'member'");
+        return $result[0]->total;
+    }
+
+    public function getTotalLibrarianCount()
+    {
+        $result = $this->query("SELECT COUNT(*) as total FROM user WHERE role = 'librarian'");
+        return $result[0]->total;
+    }
+    
+
+    public function removeLibrarian($user_id){
+        $this->query("DELETE FROM user WHERE user_id = :user_id", ['user_id' => $user_id]);
+}
 }
