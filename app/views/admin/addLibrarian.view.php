@@ -70,10 +70,6 @@
             <label>Password</label>
             <input type="password" id="password" name="password" pattern=".{8,}" value="<?= set_value('password') ?>" required1>
         </div>
-        <div class="form-field">
-            <label>Confirm Password</label>
-            <input type="password" id="confirm-pwd" name="confirm_password" pattern=".{8,}" value="<?= set_value('confirm_password') ?>" required1>
-        </div>
         <br>
         <p class="form-error"></p>
         <p>

@@ -88,55 +88,38 @@ class Admin extends Controller
             
             $courier = new Courier();
             $user = new User();
-
-
+    
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                // show($_POST);
-                // die;
-                $data = [];
-                $data['first_name'] = $_POST['company_name'];
-                $data['last_name'] = 'Company';
-                $data['username'] = $_POST['company_name'];
-                $data['email'] = $_POST['email'];
-                $data['phone'] = $_POST['phone'];
-                $data['address_line1'] = $_POST['address_line1'];
-                $data['address_city'] = $_POST['address_city'];
-                $data['address_district'] = $_POST['address_district'];
-                $data['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                $data['role'] = 'courier';
-
-                // $_POST['estimate_days' ] = 14;
-
-
-               
-                    $courier_id = $courier->insert($_POST); 
-                    // show($courier_id);
-                    // die;
+                    // Prepare data for insertion
+                    $data = [];
+                    $data['first_name'] = $_POST['company_name'];
+                    $data['last_name'] = 'Company';
+                    $data['username'] = $_POST['company_name'];
+                    $data['email'] = $_POST['email'];
+                    $data['phone'] = $_POST['phone'];
+                    $data['address_line1'] = $_POST['address_line1'];
+                    $data['address_city'] = $_POST['address_city'];
+                    $data['address_district'] = $_POST['address_district'];
+                    $data['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                    $data['role'] = 'courier';
+    
+                    $courier_id = $courier->insert($_POST);
+                    $data['courier'] = $courier_id;
+    
+                    $user->insert($data);
                     
-                    $data['courier']= $courier_id;
-                    // show($data);
-                    // die;
-                    $user->insert($data); 
-                    $response = [
-                        'success' => true
-                    ];
-               
-                    // $response = [
-                    //     'success' => false,
-                    //     'error' => $e->getMessage()
-                    // ];
-                
+                    $response = ['success' => true];
                     echo json_encode($response);
-                
-                
-                redirect('admin/couriers');
+    
+                    redirect('admin/couriers');
+            } else {
+                $this->view("admin/addCourier");
             }
-
-            $this->view("admin/addCourier");
         } else {
             $this->view('_404');
         }
     }
+    
 
     // public function deleteCourier($id)
     // {
@@ -254,4 +237,6 @@ public function deleteCourier($courier_id){
 }
    
 }
+
+
 
